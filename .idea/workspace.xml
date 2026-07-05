@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="954ada11-1f75-42ba-9e2f-22d4c3ccfad6" name="Changes" comment="cleanup and make sure numbers look right" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_/Users/jurankirihara/ClaudeProjects/retirementdashboard" value="3FCp2bco0O4YYw93gTz7ozbEZFL" />
+    </persistenceIdMap>
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="71" />
+    <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/node_modules/@mui/material/Stack/Stack.d.mts" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/node_modules/@mui/material/Stack/Stack.d.ts" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/node_modules/@mui/material/TextField/TextField.d.mts" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/node_modules/csstype/index.d.ts" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.4943540136443234" />
+      <entry key="MS500" value="4.253951772572974" />
+      <entry key="S2" value="12.371078362984305" />
+      <entry key="S5" value="26.89200742943782" />
+      <entry key="S10" value="42.16161063965226" />
+      <entry key="S30" value="61.44186623355338" />
+      <entry key="S60" value="68.20339909379872" />
+      <entry key="M2" value="72.77624959803087" />
+      <entry key="M5" value="91.47000663796885" />
+      <entry key="M10" value="139.8049911058002" />
+      <entry key="M15" value="185.91310694310476" />
+      <entry key="M30" value="276.4660625384496" />
+      <entry key="H1" value="354.19393764117274" />
+      <entry key="H2" value="410.5248552314049" />
+      <entry key="H4" value="453.96265928025764" />
+      <entry key="D1" value="527.2826791618277" />
+      <entry key="W1" value="696.4738572922608" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="0.0" />
+      <entry key="S10" value="0.0" />
+      <entry key="S30" value="0.0" />
+      <entry key="S60" value="0.0" />
+      <entry key="M2" value="0.0" />
+      <entry key="M5" value="0.0" />
+      <entry key="M10" value="2.3539027527648446E-291" />
+      <entry key="M15" value="2.3831419740301876E-194" />
+      <entry key="M30" value="3.7013545262321534E-97" />
+      <entry key="H1" value="2.1988327450162526E-48" />
+      <entry key="H2" value="7.159411414902439E-24" />
+      <entry key="H4" value="1.4649651976699442E-11" />
+      <entry key="D1" value="0.286332079326562" />
+      <entry key="W1" value="16.746549298148427" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="1.4466509874832096" />
+      <entry key="MS500" value="4.225543424793844" />
+      <entry key="S2" value="12.346688232494312" />
+      <entry key="S5" value="26.8692941924955" />
+      <entry key="S10" value="42.14364423437986" />
+      <entry key="S30" value="61.43314439757472" />
+      <entry key="S60" value="68.1985625337421" />
+      <entry key="M2" value="72.77367012631112" />
+      <entry key="M5" value="91.46866434084806" />
+      <entry key="M10" value="139.80369045082577" />
+      <entry key="M15" value="185.9116631346279" />
+      <entry key="M30" value="276.4645655069859" />
+      <entry key="H1" value="354.1927460296397" />
+      <entry key="H2" value="410.52400282217377" />
+      <entry key="H4" value="453.9620526176612" />
+      <entry key="D1" value="527.5688238227124" />
+      <entry key="W1" value="713.2202242460567" />
+    </decayedShown>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4,
+  &quot;fromUser&quot;: false
+}</component>
+  <component name="ProjectId" id="3FCp2bco0O4YYw93gTz7ozbEZFL" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;copilot.chat.legacySessionMetadata.migrated&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.npm dev.executor&quot;: &quot;Run&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/jurankirihara/ClaudeProjects/retirementdashboard/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/backlog/completed" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="npm dev" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-37e91769500f-intellij.indexing.shared.core-IU-261.25134.95" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="954ada11-1f75-42ba-9e2f-22d4c3ccfad6" name="Changes" comment="" />
+      <created>1781588700776</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1781588700776</updated>
+      <workItem from="1781588702095" duration="3722000" />
+      <workItem from="1781673657707" duration="72000" />
+      <workItem from="1781673758202" duration="4024000" />
+      <workItem from="1781977805007" duration="8348000" />
+      <workItem from="1781987900350" duration="14922000" />
+      <workItem from="1782004434042" duration="6460000" />
+      <workItem from="1782656110241" duration="147000" />
+      <workItem from="1782656280478" duration="47736000" />
+    </task>
+    <task id="LOCAL-00001" summary="init">
+      <option name="closed" value="true" />
+      <created>1781674425654</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1781674425655</updated>
+    </task>
+    <task id="LOCAL-00002" summary="add actual">
+      <option name="closed" value="true" />
+      <created>1781982745277</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1781982745277</updated>
+    </task>
+    <task id="LOCAL-00003" summary="add actual">
+      <option name="closed" value="true" />
+      <created>1781982754276</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1781982754276</updated>
+    </task>
+    <task id="LOCAL-00004" summary="add actual">
+      <option name="closed" value="true" />
+      <created>1781984754795</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1781984754795</updated>
+    </task>
+    <task id="LOCAL-00005" summary="add actual">
+      <option name="closed" value="true" />
+      <created>1781986152330</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1781986152330</updated>
+    </task>
+    <task id="LOCAL-00006" summary="add actual">
+      <option name="closed" value="true" />
+      <created>1781988034954</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1781988034954</updated>
+    </task>
+    <task id="LOCAL-00007" summary="add actual">
+      <option name="closed" value="true" />
+      <created>1781988748536</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1781988748536</updated>
+    </task>
+    <task id="LOCAL-00008" summary="add actual">
+      <option name="closed" value="true" />
+      <created>1781989833698</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1781989833698</updated>
+    </task>
+    <task id="LOCAL-00009" summary="add actual">
+      <option name="closed" value="true" />
+      <created>1781992770235</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1781992770235</updated>
+    </task>
+    <task id="LOCAL-00010" summary="add contribution">
+      <option name="closed" value="true" />
+      <created>1781995797423</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1781995797423</updated>
+    </task>
+    <task id="LOCAL-00011" summary="add pension calc part">
+      <option name="closed" value="true" />
+      <created>1781996415710</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1781996415710</updated>
+    </task>
+    <task id="LOCAL-00012" summary="add pension calc part">
+      <option name="closed" value="true" />
+      <created>1781997835628</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1781997835628</updated>
+    </task>
+    <task id="LOCAL-00013" summary="add pension calc part">
+      <option name="closed" value="true" />
+      <created>1782002421404</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1782002421404</updated>
+    </task>
+    <task id="LOCAL-00014" summary="add pension calc part">
+      <option name="closed" value="true" />
+      <created>1782005298426</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1782005298427</updated>
+    </task>
+    <task id="LOCAL-00015" summary="add pension calc part">
+      <option name="closed" value="true" />
+      <created>1782005484580</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1782005484580</updated>
+    </task>
+    <task id="LOCAL-00016" summary="add pension calc part">
+      <option name="closed" value="true" />
+      <created>1782006527426</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1782006527426</updated>
+    </task>
+    <task id="LOCAL-00017" summary="add pension calc part">
+      <option name="closed" value="true" />
+      <created>1782659072173</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1782659072173</updated>
+    </task>
+    <task id="LOCAL-00018" summary="add pension calc part">
+      <option name="closed" value="true" />
+      <created>1782663281633</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1782663281633</updated>
+    </task>
+    <task id="LOCAL-00019" summary="cleanup and make sure numbers look right">
+      <option name="closed" value="true" />
+      <created>1783220690072</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1783220690073</updated>
+    </task>
+    <task id="LOCAL-00020" summary="cleanup and make sure numbers look right">
+      <option name="closed" value="true" />
+      <created>1783220697025</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1783220697025</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="init" />
+    <MESSAGE value="add actual" />
+    <MESSAGE value="add contribution" />
+    <MESSAGE value="add pension calc part" />
+    <MESSAGE value="cleanup and make sure numbers look right" />
+    <option name="LAST_COMMIT_MESSAGE" value="cleanup and make sure numbers look right" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/utils/calculations.ts</url>
+          <line>267</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

@@ -1,0 +1,9 @@
+- [personal-details](memory/personal-details.md) — Personal details form inputs (age, retirement age, life expectancy)
+- [financial-details](memory/financial-details.md) — Current finances tracking section inputs
+- [retirement-plan](memory/retirement-plan.md) — Retirement plan configuration section
+- [health-care](memory/health-care.md) — Health care costs section before Medicare
+- [actual-inputs](memory/actual-inputs.md) — Initial actuals for past year comparison
+- [returns-inflation](memory/returns-inflation.md) — Return rate and inflation inputs
+- [coasting-mode](memory/coasting-mode.md) — Coasting mode feature documentation
+- [pension-fix-plan](memory/pension-fix-plan.md) — Plan to fix traditional pension implementation (annuity-style payments vs investment accounts)
+- [pension-fix-completed](memory/pension-fix-completed.md) — Implementation of traditional pension fix plan completed

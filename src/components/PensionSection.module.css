@@ -1,0 +1,35 @@
+/* PensionSection CSS Module */
+
+.pensionContainer {
+  display: flex;
+  gap: 24px;
+}
+
+.inputWrapper {
+  position: relative;
+  width: auto;
+  flex-grow: 1;
+}
+
+.inputWrapper.MuiInputBase-root {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.875rem;
+}
+
+.removeButton {
+  min-width: auto;
+  padding-top: 0;
+  white-space: nowrap;
+}
+
+.summaryBox {
+  background-color: #e8f5e9;
+  border-radius: 8px;
+}
+
+.emptyState {
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  padding: 24px;
+  text-align: center;
+}
