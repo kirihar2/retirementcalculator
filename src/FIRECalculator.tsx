@@ -98,7 +98,7 @@ export default function FIRECalculator() {
     currentAge: 32,
     retirementAge: 52,
     lifeExpectancy: 95,
-    currentPortfolio: 555000,
+    currentPortfolio: 480000,
     monthlyIncome: 22500,
     monthlySpending: 4000,
     retirementSpending: 15000,
