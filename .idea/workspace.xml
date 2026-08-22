@@ -7,15 +7,17 @@
     <option name="selectedModelId" value="auto" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="954ada11-1f75-42ba-9e2f-22d4c3ccfad6" name="Changes" comment="cleanup and make sure numbers look right">
+    <list default="true" id="954ada11-1f75-42ba-9e2f-22d4c3ccfad6" name="Changes" comment="add more features">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FIRECalculator.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/FIRECalculator.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ActualsSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ActualsSection.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/InputPanel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InputPanel.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProjectionTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProjectionTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Scoreboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Scoreboard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openspec/changes/complete-revamp-features/.openspec.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openspec/changes/complete-revamp-features/design.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openspec/changes/complete-revamp-features/proposal.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openspec/changes/complete-revamp-features/specs/actuals-trend-analysis/spec.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openspec/changes/complete-revamp-features/specs/actuals-variance-tracking/spec.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openspec/changes/complete-revamp-features/specs/investment-strategy-presets/spec.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openspec/changes/complete-revamp-features/specs/monte-carlo-simulation/spec.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openspec/changes/complete-revamp-features/specs/withdrawal-strategies-comparison/spec.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openspec/changes/complete-revamp-features/tasks.md" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,23 +52,23 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.7488270877492336" />
-      <entry key="MS500" value="4.154801240432198" />
-      <entry key="S2" value="5.435339801085225" />
-      <entry key="S5" value="5.764153005466337" />
-      <entry key="S10" value="5.880439661705441" />
-      <entry key="S30" value="6.255410184799673" />
-      <entry key="S60" value="8.208238631312115" />
-      <entry key="M2" value="12.135182311636589" />
-      <entry key="M5" value="17.34077128144439" />
-      <entry key="M10" value="20.776170800135112" />
-      <entry key="M15" value="23.58864156164709" />
-      <entry key="M30" value="30.173053050960757" />
-      <entry key="H1" value="36.85166760270899" />
-      <entry key="H2" value="45.43050577796621" />
-      <entry key="H4" value="93.03397449298303" />
-      <entry key="D1" value="479.16092990637867" />
-      <entry key="W1" value="823.1015854087509" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0002525984369437" />
+      <entry key="S2" value="1.202878311701855" />
+      <entry key="S5" value="1.7976716546898501" />
+      <entry key="S10" value="2.2622453338170927" />
+      <entry key="S30" value="2.7153190453179774" />
+      <entry key="S60" value="2.8572895322499425" />
+      <entry key="M2" value="2.9963356322996395" />
+      <entry key="M5" value="3.318016100423573" />
+      <entry key="M10" value="3.586356313133325" />
+      <entry key="M15" value="3.7800988115919303" />
+      <entry key="M30" value="4.600373013032751" />
+      <entry key="H1" value="7.948164501668779" />
+      <entry key="H2" value="18.122898471407698" />
+      <entry key="H4" value="53.961399300558156" />
+      <entry key="D1" value="435.0393700914783" />
+      <entry key="W1" value="818.4265440807945" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -78,33 +80,33 @@
       <entry key="S60" value="0.0" />
       <entry key="M2" value="0.0" />
       <entry key="M5" value="0.0" />
-      <entry key="M10" value="2.3555474E-317" />
-      <entry key="M15" value="1.1066714366463751E-211" />
-      <entry key="M30" value="7.976182411631269E-106" />
-      <entry key="H1" value="1.0207265048691668E-52" />
-      <entry key="H2" value="4.8779339783632037E-26" />
-      <entry key="H4" value="1.209223577800486E-12" />
-      <entry key="D1" value="0.18893680063273519" />
-      <entry key="W1" value="15.7809077914286" />
+      <entry key="M10" value="0.0" />
+      <entry key="M15" value="1.464201492552818E-216" />
+      <entry key="M30" value="2.901256655239366E-108" />
+      <entry key="H1" value="6.156089542652367E-54" />
+      <entry key="H2" value="1.197936191974518E-26" />
+      <entry key="H4" value="5.992464785700389E-13" />
+      <entry key="D1" value="0.16807367812602314" />
+      <entry key="W1" value="15.519310841848858" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.6763468633942837" />
-      <entry key="MS500" value="4.1195819073679925" />
-      <entry key="S2" value="5.423750910730142" />
-      <entry key="S5" value="5.759230124676239" />
-      <entry key="S10" value="5.877927355181446" />
-      <entry key="S30" value="6.254520923828161" />
-      <entry key="S60" value="8.20766100984169" />
-      <entry key="M2" value="12.134759974822005" />
-      <entry key="M5" value="17.340530645179637" />
-      <entry key="M10" value="20.77601408228234" />
-      <entry key="M15" value="23.588505881591065" />
-      <entry key="M30" value="30.17294218949683" />
-      <entry key="H1" value="36.851588937621685" />
-      <entry key="H2" value="45.43044853629299" />
-      <entry key="H4" value="93.03387725351222" />
-      <entry key="D1" value="479.3497117151215" />
-      <entry key="W1" value="838.8823152975008" />
+      <entry key="MS100" value="0.008549169541099529" />
+      <entry key="MS500" value="0.38588834668316785" />
+      <entry key="S2" value="0.9371085538411876" />
+      <entry key="S5" value="1.6153412731344046" />
+      <entry key="S10" value="2.1414926355081922" />
+      <entry key="S30" value="2.665361115305952" />
+      <entry key="S60" value="2.8306394776666797" />
+      <entry key="M2" value="2.981325650544777" />
+      <entry key="M5" value="3.3097485360701193" />
+      <entry key="M10" value="3.581256371797982" />
+      <entry key="M15" value="3.776397425429393" />
+      <entry key="M30" value="4.598340636699755" />
+      <entry key="H1" value="7.94709055744565" />
+      <entry key="H2" value="18.12233505294989" />
+      <entry key="H4" value="53.961072498205795" />
+      <entry key="D1" value="435.2072588854523" />
+      <entry key="W1" value="833.945673239371" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -396,7 +398,23 @@
       <option name="project" value="LOCAL" />
       <updated>1783289032722</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="add more features">
+      <option name="closed" value="true" />
+      <created>1787431144446</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1787431144446</updated>
+    </task>
+    <task id="LOCAL-00024" summary="add more features">
+      <option name="closed" value="true" />
+      <created>1787437978661</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1787437978661</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -408,7 +426,8 @@
     <MESSAGE value="add contribution" />
     <MESSAGE value="add pension calc part" />
     <MESSAGE value="cleanup and make sure numbers look right" />
-    <option name="LAST_COMMIT_MESSAGE" value="cleanup and make sure numbers look right" />
+    <MESSAGE value="add more features" />
+    <option name="LAST_COMMIT_MESSAGE" value="add more features" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

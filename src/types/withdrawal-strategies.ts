@@ -92,6 +92,15 @@ export const dynamicStrategy: WithdrawalStrategy = {
 };
 
 /**
+ * Look up a withdrawal strategy by ID.
+ * Returns undefined if not found.
+ */
+export function getStrategyById(id: string): WithdrawalStrategy | undefined {
+  return [classic4PercentStrategy, bogleheadsStrategy, bucketStrategy, dynamicStrategy]
+    .find(s => s.id === id);
+}
+
+/**
  * Safe Withdrawal Rate Calculator
  */
 export const WithdrawalUtils = {

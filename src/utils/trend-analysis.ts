@@ -126,7 +126,9 @@ export function analyzeTrend(
   const actualValues: number[] = [];
 
   for (const actual of sortedActuals) {
-    const projectedYear = projection.find(p => p.age === actual.age);
+    // Match decimal ages to nearest integer projection age
+    const roundedAge = Math.round(actual.age);
+    const projectedYear = projection.find(p => p.age === roundedAge);
     if (!projectedYear) continue;
 
     let projectedValue: number;
@@ -188,7 +190,8 @@ export function analyzeTrend(
   // Catch-up gap: current actual vs projected at current age
   const mostRecentActual = sortedActuals[sortedActuals.length - 1];
   const currentAge = mostRecentActual.age;
-  const currentProjected = projection.find(p => p.age === currentAge);
+  // Match decimal ages to nearest integer projection age
+  const currentProjected = projection.find(p => p.age === Math.round(currentAge));
 
   let catchUpGap = 0;
   let catchUpGapPercent = 0;

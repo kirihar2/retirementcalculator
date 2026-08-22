@@ -47,9 +47,7 @@ export function MonteCarloPanel({
 
   const aggregateResult = useMemo(() => {
     if (!results) return null;
-    const agg = MonteCarloUtils.getAggregateResult(results);
-    console.log('MonteCarloPanel aggregateResult:', agg);
-    return agg;
+    return MonteCarloUtils.getAggregateResult(results);
   }, [results]);
 
   const runSimulation = () => {
@@ -246,7 +244,7 @@ export function MonteCarloPanel({
           {/* Depletion Info */}
           {aggregateResult.portfolioAgeAtDeath !== undefined && (
             <Box sx={{ p: 1, bgcolor: 'error.light', borderRadius: 1 }}>
-              <Typography variant="body2" color="error.dark">
+              <Typography variant="body2" sx={{color: 'rgba(255,255,255,0.85)'}}>
                 Average depletion age: {aggregateResult.portfolioAgeAtDeath.toFixed(1)} years old
               </Typography>
             </Box>

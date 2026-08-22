@@ -77,7 +77,7 @@ export function Scoreboard({
           </Typography>
         </Box>
         <Box sx={{ textAlign: 'right' }}>
-          <Typography variant="caption" sx={{ opacity: 0.8, display: 'block' }}>
+          <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.85)', display: 'block' }}>
             Progress to FIRE
           </Typography>
           <Typography

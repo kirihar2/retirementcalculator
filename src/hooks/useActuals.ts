@@ -1,32 +1,31 @@
 import { useState } from 'react';
-
-export interface AnnualActuals {
-  year: number;
-  age: number;
-  portfolio: number;
-  savings: number;
-  spending: number;
-}
+import type { AnnualActuals } from '../types';
 
 export function useActuals(initial: AnnualActuals[] = []): {
   actuals: AnnualActuals[];
-  addActual: (actual: Omit<AnnualActuals, 'id'>) => void;
-  updateActual: (year: number, updates: Partial<Omit<AnnualActuals, 'year' | 'age'>>) => boolean;
-  removeActual: (year: number) => void;
+  addActual: (actual: AnnualActuals) => void;
+  updateActual: (age: number, updates: Partial<Omit<AnnualActuals, 'age'>>) => boolean;
+  removeActual: (age: number) => void;
 } {
   const [actuals, setActuals] = useState<AnnualActuals[]>(initial);
 
-  const addActual = (actual: Omit<AnnualActuals, 'id'>) => {
-    setActuals(prev => [...prev, { ...actual, id: Math.random().toString(36).substring(7) }]);
+  const addActual = (actual: AnnualActuals) => {
+    setActuals(prev => {
+      // Prevent duplicate ages
+      if (prev.some(a => a.age === actual.age)) {
+        return prev.map(a => a.age === actual.age ? { ...a, ...actual } : a);
+      }
+      return [...prev, actual];
+    });
   };
 
-  const updateActual = (year: number, updates: Partial<Omit<AnnualActuals, 'year' | 'age'>>) => {
-    setActuals(prev => prev.map(a => a.year === year ? { ...a, ...updates } : a));
+  const updateActual = (age: number, updates: Partial<Omit<AnnualActuals, 'age'>>) => {
+    setActuals(prev => prev.map(a => a.age === age ? { ...a, ...updates } : a));
     return true;
   };
 
-  const removeActual = (year: number) => {
-    setActuals(prev => prev.filter(a => a.year !== year));
+  const removeActual = (age: number) => {
+    setActuals(prev => prev.filter(a => a.age !== age));
   };
 
   return { actuals, addActual, updateActual, removeActual };

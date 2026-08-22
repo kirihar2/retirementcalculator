@@ -8,6 +8,8 @@ import type {
   ProjectionYear,
   SpendingCategory,
 } from '../types';
+import type { WithdrawalStrategy } from '../types/withdrawal-strategies';
+import { WithdrawalUtils } from '../types/withdrawal-strategies';
 
 export interface ProjectionResult {
   projection: ProjectionYear[];
@@ -103,7 +105,8 @@ export function calculateProjection(
   coastingMode: CoastingMode,
   actuals: AnnualActuals[],
   spendingCategories: SpendingCategory[] | undefined,
-  variableInflationRates: Array<{ age: number; rate: number }>
+  variableInflationRates: Array<{ age: number; rate: number }>,
+  withdrawalStrategy?: WithdrawalStrategy
 ): ProjectionResult {
   // FIRE target: how much portfolio needed at retirement to sustain spending
   const annualRetirementSpending = retirementSpending * 12;
@@ -113,6 +116,9 @@ export function calculateProjection(
   let portfolioNominal = currentPortfolio; // Nominal dollars
   let cumulativeInflation = 1.0;           // tracks price level growth
   let fireAgeAchieved: number | null = null;
+  let retirementYear = 0;                  // tracks years into retirement for strategy calculations
+  let priorYearWithdrawal = 0;             // for strategy withdrawal calculations
+  let priorYearReturn = 0;                 // for strategy withdrawal calculations
 
   for (let age = currentAge; age <= lifeExpectancy; age++) {
     const yearInflationRate = getInflationRate(age, inflationRate, variableInflationRates);
@@ -163,10 +169,30 @@ export function calculateProjection(
       annualContribution = annualIncome - annualBaseSpending - annualDebtPayments - lifeEventCost;
       annualSpendingNominal = annualBaseSpending + annualDebtPayments + lifeEventCost;
     } else {
-      // Post-retirement: withdraw what we need
-      const annualWithdrawal = annualRetirementSpending - ssIncome - pensionIncome + healthCareCost + lifeEventCost;
+      // Post-retirement: withdraw based on strategy or fixed spending
+      let strategyWithdrawal: number;
+      if (withdrawalStrategy) {
+        // Use the selected withdrawal strategy to determine annual withdrawal
+        strategyWithdrawal = WithdrawalUtils.calculateAnnualWithdrawal(
+          withdrawalStrategy,
+          fireTarget,
+          retirementYear,
+          yearInflationRate / 100,
+          priorYearWithdrawal,
+          priorYearReturn,
+        );
+      } else {
+        strategyWithdrawal = annualRetirementSpending;
+      }
+
+      const annualWithdrawal = strategyWithdrawal - ssIncome - pensionIncome + healthCareCost + lifeEventCost;
       annualContribution = -Math.max(0, annualWithdrawal); // negative = withdrawal
-      annualSpendingNominal = annualRetirementSpending + healthCareCost + lifeEventCost;
+      annualSpendingNominal = strategyWithdrawal + healthCareCost + lifeEventCost;
+
+      // Track for next year's strategy calculation
+      priorYearWithdrawal = strategyWithdrawal;
+      priorYearReturn = returnRate;
+      retirementYear++;
     }
 
     // Check actuals - use actual portfolio if available

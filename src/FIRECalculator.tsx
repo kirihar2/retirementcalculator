@@ -9,6 +9,7 @@ import {
   Title,
   Tooltip
 } from 'chart.js';
+import zoomPlugin from 'chartjs-plugin-zoom';
 import { Box, Container, CssBaseline, Fab, Tooltip as MuiTooltip, Typography } from '@mui/material';
 import { Edit as EditIcon } from '@mui/icons-material';
 import { ThemeProvider } from '@mui/material/styles';
@@ -28,6 +29,7 @@ import type {
   Pension,
 } from './types';
 import { aggregatePensions, calculateProjection } from './utils/calculations';
+import { getEffectiveStrategy } from './components/WithdrawalStrategyConfig';
 
 // Import hooks for state management
 import { useActuals } from './hooks/useActuals';
@@ -39,7 +41,7 @@ import { usePensions } from './hooks/usePensions';
 // Import new theme
 import theme from './theme';
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, zoomPlugin);
 
 /**
  * FIRE Calculator - Dashboard Application
@@ -231,6 +233,10 @@ export default function FIRECalculator() {
     return saved || 'classic-4percent';
   });
 
+  // Revision counter: incremented when strategy parameter overrides change,
+  // so that projection recalculates with the new effective strategy.
+  const [strategyOverridesRev, setStrategyOverridesRev] = useState(0);
+
   // Persist withdrawal strategy to localStorage
   useEffect(() => {
     localStorage.setItem('fire_withdrawal_strategy', selectedWithdrawalStrategy);
@@ -331,6 +337,12 @@ export default function FIRECalculator() {
   const [fireTarget, setFireTarget] = useState(0);
   const [fireAgeAchieved, setFireAgeAchieved] = useState<number | null>(null);
 
+  // Look up the effective strategy (base + any custom overrides from localStorage)
+  // strategyOverridesRev is a dependency to trigger recalc when overrides change
+  const withdrawalStrategy = getEffectiveStrategy(selectedWithdrawalStrategy);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _strategyRev = strategyOverridesRev; // ensures effect re-runs on override changes
+
   // Projection effect runs on all input changes (intentional - reactive forms)
   useEffect(() => {
     const projectionResult = calculateProjection(
@@ -356,7 +368,8 @@ export default function FIRECalculator() {
       coastingMode,
       actuals,
       inputs.spendingCategories,
-      variableInflationRates ? variableInflationRates.map(v => ({ age: v.age, rate: v.rate })) : []
+      variableInflationRates ? variableInflationRates.map(v => ({ age: v.age, rate: v.rate })) : [],
+      withdrawalStrategy
     );
 
     setFireTarget(projectionResult.fireTarget);
@@ -369,6 +382,7 @@ export default function FIRECalculator() {
     inputs.socialSecurityIncome, inputs.safeWithdrawalRate, inputs.medicareAge,
     inputs.healthCareMonthly, lifeEvents, debtPayments, pensions, coastingMode,
     actuals, inputs.spendingCategories ?? [], variableInflationRates ?? undefined,
+    withdrawalStrategy, strategyOverridesRev,
   ]);
 
   // === ANNUAL SURPLUS CALCULATION ===
@@ -412,7 +426,8 @@ export default function FIRECalculator() {
     inputs.retirementReturn, inputs.inflationRate, inputs.socialSecurityAge,
     inputs.socialSecurityIncome, inputs.safeWithdrawalRate, inputs.medicareAge,
     inputs.healthCareMonthly, lifeEvents, debtPayments, pensions,
-    coastingMode, actuals, inputs.spendingCategories ?? [], variableInflationRates
+    coastingMode, actuals, inputs.spendingCategories ?? [], variableInflationRates,
+    withdrawalStrategy
   );
 
   // Get projected value at a given age (handles display mode)
@@ -483,7 +498,7 @@ export default function FIRECalculator() {
             onRemoveMilestone={(id) => removeProjectedMilestone(id)}
             getProjectedValueAtAge={getProjectedValueAtAge}
             actuals={actuals}
-            onAddActual={(age) => addActual({ year: age, age, portfolio: 0, savings: 0, spending: 0 })}
+            onAddActual={(age) => addActual({ age, portfolio: 0, savings: 0, spending: 0 })}
             onUpdateActual={(age, updates) => updateActual(age, updates)}
             onRemoveActual={(age) => removeActual(age)}
             inputs={{
@@ -503,6 +518,7 @@ export default function FIRECalculator() {
             displayMode={displayMode}
             selectedWithdrawalStrategy={selectedWithdrawalStrategy}
             onWithdrawalStrategySelect={setSelectedWithdrawalStrategy}
+            onStrategyConfigChange={() => setStrategyOverridesRev(r => r + 1)}
           />
         </Container>
 
@@ -581,7 +597,8 @@ function useProjectionState(
   socialSecurityIncome: number, safeWithdrawalRate: number, medicareAge: number,
   healthCareMonthly: number, lifeEvents: LifeEvent[], debtPayments: DebtPayment[],
   pensions: Pension[], coastingMode: { enabled: boolean; coastingAge: number; coasingMultiplier: number },
-  actuals: AnnualActuals[], spendingCategories: any[], variableInflationRates: Array<{ age: number; rate: number }>
+  actuals: AnnualActuals[], spendingCategories: any[], variableInflationRates: Array<{ age: number; rate: number }>,
+  withdrawalStrategy?: import('./types/withdrawal-strategies').WithdrawalStrategy
 ) {
   // This is a simplified hook version of calculateProjection.
   // In production, consider moving this to a separate module for better organization.
@@ -592,7 +609,8 @@ function useProjectionState(
     retirementReturn, inflationRate, socialSecurityAge,
     socialSecurityIncome, safeWithdrawalRate, medicareAge,
     healthCareMonthly, lifeEvents, debtPayments, pensions,
-    coastingMode, actuals, spendingCategories, variableInflationRates
+    coastingMode, actuals, spendingCategories, variableInflationRates,
+    withdrawalStrategy
   );
   return newProjection;
 }
