@@ -8,7 +8,7 @@ export function Header() {
           <Typography variant="h6" sx={{ fontWeight: 'bold', letterSpacing: 1 }}>
             🔥 FIRE Calculator
           </Typography>
-          <Typography variant="caption" sx={{ opacity: 0.8 }}>
+          <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.85)' }}>
             Financial Independence, Retire Early
           </Typography>
         </Box>

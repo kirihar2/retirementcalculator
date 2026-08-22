@@ -30,7 +30,7 @@ function TrendRow({ label, result }: { label: string; result: TrendAnalysisResul
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', py: 0.5 }}>
         <Typography variant="body2" color="textSecondary">{label}</Typography>
         <Typography variant="body2" color="textSecondary" fontStyle="italic">
-          No data
+          No matching data
         </Typography>
       </Box>
     );
@@ -40,7 +40,15 @@ function TrendRow({ label, result }: { label: string; result: TrendAnalysisResul
     improving: 'Improving',
     declining: 'Declining',
     stable: 'Stable',
-    insufficient_data: 'Insufficient data',
+    insufficient_data: `Need ${3 - result.yearsWithData} more yr${3 - result.yearsWithData === 1 ? '' : 's'}`,
+  }[result.direction];
+
+  // Use darker variants for text readability on tinted backgrounds
+  const darkColor = {
+    improving: '#2e7d32',
+    declining: '#c62828',
+    stable: '#616161',
+    insufficient_data: '#757575',
   }[result.direction];
 
   return (
@@ -52,11 +60,11 @@ function TrendRow({ label, result }: { label: string; result: TrendAnalysisResul
           size="small"
           sx={{
             bgcolor: `${result.color}20`,
-            color: result.color,
+            color: darkColor,
             fontWeight: 'bold',
           }}
         />
-        <Typography variant="body2" sx={{ color: result.color, minWidth: 60, textAlign: 'right' }}>
+        <Typography variant="body2" sx={{ color: darkColor, minWidth: 60, textAlign: 'right' }}>
           {result.averagePercentVariance >= 0 ? '+' : ''}{result.averagePercentVariance.toFixed(1)}%
         </Typography>
       </Box>
@@ -122,7 +130,7 @@ export function TrendAnalysisPanel({
           <Typography
             variant="body1"
             fontWeight="bold"
-            sx={{ color: trends.portfolio.catchUpGap >= 0 ? '#4caf50' : '#f44336' }}
+            sx={{ color: trends.portfolio.catchUpGap >= 0 ? '#2e7d32' : '#c62828' }}
           >
             {trends.portfolio.catchUpGap >= 0 ? 'Ahead' : 'Behind'} by{' '}
             {formatCurrency(trends.portfolio.catchUpGap)} ({trends.portfolio.catchUpGapPercent >= 0 ? '+' : ''}

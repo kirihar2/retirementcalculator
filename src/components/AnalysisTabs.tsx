@@ -11,6 +11,7 @@ import { ProjectionTable } from './ProjectionTable';
 import { Milestones } from './Milestones';
 import { MonteCarloPanel } from './MonteCarloPanel';
 import { WithdrawalComparisonTable } from './WithdrawalComparisonTable';
+import { WithdrawalStrategyConfig } from './WithdrawalStrategyConfig';
 import { ActualsSection } from './ActualsSection';
 import { TrendAnalysisPanel } from './TrendAnalysisPanel';
 
@@ -60,6 +61,7 @@ export interface AnalysisTabsProps {
   // Withdrawal strategy
   selectedWithdrawalStrategy: string;
   onWithdrawalStrategySelect: (strategyId: string) => void;
+  onStrategyConfigChange?: () => void;
 }
 
 interface TabPanelProps {
@@ -156,6 +158,10 @@ export function AnalysisTabs(props: AnalysisTabsProps) {
             currentAge={props.inputs.currentAge}
             annualSavings={props.annualSurplus}
             displayMode={props.displayMode}
+          />
+          <WithdrawalStrategyConfig
+            selectedStrategyId={props.selectedWithdrawalStrategy}
+            onChange={props.onStrategyConfigChange}
           />
           <WithdrawalComparisonTable
             initialPortfolio={props.inputs.currentPortfolio}

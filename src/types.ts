@@ -19,6 +19,7 @@ export interface AnnualActuals {
   portfolio: number;
   savings: number;
   spending: number;
+  comment?: string;
 }
 
 export interface LifeEvent {

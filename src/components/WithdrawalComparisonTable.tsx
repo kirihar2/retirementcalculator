@@ -110,8 +110,12 @@ export function WithdrawalComparisonTable({
                 <TableRow
                   key={comp.strategyId}
                   sx={{
-                    bgcolor: isSelected ? 'primary.light' : 'transparent',
-                    '&:hover': { bgcolor: 'action.hover' },
+                    bgcolor: isSelected ? '#e3f2fd' : 'transparent',
+                    '&:hover': { bgcolor: isSelected ? '#bbdefb' : 'action.hover' },
+                    // Ensure text is dark enough on selected row background
+                    ...(isSelected && {
+                      '& td': { color: '#0d47a1' },
+                    }),
                   }}
                 >
                   <TableCell>
@@ -128,27 +132,30 @@ export function WithdrawalComparisonTable({
                     </Box>
                   </TableCell>
                   <TableCell align="right" sx={{
-                    color: comp.portfolioAtAge80 <= 0 ? 'error.main' : 'inherit',
+                    color: comp.portfolioAtAge80 <= 0 ? '#c62828' : 'inherit',
+                    fontWeight: comp.portfolioAtAge80 <= 0 ? 600 : undefined,
                   }}>
                     {formatCurrency(comp.portfolioAtAge80)}
                   </TableCell>
                   <TableCell align="right" sx={{
-                    color: comp.portfolioAtAge90 <= 0 ? 'error.main' : 'inherit',
+                    color: comp.portfolioAtAge90 <= 0 ? '#c62828' : 'inherit',
+                    fontWeight: comp.portfolioAtAge90 <= 0 ? 600 : undefined,
                   }}>
                     {formatCurrency(comp.portfolioAtAge90)}
                   </TableCell>
                   <TableCell align="right" sx={{
-                    color: comp.portfolioAtAge100 <= 0 ? 'error.main' : 'inherit',
+                    color: comp.portfolioAtAge100 <= 0 ? '#c62828' : 'inherit',
+                    fontWeight: comp.portfolioAtAge100 <= 0 ? 600 : undefined,
                   }}>
                     {formatCurrency(comp.portfolioAtAge100)}
                   </TableCell>
                   <TableCell align="right">
                     {isDepleted ? (
-                      <Typography variant="body2" color="error">
+                      <Typography variant="body2" sx={{ color: '#c62828', fontWeight: 600 }}>
                         Age {comp.portfolioDepletedAt}
                       </Typography>
                     ) : (
-                      <Typography variant="body2" color="success.main">
+                      <Typography variant="body2" sx={{ color: '#2e7d32', fontWeight: 600 }}>
                         Survives
                       </Typography>
                     )}

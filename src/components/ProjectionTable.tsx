@@ -114,24 +114,35 @@ export function ProjectionTable({ projection, lifeEvents, actual }: ProjectionTa
                   sx={{
                     backgroundColor: isActual ? '#e8f5e9' : year.isCoasting ? '#fff8e1' : undefined,
                     '&:hover': { backgroundColor: '#f5f5f5' },
+                    // Ensure all text in tinted rows is dark enough to read
+                    '& td': isActual
+                      ? { color: '#1b5e20' }
+                      : year.isCoasting
+                        ? { color: '#4e342e' }
+                        : {},
                   }}
                 >
                   <TableCell>
                     {year.age}
                     {year.isCoasting && (
-                      <Typography component="span" variant="caption" sx={{ ml: 0.5, color: '#ff9800' }}>
+                      <Typography component="span" variant="caption" sx={{ ml: 0.5, color: '#e65100' }}>
                         ⛵
                       </Typography>
                     )}
                     {isActual && (
-                      <Typography component="span" variant="caption" sx={{ ml: 0.5, color: '#4caf50' }}>
+                      <Typography component="span" variant="caption" sx={{ ml: 0.5, color: '#1b5e20' }}>
                         ✓
                       </Typography>
                     )}
                   </TableCell>
                   <TableCell align="right">{fmt(year.portfolio)}</TableCell>
                   <TableCell align="right">{fmt(year.portfolioAfterInflation)}</TableCell>
-                  <TableCell align="right" sx={{ color: year.annualContribution < 0 ? '#f44336' : '#4caf50' }}>
+                  <TableCell align="right" sx={{
+                    color: year.annualContribution < 0
+                      ? (isActual ? '#b71c1c' : '#c62828')
+                      : (isActual ? '#1b5e20' : '#2e7d32'),
+                    fontWeight: 600,
+                  }}>
                     {fmt(year.annualContribution)}
                   </TableCell>
                   <TableCell align="right">{fmt(year.annualSpending)}</TableCell>
@@ -145,7 +156,9 @@ export function ProjectionTable({ projection, lifeEvents, actual }: ProjectionTa
                     <TableCell
                       align="right"
                       sx={{
-                        color: getVarianceColor(variance),
+                        color: isActual
+                          ? (variance.percentVariance > 1 ? '#1b5e20' : variance.percentVariance < -1 ? '#b71c1c' : '#424242')
+                          : getVarianceColor(variance),
                         fontWeight: variance.hasData ? 'bold' : 'normal',
                       }}
                     >
@@ -154,7 +167,7 @@ export function ProjectionTable({ projection, lifeEvents, actual }: ProjectionTa
                           {getVarianceArrow(variance)} {formatVariance(variance)}
                         </>
                       ) : (
-                        <span style={{ color: '#9e9e9e' }}>N/A</span>
+                        <span style={{ color: '#757575' }}>N/A</span>
                       )}
                     </TableCell>
                   )}
@@ -165,7 +178,7 @@ export function ProjectionTable({ projection, lifeEvents, actual }: ProjectionTa
                       </Typography>
                     ))}
                     {isActual && (
-                      <Typography variant="caption" sx={{ color: '#4caf50' }}>
+                      <Typography variant="caption" sx={{ color: '#1b5e20', fontWeight: 600 }}>
                         Actual
                       </Typography>
                     )}
