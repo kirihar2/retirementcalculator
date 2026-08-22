@@ -9,23 +9,23 @@ import {
   Title,
   Tooltip
 } from 'chart.js';
-import { Box, Button, Container, CssBaseline, Divider, InputLabel, Typography } from '@mui/material';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Box, Container, CssBaseline, Fab, Tooltip as MuiTooltip, Typography } from '@mui/material';
+import { Edit as EditIcon } from '@mui/icons-material';
+import { ThemeProvider } from '@mui/material/styles';
 
 import { Header } from './components/Header';
 import { Scoreboard } from './components/Scoreboard';
 import { DisplayModeToggle } from './components/DisplayModeToggle';
 import { Footer } from './components/Footer';
 import { PortfolioChart } from './components/PortfolioChart';
-import { ActualVsProjectedChart } from './components/ActualVsProjectedChart';
+import { InputsDrawer } from './components/InputsDrawer';
+import { AnalysisTabs } from './components/AnalysisTabs';
 import type {
   AnnualActuals,
   DebtPayment,
   InputState,
   LifeEvent,
   Pension,
-  ProjectedMilestone,
-  ProjectionYear,
 } from './types';
 import { aggregatePensions, calculateProjection } from './utils/calculations';
 
@@ -36,44 +36,10 @@ import { useLifeEvents } from './hooks/useLifeEvents';
 import { useMilestones } from './hooks/useMilestones';
 import { usePensions } from './hooks/usePensions';
 
-// Controlled child components (use state passed as read-only props)
-import { PersonalDetailsControlled } from './components/internal/PersonalDetailsControlled';
-import { FinancialDetailsControlled } from './components/internal/FinancialDetailsControlled';
-import { RetirementPlanControlled } from './components/internal/RetirementPlanControlled';
-import { HealthCareControlled } from './components/internal/HealthCareControlled';
-import { ReturnsAndInflationControlled } from './components/internal/ReturnsAndInflationControlled';
-
-// Section components for standalone display in projection table
-import { PensionsControlled } from './components/internal/PensionsControlled';
-import { LifeEventsControlled } from './components/internal/LifeEventsControlled';
-import { DebtPaymentsControlled } from './components/internal/DebtPaymentsControlled';
-import { MilestonesControlled } from './components/internal/MilestonesControlled';
-import { VariableInflationControlled } from './components/internal/VariableInflationControlled';
-import { ActualsSection } from './components/ActualsSection';
-import { Milestones } from './components/Milestones';
-import { ProjectionTable } from './components/ProjectionTable';
+// Import new theme
+import theme from './theme';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#1976d2',
-    },
-    success: {
-      main: '#4caf50',
-    },
-    warning: {
-      main: '#ff9800',
-    },
-    info: {
-      main: '#2196f3',
-    },
-  },
-  typography: {
-    fontFamily: '"DM Mono", "Roboto", "Helvetica", "Arial", sans-serif',
-  },
-});
 
 /**
  * FIRE Calculator - Dashboard Application
@@ -137,7 +103,7 @@ export default function FIRECalculator() {
     }
   }, []);
 
-  // === USE PENSIONS HOOK ===
+  // Persist pensions to localStorage
   const defaultPensions: Pension[] = [{ id: '1', name: 'Current Pension', currentAnnualPayout: 40000, startAge: 60, endAge: null }];
   const initialPensions: Pension[] = (() => {
     const s = localStorage.getItem('fire_pensions');
@@ -247,6 +213,28 @@ export default function FIRECalculator() {
   useEffect(() => {
     localStorage.setItem('fire_coasting_mode', JSON.stringify(coastingMode));
   }, [coastingMode]);
+
+  // === STRATEGY PRESET STATE ===
+  const [currentStrategy, setCurrentStrategy] = useState(() => {
+    const saved = localStorage.getItem('fire_strategy_preset');
+    return saved || 'moderate';
+  });
+
+  // Persist strategy preset to localStorage
+  useEffect(() => {
+    localStorage.setItem('fire_strategy_preset', currentStrategy);
+  }, [currentStrategy]);
+
+  // === WITHDRAWAL STRATEGY STATE ===
+  const [selectedWithdrawalStrategy, setSelectedWithdrawalStrategy] = useState(() => {
+    const saved = localStorage.getItem('fire_withdrawal_strategy');
+    return saved || 'classic-4percent';
+  });
+
+  // Persist withdrawal strategy to localStorage
+  useEffect(() => {
+    localStorage.setItem('fire_withdrawal_strategy', selectedWithdrawalStrategy);
+  }, [selectedWithdrawalStrategy]);
 
   // Load coasting mode from localStorage on mount
   useEffect(() => {
@@ -380,7 +368,7 @@ export default function FIRECalculator() {
     inputs.retirementReturn, inputs.inflationRate, inputs.socialSecurityAge,
     inputs.socialSecurityIncome, inputs.safeWithdrawalRate, inputs.medicareAge,
     inputs.healthCareMonthly, lifeEvents, debtPayments, pensions, coastingMode,
-    actuals, inputs.spendingCategories, variableInflationRates,
+    actuals, inputs.spendingCategories ?? [], variableInflationRates ?? undefined,
   ]);
 
   // === ANNUAL SURPLUS CALCULATION ===
@@ -388,7 +376,10 @@ export default function FIRECalculator() {
     // Check if we're in the coasting period (working with reduced income)
     const isInCoastingPeriod = coastingMode.enabled && inputs.currentAge >= coastingMode.coastingAge && inputs.currentAge < inputs.retirementAge;
 
-    let annualSurplus: number = (isInCoastingPeriod ? inputs.monthlyIncome * coastingMode.coasingMultiplier : inputs.monthlyIncome) - inputs.monthlySpending;
+    // Calculate annual income and spending
+    const annualIncome = (isInCoastingPeriod ? inputs.monthlyIncome * coastingMode.coasingMultiplier : inputs.monthlyIncome) * 12;
+    const annualSpending = inputs.monthlySpending * 12;
+    let annualSurplus = annualIncome - annualSpending;
 
     // Subtract annual debt payments where currently active
     debtPayments.forEach((debt) => {
@@ -397,14 +388,12 @@ export default function FIRECalculator() {
       }
     });
 
-    // Subtract current year's health care costs when before Medicare eligibility
-    if (inputs.currentAge < inputs.medicareAge) {
-      const yearsUntilMedicare = Math.max(0, inputs.medicareAge - inputs.currentAge);
-      const yearsSinceRetirement = Math.max(0, inputs.currentAge - inputs.retirementAge);
-
-      if (yearsUntilMedicare > 0 || yearsSinceRetirement >= 0) {
-        annualSurplus -= inputs.healthCareMonthly * 12;
-      }
+    // Subtract health care costs only during retirement gap (retired but not yet on Medicare)
+    // This applies from retirement age to Medicare age
+    const isRetired = inputs.currentAge >= inputs.retirementAge;
+    const isBeforeMedicare = inputs.currentAge < inputs.medicareAge;
+    if (isRetired && isBeforeMedicare) {
+      annualSurplus -= inputs.healthCareMonthly * 12;
     }
 
     return Math.round(annualSurplus);
@@ -433,14 +422,17 @@ export default function FIRECalculator() {
       : projection.find(p => p.age === age)?.portfolio;
   }, [displayMode, projection]);
 
+  // Drawer state
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box sx={{ minHeight: '100vh', backgroundColor: '#fafafa' }}>
+      <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
         <Header />
 
-        <Container maxWidth="lg" sx={{ pb: 6 }}>
-          {/* Scoreboard */}
+        <Container maxWidth="lg" sx={{ pb: 6, pt: 3 }}>
+          {/* Scoreboard - Always visible */}
           <Scoreboard
             fireTarget={fireTarget}
             currentPortfolio={inputs.currentPortfolio}
@@ -452,230 +444,99 @@ export default function FIRECalculator() {
             socialSecurityIncome={inputs.socialSecurityIncome}
           />
 
-          {/* Main Content Grid */}
-          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '300px 1fr' }, gap: 3, mb: 6 }}>
-            {/* Left Sidebar - Inputs using controlled children pattern (Phase 15) */}
-            <Box>
-              <PersonalDetailsControlled
-                currentAge={inputs.currentAge}
-                retirementAge={inputs.retirementAge}
-                lifeExpectancy={inputs.lifeExpectancy}
-                onCurrentAgeChange={(age) => setInputs(prev => ({ ...prev, currentAge: age }))}
-                onRetirementAgeChange={(age) => setInputs(prev => ({ ...prev, retirementAge: age }))}
-                onLifeExpectancyChange={(age) => setInputs(prev => ({ ...prev, lifeExpectancy: age }))}
-              />
-
-              <FinancialDetailsControlled
-                currentPortfolio={inputs.currentPortfolio}
-                monthlyIncome={inputs.monthlyIncome}
-                monthlySpending={inputs.monthlySpending}
-                onCurrentPortfolioChange={(amount) => setInputs(prev => ({ ...prev, currentPortfolio: amount }))}
-                onMonthlyIncomeChange={(income) => setInputs(prev => ({ ...prev, monthlyIncome: income }))}
-                onMonthlySpendingChange={(spending) => setInputs(prev => ({ ...prev, monthlySpending: spending }))}
-              />
-
-              <RetirementPlanControlled
-                retirementSpending={inputs.retirementSpending}
-                socialSecurityAge={inputs.socialSecurityAge}
-                socialSecurityIncome={inputs.socialSecurityIncome}
-                safeWithdrawalRate={inputs.safeWithdrawalRate}
-                onRetirementSpendingChange={(spending) => setInputs(prev => ({ ...prev, retirementSpending: spending }))}
-                onSSAgeChange={(age) => setInputs(prev => ({ ...prev, socialSecurityAge: age }))}
-                onSSIncomeChange={(income) => setInputs(prev => ({ ...prev, socialSecurityIncome: income }))}
-                onSWRChange={(rate) => setInputs(prev => ({ ...prev, safeWithdrawalRate: rate }))}
-              />
-
-              <HealthCareControlled
-                medicareAge={inputs.medicareAge}
-                healthCareMonthly={inputs.healthCareMonthly}
-                setMedicareAge={(age) => setInputs(prev => ({ ...prev, medicareAge: age }))}
-                setHealthCareMonthly={(amount) => setInputs(prev => ({ ...prev, healthCareMonthly: amount }))}
-              />
-
-              <ReturnsAndInflationControlled
-                preRetirementReturn={inputs.preRetirementReturn}
-                coastingReturn={coastingMode.coasingMultiplier * 100 / 0.75} // Approximate coasting return from multiplier
-                retirementReturn={inputs.retirementReturn}
-                inflationRate={inputs.inflationRate}
-                onPreRetirementReturnChange={(rate) => setInputs(prev => ({ ...prev, preRetirementReturn: rate }))}
-                onCoastingReturnChange={(rate) => setInputs(prev => ({ ...prev, coastingReturn: rate * 10 }))} // Simplified
-                onRetirementReturnChange={(rate) => setInputs(prev => ({ ...prev, retirementReturn: rate }))}
-                onInflationRateChange={(rate) => setInputs(prev => ({ ...prev, inflationRate: rate }))}
-              />
-
-              {/* Section Components for standalone display */}
-              <PensionsControlled
-                pensions={pensions}
-                onAdd={() => addPension({ name: 'New Pension', currentAnnualPayout: 0, startAge: 65 })}
-                onUpdate={(id, updates) => updatePension(id, updates)}
-                onDelete={(id) => removePension(id)}
-              />
-
-              <LifeEventsControlled
-                lifeEvents={lifeEvents}
-                onAdd={() => addLifeEvent({ name: 'New Event', type: 'one-time', amount: 0, startAge: inputs.currentAge, description: '' })}
-                onUpdate={(id, updates) => updateLifeEvent(id, updates)}
-                onDelete={(id) => removeLifeEvent(id)}
-              />
-
-              <DebtPaymentsControlled
-                debtPayments={debtPayments}
-                onAdd={() => addDebtPayment({ name: 'New Debt', monthlyPayment: 0, startAge: inputs.currentAge, endAge: inputs.currentAge + 5, description: '' })}
-                onUpdate={(id, updates) => updateDebtPayment(id, updates)}
-                onDelete={(id) => removeDebtPayment(id)}
-              />
-
-              <MilestonesControlled
-                projectedMilestones={projectedMilestones}
-                onAdd={() => addProjectedMilestone({ age: inputs.currentAge + 5, event: 'New Milestone', category: 'event' })}
-                onUpdate={(id, updates) => updateProjectedMilestone(id, updates)}
-                onDelete={(id) => removeProjectedMilestone(id)}
-              />
-
-              <VariableInflationControlled
-                variableInflationRates={variableInflationRates}
-                inflationRate={inputs.inflationRate}
-                onAdd={() => {
-                  const newEntry = { id: Date.now().toString(), age: inputs.currentAge + 5, rate: inputs.inflationRate };
-                  setVariableInflationRates([...variableInflationRates, newEntry]);
-                }}
-                onUpdate={(id, updates) => {
-                  setVariableInflationRates(variableInflationRates.map(e => e.id === id ? { ...e, ...updates } : e));
-                }}
-                onDelete={(id) => setVariableInflationRates(variableInflationRates.filter(e => e.id !== id))}
-              />
-
-              {/* Coasting mode controls */}
-              <Box sx={{ mt: 2 }}>
-                <Typography variant="subtitle2" sx={{ fontWeight: 'bold', mb: 1 }}>Coasting Mode</Typography>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-                  <input
-                    type="checkbox"
-                    checked={coastingMode.enabled}
-                    onChange={(e) => setCoastingMode(prev => ({ ...prev, enabled: e.target.checked }))}
-                    id="coasting-enabled"
-                  />
-                  <label htmlFor="coasting-enabled">Enable</label>
-                </Box>
-                <NumericInputSmall label="Starting Age" value={coastingMode.coastingAge} onChange={(v) => setCoastingMode(prev => ({ ...prev, coastingAge: v }))} min={18} max={inputs.retirementAge - 5} />
-                <NumericInputSmall label="Income Multiplier (0.5-1.0)" value={coastingMode.coasingMultiplier} onChange={(v) => setCoastingMode(prev => ({ ...prev, coasingMultiplier: Math.max(0.5, Math.min(1, v)) }))} min={0.5} max={1} step={0.05} />
-              </Box>
-
-              {/* Reset button */}
-              <Button variant="outlined" size="small" onClick={resetAllData} sx={{ mt: 2 }}>
-                Reset All Data
-              </Button>
-            </Box>
-
-            {/* Right Content - Charts and Results */}
-            <Box>
-              <DisplayModeToggle displayMode={displayMode} onChange={setDisplayMode} />
-
-              <PortfolioChart
-                projection={projection}
-                fireTarget={fireTarget}
-                displayMode={displayMode}
-              />
-
-              {actuals.length > 0 && (
-                <ActualVsProjectedChart
-                  projection={projection}
-                  actual={actuals}
-                  displayMode={displayMode}
-                />
-              )}
-
-              <Milestones
-                retirementAge={inputs.retirementAge}
-                socialSecurityAge={inputs.socialSecurityAge}
-                socialSecurityIncome={inputs.socialSecurityIncome}
-                medicareAge={inputs.medicareAge}
-                projectedMilestones={projectedMilestones}
-                onUpdateMilestone={(id, updates) => updateProjectedMilestone(id, updates)}
-                onRemoveMilestone={removeProjectedMilestone}
-                getProjectedValueAtAge={getProjectedValueAtAge}
-              />
-
-              {/* Export/Import */}
-              <Box sx={{ mt: 2 }}>
-                <Divider sx={{ my: 3 }} />
-                <Typography variant="h6" sx={{ mb: 1, fontWeight: 'bold' }}>
-                  Data Management
-                </Typography>
-                <Box sx={{ display: 'flex', gap: 1, justifyContent: 'flex-end' }}>
-                  <Button variant="contained" size="small" onClick={exportData}>
-                    Export All Data
-                  </Button>
-                  <InputLabel htmlFor="import-file">Import</InputLabel>
-                  <input
-                    id="import-file"
-                    type="file"
-                    accept=".json"
-                    style={{ display: 'none' }}
-                    onChange={importFileChangeHandler}
-                  />
-                  <Button
-                    variant="outlined"
+          {/* Portfolio Chart - Always visible with edit button */}
+          <Box sx={{ mb: 3, position: 'relative' }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, flexWrap: 'wrap', gap: 2 }}>
+              <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                Portfolio Projection
+              </Typography>
+              <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+                <DisplayModeToggle displayMode={displayMode} onChange={setDisplayMode} />
+                <MuiTooltip title="Edit Inputs">
+                  <Fab
+                    color="primary"
                     size="small"
-                    onClick={() => {
-                      const input = document.getElementById('import-file') as HTMLInputElement;
-                      input?.click();
-                    }}
+                    onClick={() => setDrawerOpen(true)}
+                    sx={{ ml: 1 }}
                   >
-                    Choose Backup File
-                  </Button>
-                </Box>
+                    <EditIcon />
+                  </Fab>
+                </MuiTooltip>
               </Box>
-
             </Box>
-          </Box>
 
-          {/* Life Events Section (standalone) */}
-          <Box sx={{ mb: 6 }}>
-            <LifeEventsControlled
-              lifeEvents={lifeEvents}
-              onAdd={() => {}} // Not used here, section handles display only
-              onUpdate={(id, updates) => updateLifeEvent(id, updates)}
-              onDelete={(id) => removeLifeEvent(id)}
+            <PortfolioChart
+              projection={projection}
+              fireTarget={fireTarget}
+              displayMode={displayMode}
+              actual={actuals}
             />
           </Box>
 
-          {/* Debt Payments Section (standalone) */}
-          <Box sx={{ mb: 6 }}>
-            <DebtPaymentsControlled
-              debtPayments={debtPayments}
-              onAdd={() => {}} // Not used here, section handles display only
-              onUpdate={(id, updates) => updateDebtPayment(id, updates)}
-              onDelete={(id) => removeDebtPayment(id)}
-            />
-          </Box>
-
-          {/* Actuals Section (standalone) */}
-          <Box sx={{ mb: 6 }}>
-            <ActualsSection
-              actuals={actuals}
-              onAddActual={(age) => addActual({ year: age, age, portfolio: 0, savings: 0, spending: 0 })}
-              onUpdateActual={(age, updates) => updateActual(age, updates)}
-              onRemoveActual={(age) => removeActual(age)}
-            />
-          </Box>
-
-          {/* Projection Table */}
-          <Box sx={{ mb: 6 }}>
-            <ProjectionTable projection={projection} lifeEvents={lifeEvents} actual={actuals} />
-          </Box>
-
-          {actuals.length > 0 && (
-            <Box sx={{ mb: 6, display: 'flex', justifyContent: 'flex-end' }}>
-              <Button variant="outlined" size="small" onClick={resetAllData}>
-                Reset All Actuals Data
-              </Button>
-            </Box>
-          )}
-
+          {/* Analysis Tabs - Deep dive sections */}
+          <AnalysisTabs
+            projection={projection}
+            fireTarget={fireTarget}
+            lifeEvents={lifeEvents}
+            projectedMilestones={projectedMilestones}
+            onUpdateMilestone={(id, updates) => updateProjectedMilestone(id, updates)}
+            onRemoveMilestone={(id) => removeProjectedMilestone(id)}
+            getProjectedValueAtAge={getProjectedValueAtAge}
+            actuals={actuals}
+            onAddActual={(age) => addActual({ year: age, age, portfolio: 0, savings: 0, spending: 0 })}
+            onUpdateActual={(age, updates) => updateActual(age, updates)}
+            onRemoveActual={(age) => removeActual(age)}
+            inputs={{
+              currentAge: inputs.currentAge,
+              retirementAge: inputs.retirementAge,
+              lifeExpectancy: inputs.lifeExpectancy,
+              currentPortfolio: inputs.currentPortfolio,
+              retirementSpending: inputs.retirementSpending,
+              retirementReturn: inputs.retirementReturn,
+              inflationRate: inputs.inflationRate,
+              socialSecurityAge: inputs.socialSecurityAge,
+              socialSecurityIncome: inputs.socialSecurityIncome,
+              medicareAge: inputs.medicareAge,
+              pensionIncome: aggregatePensions(pensions).totalAnnualPensionIncome,
+            }}
+            annualSurplus={annualSurplus}
+            displayMode={displayMode}
+            selectedWithdrawalStrategy={selectedWithdrawalStrategy}
+            onWithdrawalStrategySelect={setSelectedWithdrawalStrategy}
+          />
         </Container>
 
         <Footer />
+
+        {/* Inputs Drawer */}
+        <InputsDrawer
+          open={drawerOpen}
+          onClose={() => setDrawerOpen(false)}
+          inputs={inputs}
+          onInputsChange={(updates) => setInputs(prev => ({ ...prev, ...updates }))}
+          coastingMode={coastingMode}
+          onCoastingModeChange={setCoastingMode}
+          currentStrategy={currentStrategy}
+          onStrategyChange={setCurrentStrategy}
+          pensions={pensions}
+          onAddPension={() => addPension({ name: 'New Pension', currentAnnualPayout: 0, startAge: 65 })}
+          onUpdatePension={(id, updates) => updatePension(id, updates)}
+          onDeletePension={(id) => removePension(id)}
+          lifeEvents={lifeEvents}
+          onAddLifeEvent={() => addLifeEvent({ name: 'New Event', type: 'one-time', amount: 0, startAge: inputs.currentAge, endAge: undefined, description: '' })}
+          onUpdateLifeEvent={(id, updates) => updateLifeEvent(id, updates)}
+          onDeleteLifeEvent={(id) => removeLifeEvent(id)}
+          debtPayments={debtPayments}
+          onAddDebtPayment={() => addDebtPayment({ name: 'New Debt', monthlyPayment: 0, startAge: inputs.currentAge, endAge: inputs.currentAge + 5, description: '' })}
+          onUpdateDebtPayment={(id, updates) => updateDebtPayment(id, updates)}
+          onDeleteDebtPayment={(id) => removeDebtPayment(id)}
+          projectedMilestones={projectedMilestones}
+          onAddMilestone={() => addProjectedMilestone({ age: inputs.currentAge + 5, event: 'New Milestone', category: 'event' })}
+          onUpdateMilestone={(id, updates) => updateProjectedMilestone(id, updates)}
+          onDeleteMilestone={(id) => removeProjectedMilestone(id)}
+          variableInflationRates={variableInflationRates}
+          onVariableInflationRatesChange={setVariableInflationRates}
+        />
       </Box>
     </ThemeProvider>
   );

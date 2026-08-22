@@ -8,6 +8,7 @@ import { FinancialDetailsControlled } from './internal/FinancialDetailsControlle
 import { RetirementPlanControlled } from './internal/RetirementPlanControlled';
 import { HealthCareControlled } from './internal/HealthCareControlled';
 import { ReturnsAndInflationControlled } from './internal/ReturnsAndInflationControlled';
+import { StrategySelector } from './StrategySelector';
 
 /**
  * Simplified numeric input component for smaller controls.
@@ -108,6 +109,11 @@ export const InputPanel: React.FC<{
   onInitialPortfolioChange?: (value: number) => void;
   onInitialSavingsChange?: (value: number) => void;
   onInitialSpendingChange?: (value: number) => void;
+
+  // Strategy preset
+  currentStrategy: string;
+  onStrategyChange: (strategy: string) => void;
+  onAllocationChange?: (stockPercent: number, bondPercent: number, expectedReturn: number) => void;
 }> = ({
   // Personal details
   currentAge,
@@ -164,6 +170,11 @@ export const InputPanel: React.FC<{
   onInitialPortfolioChange = () => {},
   onInitialSavingsChange = () => {},
   onInitialSpendingChange = () => {},
+
+  // Strategy preset
+  currentStrategy,
+  onStrategyChange,
+  onAllocationChange,
 }) => {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
@@ -217,6 +228,13 @@ export const InputPanel: React.FC<{
         onCoastingReturnChange={onCoastingReturnChange}
         onRetirementReturnChange={onRetirementReturnChange}
         onInflationRateChange={onInflationRateChange}
+      />
+
+      {/* Strategy Presets */}
+      <StrategySelector
+        currentStrategy={currentStrategy}
+        onStrategyChange={onStrategyChange}
+        onAllocationChange={onAllocationChange}
       />
 
       {/* Coasting Mode Section */}
