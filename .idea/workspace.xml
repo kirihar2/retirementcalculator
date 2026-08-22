@@ -8,32 +8,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="954ada11-1f75-42ba-9e2f-22d4c3ccfad6" name="Changes" comment="add more features">
-      <change afterPath="$PROJECT_DIR$/openspec/changes/complete-revamp-features/.openspec.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openspec/changes/complete-revamp-features/design.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openspec/changes/complete-revamp-features/specs/actuals-trend-analysis/spec.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openspec/changes/complete-revamp-features/specs/actuals-variance-tracking/spec.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openspec/changes/complete-revamp-features/specs/investment-strategy-presets/spec.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openspec/changes/complete-revamp-features/specs/monte-carlo-simulation/spec.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openspec/changes/complete-revamp-features/specs/withdrawal-strategies-comparison/spec.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openspec/changes/complete-revamp-features/tasks.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FIRECalculator.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/FIRECalculator.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ActualsSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ActualsSection.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AnalysisTabs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AnalysisTabs.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MonteCarloPanel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MonteCarloPanel.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PortfolioChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PortfolioChart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProjectionTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProjectionTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Scoreboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Scoreboard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/TrendAnalysisPanel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TrendAnalysisPanel.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/WithdrawalComparisonTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/WithdrawalComparisonTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useActuals.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useActuals.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types/withdrawal-strategies.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/withdrawal-strategies.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/calculations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/calculations.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/trend-analysis.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/trend-analysis.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openspec/changes/complete-revamp-features/.openspec.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openspec/changes/complete-revamp-features/design.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openspec/changes/complete-revamp-features/proposal.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openspec/changes/complete-revamp-features/specs/actuals-trend-analysis/spec.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openspec/changes/complete-revamp-features/specs/actuals-variance-tracking/spec.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openspec/changes/complete-revamp-features/specs/investment-strategy-presets/spec.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openspec/changes/complete-revamp-features/specs/monte-carlo-simulation/spec.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openspec/changes/complete-revamp-features/specs/withdrawal-strategies-comparison/spec.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openspec/changes/complete-revamp-features/tasks.md" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -422,7 +406,15 @@
       <option name="project" value="LOCAL" />
       <updated>1787431144446</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="add more features">
+      <option name="closed" value="true" />
+      <created>1787437978661</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1787437978661</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
