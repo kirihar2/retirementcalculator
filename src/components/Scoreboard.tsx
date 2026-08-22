@@ -1,6 +1,14 @@
-import { Box, Paper, Typography } from '@mui/material';
+import { Box, Paper, Typography, LinearProgress } from '@mui/material';
+import {
+  AccountBalanceWallet as AccountBalanceWalletIcon,
+  TrendingUp as TrendingUpIcon,
+  Savings as SavingsIcon,
+  EmojiEvents as EmojiEventsIcon,
+} from '@mui/icons-material';
 import type { PensionSummary } from '../types';
 import { formatCurrency } from '../utils/formatting';
+import { StatCard } from './primitives/StatCard';
+import { gradients } from '../theme';
 
 interface ScoreboardProps {
   fireTarget: number;
@@ -27,116 +35,149 @@ export function Scoreboard({
   const yearsToFIRE = fireAgeAchieved != null ? fireAgeAchieved - currentAge : null;
 
   return (
-    <Paper elevation={2} sx={{ p: 3, mb: 4, borderRadius: 2 }}>
-      <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2 }}>
-        FIRE Dashboard
-      </Typography>
-
-      <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 2, mb: 2 }}>
-        <ScoreCard
-          label="FIRE Target"
-          value={formatCurrency(fireTarget)}
-          subtitle={`@ ${safeWithdrawalRate}% SWR`}
-          color="primary"
-        />
-        <ScoreCard
-          label="Current Portfolio"
-          value={formatCurrency(currentPortfolio)}
-          subtitle={`${progress.toFixed(1)}% of target`}
-          color={progress >= 100 ? 'success' : 'info'}
-        />
-        <ScoreCard
-          label="Annual Saving"
-          value={formatCurrency(annualSaving)}
-          subtitle="net surplus/yr"
-          color={annualSaving >= 0 ? 'success' : 'warning'}
-        />
-        <ScoreCard
-          label="FIRE Age"
-          value={fireAgeAchieved != null ? `Age ${fireAgeAchieved}` : 'Not Achieved'}
-          subtitle={yearsToFIRE != null ? `in ${yearsToFIRE} years` : 'adjust inputs'}
-          color={fireAgeAchieved != null ? 'success' : 'warning'}
-        />
-        {pensionSummary.totalAnnualPensionIncome > 0 && (
-          <ScoreCard
-            label="Pension Income"
-            value={formatCurrency(pensionSummary.totalAnnualPensionIncome)}
-            subtitle={`${pensionSummary.activePensions.length} pension(s)/yr`}
-            color="info"
-          />
-        )}
-        {socialSecurityIncome > 0 && (
-          <ScoreCard
-            label="Social Security"
-            value={formatCurrency(socialSecurityIncome)}
-            subtitle="annual income"
-            color="info"
-          />
-        )}
-      </Box>
-
-      {/* Progress bar */}
-      <Box sx={{ mt: 2 }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.5 }}>
-          <Typography variant="caption" color="text.secondary">
-            Portfolio Progress to FIRE
+    <Paper
+      elevation={2}
+      sx={{
+        mb: 3,
+        borderRadius: 3,
+        overflow: 'hidden',
+      }}
+    >
+      {/* Hero header with gradient */}
+      <Box
+        sx={{
+          background: gradients.scoreboard,
+          color: 'white',
+          px: 3,
+          py: 2.5,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
+        <Box>
+          <Typography
+            variant="h5"
+            sx={{
+              fontWeight: 700,
+              letterSpacing: 0.5,
+              mb: 0.5,
+            }}
+          >
+            FIRE Dashboard
           </Typography>
-          <Typography variant="caption" color="text.secondary">
+          <Typography
+            variant="body2"
+            sx={{
+              opacity: 0.9,
+              fontSize: '0.875rem',
+            }}
+          >
+            Financial Independence, Retire Early
+          </Typography>
+        </Box>
+        <Box sx={{ textAlign: 'right' }}>
+          <Typography variant="caption" sx={{ opacity: 0.8, display: 'block' }}>
+            Progress to FIRE
+          </Typography>
+          <Typography
+            variant="h4"
+            sx={{
+              fontWeight: 700,
+              fontFamily: '"DM Mono", monospace',
+            }}
+          >
             {progress.toFixed(1)}%
           </Typography>
         </Box>
-        <Box sx={{ height: 8, borderRadius: 4, backgroundColor: '#e0e0e0', overflow: 'hidden' }}>
-          <Box
-            sx={{
-              height: '100%',
-              width: `${Math.min(100, progress)}%`,
-              backgroundColor: progress >= 100 ? '#4caf50' : '#1976d2',
-              borderRadius: 4,
-              transition: 'width 0.5s ease',
-            }}
+      </Box>
+
+      {/* Progress bar */}
+      <LinearProgress
+        variant="determinate"
+        value={progress}
+        sx={{
+          height: 6,
+          bgcolor: 'rgba(255,255,255,0.2)',
+          '& .MuiLinearProgress-bar': {
+            bgcolor: progress >= 100 ? '#4caf50' : 'white',
+            borderRadius: 3,
+          },
+        }}
+      />
+
+      {/* Stat cards */}
+      <Box sx={{ p: 3 }}>
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: {
+              xs: 'repeat(2, 1fr)',
+              sm: 'repeat(3, 1fr)',
+              md: 'repeat(auto-fit, minmax(180px, 1fr))',
+            },
+            gap: 2,
+            mb: 2,
+          }}
+        >
+          <StatCard
+            label="FIRE Target"
+            value={formatCurrency(fireTarget)}
+            subtitle={`@ ${safeWithdrawalRate}% SWR`}
+            color="primary"
+            icon={<AccountBalanceWalletIcon fontSize="small" />}
+            size="medium"
           />
+          <StatCard
+            label="Current Portfolio"
+            value={formatCurrency(currentPortfolio)}
+            subtitle={`${progress.toFixed(1)}% of target`}
+            color={progress >= 100 ? 'success' : 'primary'}
+            icon={<TrendingUpIcon fontSize="small" />}
+            size="medium"
+          />
+          <StatCard
+            label="Annual Saving"
+            value={formatCurrency(annualSaving)}
+            subtitle="net surplus/yr"
+            color={annualSaving >= 0 ? 'success' : 'warning'}
+            icon={<SavingsIcon fontSize="small" />}
+            size="medium"
+          />
+          <StatCard
+            label="FIRE Age"
+            value={fireAgeAchieved != null ? `${fireAgeAchieved}` : '—'}
+            subtitle={
+              fireAgeAchieved != null
+                ? yearsToFIRE != null && yearsToFIRE > 0
+                  ? `in ${yearsToFIRE} years`
+                  : 'Achieved!'
+                : 'Not achieved'
+            }
+            color={fireAgeAchieved != null ? 'success' : 'warning'}
+            icon={<EmojiEventsIcon fontSize="small" />}
+            size="large"
+          />
+          {pensionSummary.totalAnnualPensionIncome > 0 && (
+            <StatCard
+              label="Pension Income"
+              value={formatCurrency(pensionSummary.totalAnnualPensionIncome)}
+              subtitle={`${pensionSummary.activePensions.length} pension(s)/yr`}
+              color="actuals"
+              size="medium"
+            />
+          )}
+          {socialSecurityIncome > 0 && (
+            <StatCard
+              label="Social Security"
+              value={formatCurrency(socialSecurityIncome)}
+              subtitle="annual income"
+              color="actuals"
+              size="medium"
+            />
+          )}
         </Box>
       </Box>
     </Paper>
-  );
-}
-
-function ScoreCard({
-  label,
-  value,
-  subtitle,
-  color,
-}: {
-  label: string;
-  value: string;
-  subtitle: string;
-  color: 'primary' | 'success' | 'warning' | 'info';
-}) {
-  const colorMap = {
-    primary: '#1976d2',
-    success: '#4caf50',
-    warning: '#ff9800',
-    info: '#2196f3',
-  };
-
-  return (
-    <Box
-      sx={{
-        p: 1.5,
-        borderRadius: 1,
-        border: `1px solid ${colorMap[color]}22`,
-        backgroundColor: `${colorMap[color]}08`,
-      }}
-    >
-      <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
-        {label}
-      </Typography>
-      <Typography variant="h6" sx={{ fontWeight: 'bold', color: colorMap[color], lineHeight: 1.2 }}>
-        {value}
-      </Typography>
-      <Typography variant="caption" color="text.secondary">
-        {subtitle}
-      </Typography>
-    </Box>
   );
 }

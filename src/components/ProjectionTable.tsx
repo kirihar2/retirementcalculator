@@ -1,5 +1,13 @@
-import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import { useMemo } from 'react';
+import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Chip } from '@mui/material';
 import type { AnnualActuals, LifeEvent, ProjectionYear } from '../types';
+import {
+  calculateAllVariances,
+  calculateCumulativeVariance,
+  formatVariance,
+  getVarianceArrow,
+  getVarianceColor,
+} from '../utils/variance';
 
 interface ProjectionTableProps {
   projection: ProjectionYear[];
@@ -20,13 +28,56 @@ function fmtPct(value: number): string {
 }
 
 export function ProjectionTable({ projection, lifeEvents, actual }: ProjectionTableProps) {
+  const variances = useMemo(() => {
+    return calculateAllVariances(projection, actual);
+  }, [projection, actual]);
+
+  const cumulativeVariance = useMemo(() => {
+    return calculateCumulativeVariance(variances.portfolio);
+  }, [variances.portfolio]);
+
   if (!projection || projection.length === 0) return null;
+
+  const hasActuals = actual.length > 0;
 
   return (
     <Box>
-      <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2 }}>
-        Year-by-Year Projection
-      </Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+        <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+          Year-by-Year Projection
+        </Typography>
+
+        {/* Cumulative Variance Summary */}
+        {hasActuals && cumulativeVariance.totalYearsWithData > 0 && (
+          <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+            <Typography variant="caption" color="textSecondary">
+              Avg Variance:
+            </Typography>
+            <Chip
+              label={`${cumulativeVariance.averagePercentVariance >= 0 ? '+' : ''}${cumulativeVariance.averagePercentVariance.toFixed(1)}% ${
+                cumulativeVariance.averagePercentVariance > 1 ? '↑' :
+                cumulativeVariance.averagePercentVariance < -1 ? '↓' : '→'
+              }`}
+              size="small"
+              sx={{
+                bgcolor: cumulativeVariance.averagePercentVariance > 1 ? '#e8f5e9' :
+                         cumulativeVariance.averagePercentVariance < -1 ? '#ffebee' : '#f5f5f5',
+                color: cumulativeVariance.averagePercentVariance > 1 ? '#2e7d32' :
+                       cumulativeVariance.averagePercentVariance < -1 ? '#c62828' : '#616161',
+                fontWeight: 'bold',
+              }}
+            />
+          </Box>
+        )}
+      </Box>
+
+      {/* Prompt when no actuals */}
+      {!hasActuals && (
+        <Typography variant="body2" color="textSecondary" sx={{ mb: 2, fontStyle: 'italic' }}>
+          Add actuals to track variance against projections.
+        </Typography>
+      )}
+
       <TableContainer component={Paper} elevation={1} sx={{ maxHeight: 500, overflow: 'auto' }}>
         <Table size="small" stickyHeader>
           <TableHead>
@@ -42,11 +93,12 @@ export function ProjectionTable({ projection, lifeEvents, actual }: ProjectionTa
               <TableCell sx={{ fontWeight: 'bold' }} align="right">Debt Pmts</TableCell>
               <TableCell sx={{ fontWeight: 'bold' }} align="right">Healthcare</TableCell>
               <TableCell sx={{ fontWeight: 'bold' }} align="right">Inflation</TableCell>
+              {hasActuals && <TableCell sx={{ fontWeight: 'bold' }} align="right">Variance</TableCell>}
               <TableCell sx={{ fontWeight: 'bold' }}>Notes</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {projection.map((year) => {
+            {projection.map((year, idx) => {
               const actualYear = actual.find(a => a.age === year.age);
               const activeEvents = lifeEvents.filter(e => {
                 if (e.type === 'one-time') return e.startAge === year.age;
@@ -54,6 +106,7 @@ export function ProjectionTable({ projection, lifeEvents, actual }: ProjectionTa
                 return year.age >= e.startAge && year.age <= end;
               });
               const isActual = !!actualYear;
+              const variance = variances.portfolio[idx];
 
               return (
                 <TableRow
@@ -88,6 +141,23 @@ export function ProjectionTable({ projection, lifeEvents, actual }: ProjectionTa
                   <TableCell align="right">{year.annualDebtPayments ? fmt(year.annualDebtPayments) : '-'}</TableCell>
                   <TableCell align="right">{year.healthCareCost ? fmt(year.healthCareCost) : '-'}</TableCell>
                   <TableCell align="right">{fmtPct(year.inflationRate)}</TableCell>
+                  {hasActuals && (
+                    <TableCell
+                      align="right"
+                      sx={{
+                        color: getVarianceColor(variance),
+                        fontWeight: variance.hasData ? 'bold' : 'normal',
+                      }}
+                    >
+                      {variance.hasData ? (
+                        <>
+                          {getVarianceArrow(variance)} {formatVariance(variance)}
+                        </>
+                      ) : (
+                        <span style={{ color: '#9e9e9e' }}>N/A</span>
+                      )}
+                    </TableCell>
+                  )}
                   <TableCell>
                     {activeEvents.map(e => (
                       <Typography key={e.id} variant="caption" sx={{ display: 'block' }}>
