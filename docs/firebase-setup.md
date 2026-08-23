@@ -38,10 +38,10 @@ VITE_FIREBASE_STORAGE_BUCKET=your-project-id.appspot.com
 VITE_FIREBASE_MESSAGING_SENDER_ID=...
 VITE_FIREBASE_APP_ID=...
 VITE_ENABLE_AUTH=true
-VITE_API_BASE_URL=https://us-central1-your-project-id.cloudfunctions.net
+VITE_API_BASE_URL=https://retirement-dashboard-backend-abc123-uc.a.run.app
 ```
 
-The backend uses the same project — no separate env is needed because Cloud Functions auto-inject the service account.
+`VITE_API_BASE_URL` is the Cloud Run service URL — see [cloud-run-deploy.md](./cloud-run-deploy.md) for the deploy steps. The backend uses the same Firebase project; its service account is attached to the Cloud Run service (no key file needed in production).
 
 ## 5. Harden the public API key
 
@@ -63,7 +63,7 @@ App Check ties requests to your actual web app via reCAPTCHA v3, blocking script
 
 1. In the Firebase console, go to **Build → App Check**.
 2. Register your web app with the **reCAPTCHA v3** provider. You'll need a reCAPTCHA site key from <https://www.google.com/recaptcha/admin>.
-3. In the Cloud Functions backend, initialize App Check before verifying ID tokens (see `functions/src/admin.ts`).
+3. (Optional) Enforce App Check on the backend — the Go server can verify the App Check token before processing requests. This is not wired up yet; see the OpenSpec tasks for the placeholder.
 
 ## 7. Deploy Firestore rules (defense-in-depth)
 
@@ -76,29 +76,30 @@ The backend bypasses security rules via the Admin SDK, but we keep rules correct
    - A mismatched-UID read/write is denied
    - An unauthenticated read/write is denied
 
-## 8. Deploy Cloud Functions
+## 8. Deploy the backend
 
-```bash
-cd functions
-npm install
-npm run build
-cd ..
-firebase deploy --only functions
-```
+The backend is a Go server running on Cloud Run. Follow the full setup guide at [cloud-run-deploy.md](./cloud-run-deploy.md).
 
-After deployment, `VITE_API_BASE_URL` should point at the deployed functions URL (printed by the deploy command).
+After deployment, set `VITE_API_BASE_URL` in the client's `.env` to the Cloud Run URL printed by the deploy command.
 
 ## 9. Local development with emulators
 
-The Firebase emulators let you run Auth, Firestore, and Cloud Functions locally without touching production.
+The Firebase emulators let you run Auth and Firestore locally without touching production. The Go backend runs as a separate process.
 
 ```bash
+# Terminal 1: Firebase emulators (Auth + Firestore)
 firebase emulators:start
+
+# Terminal 2: Go backend, pointed at the emulators
+cd backend
+export GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account-key.json
+export ALLOWED_ORIGINS=http://localhost:5173
+go run .
 ```
 
-The emulator UI is at <http://127.0.0.1:4000>. Set `VITE_API_BASE_URL=http://127.0.0.1:5001` in your local `.env`.
+The emulator UI is at <http://127.0.0.1:4000>. Set `VITE_API_BASE_URL=http://localhost:8080` in your local `.env`.
 
 ## Source of truth
 
 - The **Firebase console** is the source of truth for deployed rules and function configuration.
-- The files in this repo (`firestore.rules`, `functions/`, `firebase.json`) are for review/CI reference and manual deploys.
+- The files in this repo (`firestore.rules`, `backend/`, `firebase.json`) are for review/CI reference and manual deploys.
