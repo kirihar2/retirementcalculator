@@ -1,0 +1,29 @@
+// Firestore security rules — defense-in-depth.
+//
+// The primary trust boundary is the Cloud Functions backend, which
+// authenticates every request via the Firebase Admin SDK and performs
+// Firestore operations with admin privileges (bypassing these rules).
+//
+// These rules exist so that:
+// 1. A misconfigured or rogue client cannot read/write another user's data.
+// 2. The data model is visible and testable in the Firebase console's
+//    Rules Playground.
+// 3. Any future direct-client access (e.g., during development) has a
+//    correct-by-default authorization check.
+//
+// Source of truth for the deployed rules is the Firebase console; this
+// file is reviewed in PRs and deployed manually.
+
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Per-user data scope. Users may only read and write their own
+    // subtree, keyed by Firebase Auth UID.
+    match /users/{uid}/{document=**} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+
+    // Deny everything else by default (no catch-all allow).
+  }
+}
