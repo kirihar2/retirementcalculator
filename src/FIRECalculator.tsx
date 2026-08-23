@@ -10,7 +10,7 @@ import {
   Tooltip
 } from 'chart.js';
 import zoomPlugin from 'chartjs-plugin-zoom';
-import { Box, Container, CssBaseline, Fab, Tooltip as MuiTooltip, Typography } from '@mui/material';
+import { Box, Button, Container, CssBaseline, Fab, Tooltip as MuiTooltip, Typography } from '@mui/material';
 import { Edit as EditIcon } from '@mui/icons-material';
 import { ThemeProvider } from '@mui/material/styles';
 
@@ -40,6 +40,8 @@ import { usePensions } from './hooks/usePensions';
 
 // Import new theme
 import theme from './theme';
+// Cloud sync hook (no-op when auth is disabled)
+import { useCloudSync } from './hooks/useCloudSync';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, zoomPlugin);
 
@@ -61,6 +63,10 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
  * - Coasting mode for reducing burnout
  */
 export default function FIRECalculator() {
+  // Cloud sync hook: handles sign-in reconciliation, debounced push, and offline queueing.
+  // No-op when VITE_ENABLE_AUTH is off.
+  const cloudSync = useCloudSync();
+
   // Initial consolidated state - persists to localStorage
   const initialState: InputState = {
     currentAge: 32,
@@ -278,6 +284,26 @@ export default function FIRECalculator() {
     }
   }, []);
 
+  // === CLOUD SYNC TRIGGER ===
+  // Any time one of the plan's state values changes, dispatch the
+  // custom event that `useCloudSync` listens to; the hook debounces
+  // and pushes the aggregated plan to the backend.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    window.dispatchEvent(new Event('fire-cloud-sync'));
+  }, [
+    inputs,
+    pensions,
+    lifeEvents,
+    debtPayments,
+    projectedMilestones,
+    actuals,
+    coastingMode,
+    variableInflationRates,
+    currentStrategy,
+    selectedWithdrawalStrategy,
+  ]);
+
   // === RESET FUNCTION ===
   const resetAllData = () => {
     ['fire_actuals', 'fire_initial_actuals', 'fire_pensions', 'fire_life_events',
@@ -444,6 +470,25 @@ export default function FIRECalculator() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
+        {cloudSync.banner && (
+          <Box
+            sx={{
+              bgcolor: 'info.main',
+              color: 'info.contrastText',
+              px: 2,
+              py: 1,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: 2,
+            }}
+          >
+            <Typography variant="body2">{cloudSync.banner}</Typography>
+            <Button color="inherit" size="small" onClick={cloudSync.dismissBanner}>
+              Dismiss
+            </Button>
+          </Box>
+        )}
         <Header />
 
         <Container maxWidth="lg" sx={{ pb: 6, pt: 3 }}>

@@ -130,3 +130,18 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+# Firebase Cloud Functions build output and dependencies
+functions/lib/
+functions/node_modules/
+
+# Backend (Go) build artifacts
+backend/backend
+backend/backend.exe
+backend/vendor/
+
+# Firebase local emulator artifacts
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
+*.local
+
