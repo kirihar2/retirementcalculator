@@ -11,7 +11,7 @@ import {
 } from 'chart.js';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import { Box, Button, Container, CssBaseline, Fab, Tooltip as MuiTooltip, Typography } from '@mui/material';
-import { Edit as EditIcon } from '@mui/icons-material';
+import { Edit as EditIcon, Save as SaveIcon } from '@mui/icons-material';
 import { ThemeProvider } from '@mui/material/styles';
 
 import { Header } from './components/layout/Header';
@@ -100,13 +100,9 @@ export default function FIRECalculator() {
   // Main consolidated state - persists to localStorage (Phase 14)
   const [inputs, setInputs] = useState<InputState>(initialState);
 
-  // Persist inputs state to localStorage and trigger cloud sync
+  // Persist inputs state to localStorage
   useEffect(() => {
     localStorage.setItem('fire_input_state', JSON.stringify(inputs));
-    // Trigger cloud sync after localStorage is written
-    if (typeof window !== 'undefined') {
-      window.dispatchEvent(new Event('fire-cloud-sync'));
-    }
   }, [inputs]);
 
   // Load inputs from localStorage on mount (only once)
@@ -315,24 +311,7 @@ export default function FIRECalculator() {
   }, [cloudSync.remotePlan, cloudSync.clearRemotePlan, setAllPensions, setAllLifeEvents, setAllDebtPayments, setAllMilestones, setAllActuals]);
 
   // === CLOUD SYNC TRIGGER ===
-  // Any time one of the plan's state values changes, dispatch the
-  // custom event that `useCloudSync` listens to; the hook debounces
-  // and pushes the aggregated plan to the backend.
-  // Note: inputs is handled separately in its localStorage useEffect to avoid race conditions.
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    window.dispatchEvent(new Event('fire-cloud-sync'));
-  }, [
-    pensions,
-    lifeEvents,
-    debtPayments,
-    projectedMilestones,
-    actuals,
-    coastingMode,
-    variableInflationRates,
-    currentStrategy,
-    selectedWithdrawalStrategy,
-  ]);
+  // Removed automatic sync. User must click Save button to sync to cloud.
 
   // === RESET FUNCTION ===
   const resetAllData = () => {
@@ -557,6 +536,16 @@ export default function FIRECalculator() {
                     sx={{ ml: 1 }}
                   >
                     <EditIcon />
+                  </Fab>
+                </MuiTooltip>
+                <MuiTooltip title="Save to Cloud">
+                  <Fab
+                    color="secondary"
+                    size="small"
+                    onClick={() => cloudSync.pushNow()}
+                    sx={{ ml: 1 }}
+                  >
+                    <SaveIcon />
                   </Fab>
                 </MuiTooltip>
               </Box>
