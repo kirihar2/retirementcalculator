@@ -26,6 +26,13 @@ export interface FirebaseConfig {
 // Vite inlines VITE_ prefixed vars at build time. For Vercel, set these
 // as env vars in the dashboard (Settings → Environment Variables).
 
+// Debug: log env vars at runtime
+console.log('[Firebase] Runtime env check:');
+console.log('[Firebase] VITE_API_BASE_URL:', import.meta.env.VITE_API_BASE_URL);
+console.log('[Firebase] VITE_ENABLE_AUTH:', import.meta.env.VITE_ENABLE_AUTH);
+console.log('[Firebase] VITE_FIREBASE_PROJECT_ID:', import.meta.env.VITE_FIREBASE_PROJECT_ID);
+console.log('[Firebase] All VITE_ vars:', Object.keys(import.meta.env).filter(k => k.startsWith('VITE_')));
+
 const config: FirebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY ?? '',
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN ?? '',
