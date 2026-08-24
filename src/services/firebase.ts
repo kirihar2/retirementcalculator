@@ -23,19 +23,16 @@ export interface FirebaseConfig {
   appId: string;
 }
 
-// Support both Vite (import.meta.env) and Vercel/Node (process.env)
-const env = {
-  ...((typeof process !== 'undefined' && process.env) || {}),
-  ...((import.meta as any).env || {}),
-} as Record<string, string | undefined>;
+// Vite inlines VITE_ prefixed vars at build time. For Vercel, set these
+// as env vars in the dashboard (Settings → Environment Variables).
 
 const config: FirebaseConfig = {
-  apiKey: env.VITE_FIREBASE_API_KEY ?? env.FIREBASE_API_KEY ?? '',
-  authDomain: env.VITE_FIREBASE_AUTH_DOMAIN ?? env.FIREBASE_AUTH_DOMAIN ?? '',
-  projectId: env.VITE_FIREBASE_PROJECT_ID ?? env.FIREBASE_PROJECT_ID ?? '',
-  storageBucket: env.VITE_FIREBASE_STORAGE_BUCKET ?? env.FIREBASE_STORAGE_BUCKET ?? '',
-  messagingSenderId: env.VITE_FIREBASE_MESSAGING_SENDER_ID ?? env.FIREBASE_MESSAGING_SENDER_ID ?? '',
-  appId: env.VITE_FIREBASE_APP_ID ?? env.FIREBASE_APP_ID ?? '',
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY ?? '',
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN ?? '',
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID ?? '',
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET ?? '',
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID ?? '',
+  appId: import.meta.env.VITE_FIREBASE_APP_ID ?? '',
 };
 
 /**
@@ -44,7 +41,7 @@ const config: FirebaseConfig = {
  * anonymously when this is false.
  */
 export function isFirebaseEnabled(): boolean {
-  const flag = env.VITE_ENABLE_AUTH ?? env.ENABLE_AUTH;
+  const flag = import.meta.env.VITE_ENABLE_AUTH;
   if (flag === 'false' || flag === '0' || flag === '') return false;
   return Boolean(
     config.apiKey &&
@@ -56,11 +53,10 @@ export function isFirebaseEnabled(): boolean {
   );
 }
 
-/** Base URL for the Cloud Functions backend. Reads from Vite env with a
- *  sensible local-dev default; production will point at the deployed
- *  functions URL (see docs/auth-rollout.md). */
+/** Base URL for the backend. Reads from Vite env with a sensible
+ *  local-dev default. */
 export function getApiBaseUrl(): string {
-  return env.VITE_API_BASE_URL ?? env.API_URL ?? 'http://127.0.0.1:5001';
+  return import.meta.env.VITE_API_BASE_URL ?? 'http://127.0.0.1:5001';
 }
 
 let app: FirebaseApp | null = null;
