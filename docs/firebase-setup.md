@@ -24,7 +24,7 @@ This document walks through the Firebase-side setup required to enable user acco
 
 1. Go to **Build → Firestore Database → Create database**.
 2. Choose **Start in production mode** (the backend mediates all writes via Admin SDK).
-3. Pick the region closest to your user base (e.g., `us-central1`, `eur3`).
+3. Pick the region closest to your user base (e.g., `us-west1`, `eur3`).
 
 ## 4. Configure environment variables
 

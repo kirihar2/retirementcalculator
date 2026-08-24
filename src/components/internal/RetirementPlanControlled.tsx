@@ -33,42 +33,47 @@ export const RetirementPlanControlled: React.FC<{
 }> = ({ retirementSpending, socialSecurityAge, socialSecurityIncome, safeWithdrawalRate, onRetirementSpendingChange, onSSAgeChange, onSSIncomeChange, onSWRChange }) => {
   return (
     <Box>
-      <Divider sx={{ my: 3 }} />
-      <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
+      <Divider sx={{ my: 2 }} />
+      <Typography variant="h6" sx={{ mb: 1.5, fontWeight: 'bold' }}>
         Retirement Plan
       </Typography>
 
       <NumericInput
-        label="Monthly Retirement Spending ($)"
+        label="Monthly Spending"
         value={retirementSpending}
         onChange={onRetirementSpendingChange}
         min={0}
         step={100}
+        prefix="$"
       />
 
       <NumericInput
-        label="Social Security Start Age"
+        label="SS Start Age"
         value={socialSecurityAge}
         onChange={onSSAgeChange}
         min={62}
         max={70}
+        inline
       />
 
       <NumericInput
-        label="Annual SS Income (Today $)"
+        label="Annual SS Income (today's $)"
         value={socialSecurityIncome}
         onChange={onSSIncomeChange}
         min={0}
         step={1000}
+        prefix="$"
+        suffix=""
       />
 
       <NumericInput
-        label="Safe Withdrawal Rate (%)"
+        label="Withdrawal Rate"
         value={safeWithdrawalRate}
         onChange={onSWRChange}
         min={1}
         max={10}
         step={0.1}
+        suffix="%"
       />
     </Box>
   );

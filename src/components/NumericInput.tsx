@@ -8,8 +8,8 @@ interface NumericInputProps {
   max?: number;
   step?: number;
   prefix?: string;
-  suffix?: string;
   helperText?: string;
+  inline?: boolean;
 }
 
 export function NumericInput({
@@ -20,37 +20,69 @@ export function NumericInput({
   max,
   step = 1,
   prefix,
-  suffix,
   helperText,
+  inline = false,
 }: NumericInputProps) {
-  return (
-    <Box sx={{ mb: 1.5 }}>
-      <TextField
-        label={label}
-        type="number"
-        size="small"
-        fullWidth
-        value={value}
-        onChange={(e) => {
-          const parsed = parseFloat(e.target.value);
-          if (!isNaN(parsed)) onChange(parsed);
-        }}
-        inputProps={{ min, max, step, style: { textAlign: 'right' } }}
-        InputProps={{
-          startAdornment: prefix ? (
-            <Typography variant="body2" sx={{ mr: 0.5, color: 'text.secondary' }}>
+  if (inline) {
+    return (
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 1 }}>
+        <Typography variant="body2" sx={{ minWidth: 140, color: 'text.secondary' }}>
+          {label}
+        </Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
+          {prefix && (
+            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
               {prefix}
             </Typography>
-          ) : undefined,
-          endAdornment: suffix ? (
-            <Typography variant="body2" sx={{ ml: 0.5, color: 'text.secondary' }}>
-              {suffix}
+          )}
+          <TextField
+            type="number"
+            size="small"
+            value={value}
+            onChange={(e) => {
+              const parsed = parseFloat(e.target.value);
+              if (!isNaN(parsed)) onChange(parsed);
+            }}
+            inputProps={{ min, max, step, style: { textAlign: 'right', width: '100px', fontSize: '0.95rem' } }}
+            variant="outlined"
+            sx={{ '& .MuiOutlinedInput-root': { width: '130px' } }}
+          />
+        </Box>
+      </Box>
+    );
+  }
+
+  return (
+    <Box sx={{ mb: 2 }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 0.75 }}>
+        <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 500 }}>
+          {label}
+        </Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
+          {prefix && (
+            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+              {prefix}
             </Typography>
-          ) : undefined,
-        }}
-        helperText={helperText}
-        variant="outlined"
-      />
+          )}
+          <TextField
+            type="number"
+            size="small"
+            value={value}
+            onChange={(e) => {
+              const parsed = parseFloat(e.target.value);
+              if (!isNaN(parsed)) onChange(parsed);
+            }}
+            inputProps={{ min, max, step, style: { textAlign: 'right', fontSize: '0.95rem' } }}
+            variant="outlined"
+            sx={{ width: '150px' }}
+          />
+        </Box>
+      </Box>
+      {helperText && (
+        <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.5 }}>
+          {helperText}
+        </Typography>
+      )}
     </Box>
   );
 }

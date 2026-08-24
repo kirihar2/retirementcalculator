@@ -44,7 +44,7 @@ gcloud builds submit --tag gcr.io/<PROJECT_ID>/retirement-dashboard-backend
 # real authorization mechanism (so unauthenticated is fine here).
 gcloud run deploy retirement-dashboard-backend \
   --image gcr.io/<PROJECT_ID>/retirement-dashboard-backend \
-  --region us-central1 \
+  --region us-west1 \
   --allow-unauthenticated \
   --set-env-vars="ALLOWED_ORIGINS=https://your-frontend-domain.com"
 ```

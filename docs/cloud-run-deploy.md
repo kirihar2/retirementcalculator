@@ -72,7 +72,7 @@ From the repo root:
 cd backend
 
 gcloud builds submit \
-  --tag us-central1-docker.pkg.dev/$(gcloud config get-value project)/retirement-dashboard/backend \
+  --tag us-west1-docker.pkg.dev/$(gcloud config get-value project)/retirement-dashboard/backend \
   .
 ```
 
@@ -83,7 +83,7 @@ If you get a "repository not found" error on the first push, create it:
 ```bash
 gcloud artifacts repositories create retirement-dashboard \
   --repository-format=docker \
-  --location=us-central1
+  --location=us-west1
 ```
 
 Then re-run the `gcloud builds submit` command.
@@ -92,8 +92,8 @@ Then re-run the `gcloud builds submit` command.
 
 ```bash
 gcloud run deploy retirement-dashboard-backend \
-  --image us-central1-docker.pkg.dev/$(gcloud config get-value project)/retirement-dashboard/backend \
-  --region us-central1 \
+  --image us-west1-docker.pkg.dev/$(gcloud config get-value project)/retirement-dashboard/backend \
+  --region us-west1 \
   --service-account backend-sa@$(gcloud config get-value project).iam.gserviceaccount.com \
   --allow-unauthenticated \
   --set-env-vars="ALLOWED_ORIGINS=https://your-frontend-domain.com"
@@ -104,7 +104,7 @@ Flag-by-flag:
 | Flag | Value | Why |
 |---|---|---|
 | `--image` | The Artifact Registry path from step 3 | Which container to run |
-| `--region` | `us-central1` | Pick the region closest to your users. Must match your Firestore region for lowest latency. |
+| `--region` | `us-west1` | Pick the region closest to your users. Must match your Firestore region for lowest latency. |
 | `--service-account` | The SA from step 2 | Lets the container talk to Firestore and Auth without a key file |
 | `--allow-unauthenticated` | — | The endpoint is public HTTPS; per-request auth is via Firebase ID tokens in the `Authorization` header, not IAM. See "Security model" below. |
 | `--set-env-vars` | `ALLOWED_ORIGINS=...` | CORS allowlist — must include your frontend domain(s) |
@@ -152,13 +152,13 @@ cd backend
 
 # 1. Rebuild and push
 gcloud builds submit \
-  --tag us-central1-docker.pkg.dev/$(gcloud config get-value project)/retirement-dashboard/backend \
+  --tag us-west1-docker.pkg.dev/$(gcloud config get-value project)/retirement-dashboard/backend \
   .
 
 # 2. Deploy the new image
 gcloud run deploy retirement-dashboard-backend \
-  --image us-central1-docker.pkg.dev/$(gcloud config get-value project)/retirement-dashboard/backend \
-  --region us-central1
+  --image us-west1-docker.pkg.dev/$(gcloud config get-value project)/retirement-dashboard/backend \
+  --region us-west1
 ```
 
 You only need to re-pass `--service-account` and `--set-env-vars` when they change — Cloud Run preserves them across deploys.
@@ -167,7 +167,7 @@ To change environment variables without rebuilding:
 
 ```bash
 gcloud run services update retirement-dashboard-backend \
-  --region us-central1 \
+  --region us-west1 \
   --update-env-vars="ALLOWED_ORIGINS=https://new-domain.com,ANOTHER_VAR=value"
 ```
 
@@ -222,7 +222,7 @@ The service account attached to the Cloud Run service doesn't have the Firebase 
 `ALLOWED_ORIGINS` doesn't include your frontend URL. Update it:
 ```bash
 gcloud run services update retirement-dashboard-backend \
-  --region us-central1 \
+  --region us-west1 \
   --update-env-vars="ALLOWED_ORIGINS=https://your-domain.com"
 ```
 
