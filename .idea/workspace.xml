@@ -7,9 +7,7 @@
     <option name="selectedModelId" value="auto" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="954ada11-1f75-42ba-9e2f-22d4c3ccfad6" name="Changes" comment="refactor and add custom inputs">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="954ada11-1f75-42ba-9e2f-22d4c3ccfad6" name="Changes" comment="refactor and add custom inputs" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -461,7 +459,31 @@
       <option name="project" value="LOCAL" />
       <updated>1787547276970</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="refactor and add custom inputs">
+      <option name="closed" value="true" />
+      <created>1787548698789</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1787548698789</updated>
+    </task>
+    <task id="LOCAL-00033" summary="refactor and add custom inputs">
+      <option name="closed" value="true" />
+      <created>1787549053872</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1787549053872</updated>
+    </task>
+    <task id="LOCAL-00034" summary="refactor and add custom inputs">
+      <option name="closed" value="true" />
+      <created>1787549095531</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1787549095532</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

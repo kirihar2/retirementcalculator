@@ -28,6 +28,7 @@ import type {
   InputState,
   LifeEvent,
   Pension,
+  ProjectedMilestone,
 } from './types';
 import { aggregatePensions, calculateProjection } from './utils/calculations';
 import { getEffectiveStrategy } from './components/analysis/WithdrawalStrategyConfig';
@@ -285,20 +286,20 @@ export default function FIRECalculator() {
 
     // Update inputs
     if (plan.inputs) {
-      setInputs(plan.inputs as InputState);
+      setInputs(plan.inputs as unknown as InputState);
     }
 
     // Update arrays
-    if (Array.isArray(plan.pensions)) setAllPensions(plan.pensions);
-    if (Array.isArray(plan.lifeEvents)) setAllLifeEvents(plan.lifeEvents);
-    if (Array.isArray(plan.debtPayments)) setAllDebtPayments(plan.debtPayments);
-    if (Array.isArray(plan.projectedMilestones)) setAllMilestones(plan.projectedMilestones);
-    if (Array.isArray(plan.actuals)) setAllActuals(plan.actuals);
-    if (Array.isArray(plan.variableInflationRates)) setVariableInflationRates(plan.variableInflationRates);
+    if (Array.isArray(plan.pensions)) setAllPensions(plan.pensions as unknown as Pension[]);
+    if (Array.isArray(plan.lifeEvents)) setAllLifeEvents(plan.lifeEvents as unknown as LifeEvent[]);
+    if (Array.isArray(plan.debtPayments)) setAllDebtPayments(plan.debtPayments as unknown as DebtPayment[]);
+    if (Array.isArray(plan.projectedMilestones)) setAllMilestones(plan.projectedMilestones as unknown as ProjectedMilestone[]);
+    if (Array.isArray(plan.actuals)) setAllActuals(plan.actuals as unknown as AnnualActuals[]);
+    if (Array.isArray(plan.variableInflationRates)) setVariableInflationRates(plan.variableInflationRates as unknown as Array<{ id: string; age: number; rate: number }>);
 
     // Update coasting mode
     if (plan.coastingMode && typeof plan.coastingMode === 'object') {
-      setCoastingMode(plan.coastingMode as { enabled: boolean; coastingAge: number; coasingMultiplier: number });
+      setCoastingMode(plan.coastingMode as unknown as { enabled: boolean; coastingAge: number; coasingMultiplier: number });
     }
 
     // Update strategy presets
