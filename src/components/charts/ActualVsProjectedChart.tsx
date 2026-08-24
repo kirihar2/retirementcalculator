@@ -1,8 +1,8 @@
 import React from 'react';
 import { Paper, Typography, Box, Alert } from '@mui/material';
 import { Line } from 'react-chartjs-2';
-import type { ProjectionYear, AnnualActuals } from '../types';
-import { formatCurrency } from '../utils/formatting';
+import type { ProjectionYear, AnnualActuals } from '../../types';
+import { formatCurrency } from '../../utils/formatting';
 
 interface ActualVsProjectedChartProps {
   projection: ProjectionYear[];

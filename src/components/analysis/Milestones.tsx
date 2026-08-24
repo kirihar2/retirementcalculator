@@ -1,6 +1,6 @@
 import React from 'react';
 import { Paper, Typography, Box, Chip, IconButton } from '@mui/material';
-import { formatCurrency } from '../utils/formatting';
+import { formatCurrency } from '../../utils/formatting';
 
 interface MilestoneItem {
   id?: string;

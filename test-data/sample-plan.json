@@ -1,0 +1,144 @@
+{
+  "inputs": {
+    "currentAge": 32,
+    "retirementAge": 52,
+    "lifeExpectancy": 95,
+    "currentPortfolio": 480000,
+    "monthlyIncome": 22500,
+    "monthlySpending": 4000,
+    "retirementSpending": 15000,
+    "spendingCategories": [],
+    "preRetirementReturn": 10,
+    "coastingReturn": 10,
+    "retirementReturn": 6,
+    "inflationRate": 3,
+    "socialSecurityAge": 65,
+    "socialSecurityIncome": 60000,
+    "safeWithdrawalRate": 3.5,
+    "medicareAge": 65,
+    "healthCareMonthly": 2000,
+    "coastingMode": {
+      "enabled": false,
+      "coastingAge": 50,
+      "coasingMultiplier": 0.75
+    }
+  },
+  "pensions": [
+    {
+      "id": "1",
+      "name": "Current Pension",
+      "currentAnnualPayout": 40000,
+      "startAge": 60,
+      "endAge": null
+    }
+  ],
+  "lifeEvents": [
+    {
+      "id": "1",
+      "name": "Daycare (First Child)",
+      "type": "limited",
+      "amount": 2000,
+      "startAge": 34,
+      "endAge": 39,
+      "description": "Monthly expense for first child childcare"
+    },
+    {
+      "id": "2",
+      "name": "Daycare (Second Child)",
+      "type": "limited",
+      "amount": 1500,
+      "startAge": 36,
+      "endAge": 41,
+      "description": "Monthly expense for second child childcare"
+    },
+    {
+      "id": "3",
+      "name": "College savings 1",
+      "type": "limited",
+      "amount": 400,
+      "startAge": 34,
+      "endAge": 52,
+      "description": "Monthly expense for first child college"
+    },
+    {
+      "id": "4",
+      "name": "College savings 2",
+      "type": "limited",
+      "amount": 400,
+      "startAge": 36,
+      "endAge": 54,
+      "description": "Monthly expense for second child college"
+    },
+    {
+      "id": "5",
+      "name": "Masters or PHD?",
+      "type": "limited",
+      "amount": 5000,
+      "startAge": 55,
+      "endAge": 59,
+      "description": "Advanced degree savings"
+    },
+    {
+      "id": "6",
+      "name": "Long term care",
+      "type": "monthly",
+      "amount": 20000,
+      "startAge": 85,
+      "endAge": 95,
+      "description": "Long term care expenses"
+    },
+    {
+      "id": "7",
+      "name": "Travel",
+      "type": "limited",
+      "amount": 20000,
+      "startAge": 52,
+      "endAge": 72,
+      "description": "Travel"
+    },
+    {
+      "id": "8",
+      "name": "Spending after travelling",
+      "type": "monthly",
+      "amount": 10000,
+      "startAge": 72,
+      "description": "Spending after travelling"
+    }
+  ],
+  "debtPayments": [
+    {
+      "id": "1",
+      "name": "Mortgage",
+      "monthlyPayment": 4100,
+      "startAge": 32,
+      "endAge": 58,
+      "description": "30-year mortgage payment"
+    },
+    {
+      "id": "2",
+      "name": "Auto",
+      "monthlyPayment": 1500,
+      "startAge": 32,
+      "endAge": 33,
+      "description": "1-year auto payment"
+    },
+    {
+      "id": "3",
+      "name": "Student Loans",
+      "monthlyPayment": 700,
+      "startAge": 32,
+      "endAge": 35,
+      "description": "3-year student loan payment"
+    }
+  ],
+  "projectedMilestones": [],
+  "actuals": [],
+  "coastingMode": {
+    "enabled": false,
+    "coastingAge": 50,
+    "coasingMultiplier": 0.75
+  },
+  "variableInflationRates": [],
+  "strategyPreset": "moderate",
+  "withdrawalStrategy": "classic-4percent"
+}

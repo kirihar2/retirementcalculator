@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Box, Button, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography, Menu, MenuItem } from '@mui/material';
 import { Delete as DeleteIcon, Add as AddIcon } from '@mui/icons-material';
-import type { AnnualActuals } from '../types';
+import type { AnnualActuals } from '../../types';
 
 interface ActualsSectionProps {
   actuals: AnnualActuals[];

@@ -5,10 +5,10 @@ import {
   Savings as SavingsIcon,
   EmojiEvents as EmojiEventsIcon,
 } from '@mui/icons-material';
-import type { PensionSummary } from '../types';
-import { formatCurrency } from '../utils/formatting';
-import { StatCard } from './primitives/StatCard';
-import { gradients } from '../theme';
+import type { PensionSummary } from '../../types';
+import { formatCurrency } from '../../utils/formatting';
+import { StatCard } from '../primitives/StatCard';
+import { gradients } from '../../theme';
 
 interface ScoreboardProps {
   fireTarget: number;
@@ -33,6 +33,7 @@ export function Scoreboard({
 }: ScoreboardProps) {
   const progress = fireTarget > 0 ? Math.min(100, (currentPortfolio / fireTarget) * 100) : 0;
   const yearsToFIRE = fireAgeAchieved != null ? fireAgeAchieved - currentAge : null;
+  const isEmptyState = !fireTarget && !currentPortfolio && !currentAge;
 
   return (
     <Paper
@@ -73,7 +74,7 @@ export function Scoreboard({
               fontSize: '0.875rem',
             }}
           >
-            Financial Independence, Retire Early
+            {isEmptyState ? 'Enter your details to see projections' : 'Financial Independence, Retire Early'}
           </Typography>
         </Box>
         <Box sx={{ textAlign: 'right' }}>
@@ -87,7 +88,7 @@ export function Scoreboard({
               fontFamily: '"DM Mono", monospace',
             }}
           >
-            {progress.toFixed(1)}%
+            {isEmptyState ? '—' : `${progress.toFixed(1)}%`}
           </Typography>
         </Box>
       </Box>

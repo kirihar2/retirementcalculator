@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { AppBar, Box, Button, Chip, Toolbar, Typography } from '@mui/material';
 import { CloudOff as CloudOffIcon, WifiOff as WifiOffIcon } from '@mui/icons-material';
-import { useAuth } from '../hooks/useAuth';
-import { isFirebaseEnabled } from '../services/firebase';
+import { useAuth } from '../../hooks/useAuth';
+import { isFirebaseEnabled } from '../../services/firebase';
 
 export function Header() {
   const { user, signOut } = useAuth();

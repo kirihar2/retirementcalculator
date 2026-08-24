@@ -150,6 +150,48 @@ export async function deleteAllUserData(): Promise<void> {
 // === Plan aggregation helpers ===
 
 /**
+ * Returns true when the plan has all numeric inputs at 0 and all arrays empty.
+ * Used to prevent pushing empty plans to the backend on first login.
+ */
+export function isEmptyPlan(plan: Plan | null): boolean {
+  if (!plan) return true;
+  const inputs = plan.inputs as Record<string, unknown>;
+  if (!inputs) return true;
+
+  // Check numeric inputs
+  const numericKeys = [
+    'currentAge', 'retirementAge', 'lifeExpectancy', 'currentPortfolio',
+    'monthlyIncome', 'monthlySpending', 'retirementSpending', 'preRetirementReturn',
+    'coastingReturn', 'retirementReturn', 'inflationRate', 'socialSecurityAge',
+    'socialSecurityIncome', 'safeWithdrawalRate', 'medicareAge', 'healthCareMonthly',
+  ];
+  for (const key of numericKeys) {
+    const val = inputs[key];
+    if (typeof val === 'number' && val !== 0) return false;
+  }
+
+  // Check array inputs
+  const arrayKeys = ['pensions', 'lifeEvents', 'debtPayments', 'projectedMilestones', 'actuals', 'variableInflationRates'] as const;
+  for (const key of arrayKeys) {
+    const arr = plan[key];
+    if (Array.isArray(arr) && arr.length > 0) return false;
+  }
+
+  // Check coasting mode
+  if (plan.coastingMode && typeof plan.coastingMode === 'object') {
+    const cm = plan.coastingMode as Record<string, unknown>;
+    if (cm.enabled === true) return false;
+    if (typeof cm.coastingAge === 'number' && cm.coastingAge !== 0) return false;
+  }
+
+  // Check strategy presets
+  if (plan.strategyPreset && plan.strategyPreset !== '') return false;
+  if (plan.withdrawalStrategy && plan.withdrawalStrategy !== '') return false;
+
+  return true;
+}
+
+/**
  * Collect the flat localStorage keys used by `FIRECalculator.tsx` into a
  * single `Plan` document. Returns `null` when there is no local data at
  * all (so the claim flow can no-op).

@@ -14,13 +14,14 @@ import { Box, Button, Container, CssBaseline, Fab, Tooltip as MuiTooltip, Typogr
 import { Edit as EditIcon } from '@mui/icons-material';
 import { ThemeProvider } from '@mui/material/styles';
 
-import { Header } from './components/Header';
-import { Scoreboard } from './components/Scoreboard';
-import { DisplayModeToggle } from './components/DisplayModeToggle';
-import { Footer } from './components/Footer';
-import { PortfolioChart } from './components/PortfolioChart';
-import { InputsDrawer } from './components/InputsDrawer';
-import { AnalysisTabs } from './components/AnalysisTabs';
+import { Header } from './components/layout/Header';
+import { Scoreboard } from './components/scoreboard/Scoreboard';
+import { DisplayModeToggle } from './components/scoreboard/DisplayModeToggle';
+import { Footer } from './components/layout/Footer';
+import { PortfolioChart } from './components/charts/PortfolioChart';
+import { InputsDrawer } from './components/inputs/InputsDrawer';
+import { AnalysisTabs } from './components/analysis/AnalysisTabs';
+import { OnboardingWalkthrough } from './components/inputs/OnboardingWalkthrough';
 import type {
   AnnualActuals,
   DebtPayment,
@@ -29,7 +30,7 @@ import type {
   Pension,
 } from './types';
 import { aggregatePensions, calculateProjection } from './utils/calculations';
-import { getEffectiveStrategy } from './components/WithdrawalStrategyConfig';
+import { getEffectiveStrategy } from './components/analysis/WithdrawalStrategyConfig';
 
 // Import hooks for state management
 import { useActuals } from './hooks/useActuals';
@@ -67,26 +68,31 @@ export default function FIRECalculator() {
   // No-op when VITE_ENABLE_AUTH is off.
   const cloudSync = useCloudSync();
 
+  // Onboarding walkthrough state
+  const [showOnboarding, setShowOnboarding] = useState(() => {
+    return localStorage.getItem('fire_has_seen_onboarding') !== 'true';
+  });
+
   // Initial consolidated state - persists to localStorage
   const initialState: InputState = {
-    currentAge: 32,
-    retirementAge: 52,
-    lifeExpectancy: 95,
-    currentPortfolio: 480000,
-    monthlyIncome: 22500,
-    monthlySpending: 4000,
-    retirementSpending: 15000,
+    currentAge: 0,
+    retirementAge: 0,
+    lifeExpectancy: 0,
+    currentPortfolio: 0,
+    monthlyIncome: 0,
+    monthlySpending: 0,
+    retirementSpending: 0,
     spendingCategories: [],
-    preRetirementReturn: 10,
-    coastingReturn: 10,
-    retirementReturn: 6,
-    inflationRate: 3,
-    socialSecurityAge: 65,
-    socialSecurityIncome: 60000,
-    safeWithdrawalRate: 3.5,
-    medicareAge: 65,
-    healthCareMonthly: 2000,
-    coastingMode: { enabled: false, coastingAge: 50, coasingMultiplier: 0.75 },
+    preRetirementReturn: 0,
+    coastingReturn: 0,
+    retirementReturn: 0,
+    inflationRate: 0,
+    socialSecurityAge: 0,
+    socialSecurityIncome: 0,
+    safeWithdrawalRate: 0,
+    medicareAge: 0,
+    healthCareMonthly: 0,
+    coastingMode: { enabled: false, coastingAge: 0, coasingMultiplier: 1 },
   };
 
   // === HOOKS FOR STATE MANAGEMENT ===
@@ -112,7 +118,7 @@ export default function FIRECalculator() {
   }, []);
 
   // Persist pensions to localStorage
-  const defaultPensions: Pension[] = [{ id: '1', name: 'Current Pension', currentAnnualPayout: 40000, startAge: 60, endAge: null }];
+  const defaultPensions: Pension[] = [];
   const initialPensions: Pension[] = (() => {
     const s = localStorage.getItem('fire_pensions');
     if (s) { try { return JSON.parse(s) as Pension[]; } catch {} }
@@ -130,16 +136,7 @@ export default function FIRECalculator() {
   }, [pensions]);
 
   // === USE LIFE EVENTS HOOK ===
-  const defaultLifeEvents: LifeEvent[] = [
-    { id: '1', name: 'Daycare (First Child)', type: 'limited', amount: 2000, startAge: 34, endAge: 39, description: 'Monthly expense for first child childcare' },
-    { id: '2', name: 'Daycare (Second Child)', type: 'limited', amount: 1500, startAge: 36, endAge: 41, description: 'Monthly expense for second child childcare' },
-    { id: '3', name: 'College savings 1', type: 'limited', amount: 400, startAge: 34, endAge: 52, description: 'Monthly expense for first child college' },
-    { id: '4', name: 'College savings 2', type: 'limited', amount: 400, startAge: 36, endAge: 54, description: 'Monthly expense for second child college' },
-    { id: '5', name: 'Masters or PHD?', type: 'limited', amount: 5000, startAge: 55, endAge: 59, description: 'Advanced degree savings' },
-    { id: '6', name: 'Long term care', type: 'monthly', amount: 20000, startAge: 85, endAge: 95, description: 'Long term care expenses' },
-    { id: '7', name: 'Travel', type: 'limited', amount: 20000, startAge: 52, endAge: 72, description: 'Travel' },
-    { id: '8', name: 'Spending after travelling', type: 'monthly', amount: 10000, startAge: 72, description: 'Spending after travelling' },
-  ];
+  const defaultLifeEvents: LifeEvent[] = [];
   const initialLifeEvents: LifeEvent[] = (() => {
     const s = localStorage.getItem('fire_life_events');
     if (s) { try { return JSON.parse(s) as LifeEvent[]; } catch {} }
@@ -157,11 +154,7 @@ export default function FIRECalculator() {
   }, [lifeEvents]);
 
   // === USE DEBT PAYMENTS HOOK ===
-  const defaultDebtPayments: DebtPayment[] = [
-    { id: '1', name: 'Mortgage', monthlyPayment: 4100, startAge: 32, endAge: 58, description: '30-year mortgage payment' },
-    { id: '2', name: 'Auto', monthlyPayment: 1500, startAge: 32, endAge: 33, description: '1-year auto payment' },
-    { id: '3', name: 'Student Loans', monthlyPayment: 700, startAge: 32, endAge: 35, description: '3-year student loan payment' },
-  ];
+  const defaultDebtPayments: DebtPayment[] = [];
   const initialDebtPayments: DebtPayment[] = (() => {
     const s = localStorage.getItem('fire_debt_payments');
     if (s) { try { return JSON.parse(s) as DebtPayment[]; } catch {} }
@@ -215,7 +208,7 @@ export default function FIRECalculator() {
 
 
   // === COASTING MODE STATE ===
-  const [coastingMode, setCoastingMode] = useState({ enabled: false, coastingAge: 50, coasingMultiplier: 0.75 });
+  const [coastingMode, setCoastingMode] = useState({ enabled: false, coastingAge: 0, coasingMultiplier: 1 });
 
   // Persist coasting mode to localStorage
   useEffect(() => {
@@ -225,7 +218,7 @@ export default function FIRECalculator() {
   // === STRATEGY PRESET STATE ===
   const [currentStrategy, setCurrentStrategy] = useState(() => {
     const saved = localStorage.getItem('fire_strategy_preset');
-    return saved || 'moderate';
+    return saved || '';
   });
 
   // Persist strategy preset to localStorage
@@ -236,7 +229,7 @@ export default function FIRECalculator() {
   // === WITHDRAWAL STRATEGY STATE ===
   const [selectedWithdrawalStrategy, setSelectedWithdrawalStrategy] = useState(() => {
     const saved = localStorage.getItem('fire_withdrawal_strategy');
-    return saved || 'classic-4percent';
+    return saved || '';
   });
 
   // Revision counter: incremented when strategy parameter overrides change,
@@ -308,7 +301,7 @@ export default function FIRECalculator() {
   const resetAllData = () => {
     ['fire_actuals', 'fire_initial_actuals', 'fire_pensions', 'fire_life_events',
       'fire_debt_payments', 'fire_projected_milestones', 'fire_variable_inflation_rates',
-      'fire_coasting_mode', 'fire_input_state'].forEach(key => localStorage.removeItem(key));
+      'fire_coasting_mode', 'fire_input_state', 'fire_has_seen_onboarding'].forEach(key => localStorage.removeItem(key));
     window.location.reload();
   };
 
@@ -371,6 +364,13 @@ export default function FIRECalculator() {
 
   // Projection effect runs on all input changes (intentional - reactive forms)
   useEffect(() => {
+    // Guard: skip calculation when critical inputs are zero/empty
+    if (!inputs.currentAge || !inputs.retirementAge || !inputs.currentPortfolio) {
+      setFireTarget(0);
+      setFireAgeAchieved(null);
+      return;
+    }
+
     const projectionResult = calculateProjection(
       inputs.currentAge,
       inputs.retirementAge,
@@ -568,6 +568,12 @@ export default function FIRECalculator() {
         </Container>
 
         <Footer />
+
+        {/* Onboarding Walkthrough */}
+        <OnboardingWalkthrough
+          open={showOnboarding}
+          onClose={() => setShowOnboarding(false)}
+        />
 
         {/* Inputs Drawer */}
         <InputsDrawer
