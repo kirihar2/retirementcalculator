@@ -507,7 +507,7 @@ export default function FIRECalculator() {
         )}
         <Header />
 
-        <Container maxWidth="lg" sx={{ pb: 6, pt: 3, px: { xs: 2, sm: 3, md: 4 } }}>
+        <Container maxWidth="80%" sx={{ pb: 6, pt: 3, px: { xs: 2, sm: 3, md: 4 } }}>
           {/* Scoreboard - Always visible */}
           <Scoreboard
             fireTarget={fireTarget}
