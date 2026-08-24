@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Chip, Button } from '@mui/material';
-import { WithdrawalUtils, type WithdrawalComparisonResult } from '../types/withdrawal-strategies';
+import { WithdrawalUtils, type WithdrawalComparisonResult } from '../../types/withdrawal-strategies';
 
 /**
  * Withdrawal Strategy Comparison Table

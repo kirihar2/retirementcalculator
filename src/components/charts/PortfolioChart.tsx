@@ -7,9 +7,9 @@ import {
 } from '@mui/icons-material';
 import { Line } from 'react-chartjs-2';
 import type { Chart } from 'chart.js';
-import type {AnnualActuals, ProjectionYear} from '../types';
-import { formatCurrency } from '../utils/formatting';
-import { calculateAllVariances } from '../utils/variance';
+import type {AnnualActuals, ProjectionYear} from '../../types';
+import { formatCurrency } from '../../utils/formatting';
+import { calculateAllVariances } from '../../utils/variance';
 
 interface PortfolioChartProps {
   projection: ProjectionYear[];
@@ -429,7 +429,15 @@ export const PortfolioChart: React.FC<PortfolioChartProps> = ({
           </ButtonGroup>
         </Box>
       </Box>
-      {projection.length > 0 && <Line ref={chartRef} data={chartData} options={chartOptions} />}
+      {projection.length > 0 ? (
+        <Line ref={chartRef} data={chartData} options={chartOptions} />
+      ) : (
+        <Box sx={{ py: 8, textAlign: 'center' }}>
+          <Typography variant="body1" color="text.secondary">
+            Enter your current age, retirement age, and portfolio to see projections
+          </Typography>
+        </Box>
+      )}
     </Paper>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Box, Button, Typography, LinearProgress, Chip } from '@mui/material';
-import { MonteCarloUtils, type MonteCarloSimulationParams, type MonteCarloSimulationResult } from '../types/monte-carlo';
+import { MonteCarloUtils, type MonteCarloSimulationParams, type MonteCarloSimulationResult } from '../../types/monte-carlo';
 
 /**
  * Monte Carlo Simulation Panel

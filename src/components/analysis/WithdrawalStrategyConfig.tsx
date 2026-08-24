@@ -6,8 +6,8 @@ import {
   Settings as SettingsIcon,
   RestartAlt as ResetIcon,
 } from '@mui/icons-material';
-import type { WithdrawalStrategy } from '../types/withdrawal-strategies';
-import { getStrategyById } from '../types/withdrawal-strategies';
+import type { WithdrawalStrategy } from '../../types/withdrawal-strategies';
+import { getStrategyById } from '../../types/withdrawal-strategies';
 
 /**
  * Custom overrides for a withdrawal strategy, persisted to localStorage.

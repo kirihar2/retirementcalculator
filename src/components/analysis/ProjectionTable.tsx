@@ -1,13 +1,13 @@
 import { useMemo } from 'react';
 import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Chip } from '@mui/material';
-import type { AnnualActuals, LifeEvent, ProjectionYear } from '../types';
+import type { AnnualActuals, LifeEvent, ProjectionYear } from '../../types';
 import {
   calculateAllVariances,
   calculateCumulativeVariance,
   formatVariance,
   getVarianceArrow,
   getVarianceColor,
-} from '../utils/variance';
+} from '../../utils/variance';
 
 interface ProjectionTableProps {
   projection: ProjectionYear[];

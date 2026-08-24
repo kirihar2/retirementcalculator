@@ -6,7 +6,7 @@ import {
   TrendingUp as TrendingUpIcon,
 } from '@mui/icons-material';
 
-import type { ProjectionYear, LifeEvent, AnnualActuals, Pension, ProjectedMilestone } from '../types';
+import type { ProjectionYear, LifeEvent, AnnualActuals, Pension, ProjectedMilestone } from '../../types';
 import { ProjectionTable } from './ProjectionTable';
 import { Milestones } from './Milestones';
 import { MonteCarloPanel } from './MonteCarloPanel';
@@ -91,6 +91,8 @@ export function AnalysisTabs(props: AnalysisTabsProps) {
     setTabValue(newValue);
   };
 
+  const isEmptyState = !props.projection.length && !props.inputs.currentAge && !props.inputs.currentPortfolio;
+
   return (
     <Box>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -127,52 +129,68 @@ export function AnalysisTabs(props: AnalysisTabsProps) {
 
       {/* Projections Tab */}
       <TabPanel value={tabValue} index={0}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-          <ProjectionTable
-            projection={props.projection}
-            lifeEvents={props.lifeEvents}
-            actual={props.actuals}
-          />
-          <Milestones
-            retirementAge={props.inputs.retirementAge}
-            socialSecurityAge={props.inputs.socialSecurityAge}
-            socialSecurityIncome={props.inputs.socialSecurityIncome}
-            medicareAge={props.inputs.medicareAge}
-            projectedMilestones={props.projectedMilestones}
-            onUpdateMilestone={props.onUpdateMilestone}
-            onRemoveMilestone={props.onRemoveMilestone}
-            getProjectedValueAtAge={props.getProjectedValueAtAge}
-          />
-        </Box>
+        {isEmptyState ? (
+          <Box sx={{ py: 6, textAlign: 'center' }}>
+            <Typography variant="body1" color="text.secondary">
+              Enter your details to see year-by-year projections and milestones
+            </Typography>
+          </Box>
+        ) : (
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+            <ProjectionTable
+              projection={props.projection}
+              lifeEvents={props.lifeEvents}
+              actual={props.actuals}
+            />
+            <Milestones
+              retirementAge={props.inputs.retirementAge}
+              socialSecurityAge={props.inputs.socialSecurityAge}
+              socialSecurityIncome={props.inputs.socialSecurityIncome}
+              medicareAge={props.inputs.medicareAge}
+              projectedMilestones={props.projectedMilestones}
+              onUpdateMilestone={props.onUpdateMilestone}
+              onRemoveMilestone={props.onRemoveMilestone}
+              getProjectedValueAtAge={props.getProjectedValueAtAge}
+            />
+          </Box>
+        )}
       </TabPanel>
 
       {/* Risk Analysis Tab */}
       <TabPanel value={tabValue} index={1}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-          <MonteCarloPanel
-            initialPortfolio={props.inputs.currentPortfolio}
-            retirementAge={props.inputs.retirementAge}
-            lifeExpectancy={props.inputs.lifeExpectancy}
-            monthlyWithdrawal={Math.max(0, props.inputs.retirementSpending - (props.inputs.socialSecurityIncome + props.inputs.pensionIncome) / 12)}
-            expectedReturn={props.inputs.retirementReturn}
-            currentAge={props.inputs.currentAge}
-            annualSavings={props.annualSurplus}
-            displayMode={props.displayMode}
-          />
-          <WithdrawalStrategyConfig
-            selectedStrategyId={props.selectedWithdrawalStrategy}
-            onChange={props.onStrategyConfigChange}
-          />
-          <WithdrawalComparisonTable
-            initialPortfolio={props.inputs.currentPortfolio}
-            retirementAge={props.inputs.retirementAge}
-            lifeExpectancy={props.inputs.lifeExpectancy}
-            expectedReturn={props.inputs.retirementReturn}
-            inflationRate={props.inputs.inflationRate}
-            selectedStrategyId={props.selectedWithdrawalStrategy}
-            onStrategySelect={props.onWithdrawalStrategySelect}
-          />
-        </Box>
+        {isEmptyState ? (
+          <Box sx={{ py: 6, textAlign: 'center' }}>
+            <Typography variant="body1" color="text.secondary">
+              Enter your details to run Monte Carlo simulations and compare withdrawal strategies
+            </Typography>
+          </Box>
+        ) : (
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+            <MonteCarloPanel
+              initialPortfolio={props.inputs.currentPortfolio}
+              retirementAge={props.inputs.retirementAge}
+              lifeExpectancy={props.inputs.lifeExpectancy}
+              monthlyWithdrawal={Math.max(0, props.inputs.retirementSpending - (props.inputs.socialSecurityIncome + props.inputs.pensionIncome) / 12)}
+              expectedReturn={props.inputs.retirementReturn}
+              currentAge={props.inputs.currentAge}
+              annualSavings={props.annualSurplus}
+              displayMode={props.displayMode}
+            />
+            <WithdrawalStrategyConfig
+              selectedStrategyId={props.selectedWithdrawalStrategy}
+              onChange={props.onStrategyConfigChange}
+            />
+            <WithdrawalComparisonTable
+              initialPortfolio={props.inputs.currentPortfolio}
+              retirementAge={props.inputs.retirementAge}
+              lifeExpectancy={props.inputs.lifeExpectancy}
+              expectedReturn={props.inputs.retirementReturn}
+              inflationRate={props.inputs.inflationRate}
+              selectedStrategyId={props.selectedWithdrawalStrategy}
+              onStrategySelect={props.onWithdrawalStrategySelect}
+            />
+          </Box>
+        )}
       </TabPanel>
 
       {/* Track Progress Tab */}
@@ -184,12 +202,20 @@ export function AnalysisTabs(props: AnalysisTabsProps) {
             onUpdateActual={props.onUpdateActual}
             onRemoveActual={props.onRemoveActual}
           />
-          <TrendAnalysisPanel
-            actuals={props.actuals}
-            projection={props.projection}
-            retirementAge={props.inputs.retirementAge}
-            currentAge={props.inputs.currentAge}
-          />
+          {isEmptyState ? (
+            <Box sx={{ py: 4, textAlign: 'center' }}>
+              <Typography variant="body1" color="text.secondary">
+                Enter your details and add actuals to track your progress over time
+              </Typography>
+            </Box>
+          ) : (
+            <TrendAnalysisPanel
+              actuals={props.actuals}
+              projection={props.projection}
+              retirementAge={props.inputs.retirementAge}
+              currentAge={props.inputs.currentAge}
+            />
+          )}
         </Box>
       </TabPanel>
     </Box>

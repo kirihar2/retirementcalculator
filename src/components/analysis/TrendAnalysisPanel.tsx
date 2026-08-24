@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Box, Typography, Chip, Divider } from '@mui/material';
-import type { AnnualActuals, ProjectionYear } from '../types';
-import { analyzeAllTrends, generateRecommendations, type TrendAnalysisResult } from '../utils/trend-analysis';
+import type { AnnualActuals, ProjectionYear } from '../../types';
+import { analyzeAllTrends, generateRecommendations, type TrendAnalysisResult } from '../../utils/trend-analysis';
 
 /**
  * Trend Analysis Panel

@@ -24,7 +24,7 @@ import {
   Percent as PercentIcon,
 } from '@mui/icons-material';
 
-import type { InputState, LifeEvent, DebtPayment, Pension, ProjectedMilestone } from '../types';
+import type { InputState, LifeEvent, DebtPayment, Pension, ProjectedMilestone } from '../../types';
 import { PersonalDetailsControlled } from './internal/PersonalDetailsControlled';
 import { FinancialDetailsControlled } from './internal/FinancialDetailsControlled';
 import { RetirementPlanControlled } from './internal/RetirementPlanControlled';
@@ -215,12 +215,12 @@ export function InputsDrawer({
           </AccordionDetails>
         </Accordion>
 
-        {/* Health & Returns */}
+        {/* Health Care */}
         <Accordion sx={{ mb: 1.5 }}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <HealthAndSafetyIcon fontSize="small" color="info" />
-              <Typography fontWeight={600}>Health & Returns</Typography>
+              <Typography fontWeight={600}>Health Care</Typography>
             </Box>
           </AccordionSummary>
           <AccordionDetails sx={{ px: 2, pb: 2 }}>
@@ -230,20 +230,47 @@ export function InputsDrawer({
               setMedicareAge={updateInput('medicareAge')}
               setHealthCareMonthly={updateInput('healthCareMonthly')}
             />
+          </AccordionDetails>
+        </Accordion>
 
+        {/* Returns & Inflation */}
+        <Accordion sx={{ mb: 1.5 }}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <TrendingUpIcon fontSize="small" color="warning" />
+              <Typography fontWeight={600}>Returns & Inflation</Typography>
+            </Box>
+          </AccordionSummary>
+          <AccordionDetails sx={{ px: 2, pb: 2 }}>
             <ReturnsAndInflationControlled
               preRetirementReturn={inputs.preRetirementReturn}
-              coastingReturn={coastingMode.coasingMultiplier * 100 / 0.75}
+              coastingReturn={inputs.coastingReturn}
               retirementReturn={inputs.retirementReturn}
               inflationRate={inputs.inflationRate}
-              onPreRetirementReturnChange={updateInput('preRetirementReturn')}
-              onCoastingReturnChange={(rate) => onInputsChange({ coastingReturn: rate * 10 })}
-              onRetirementReturnChange={updateInput('retirementReturn')}
+              onPreRetirementReturnChange={(value) => {
+                updateInput('preRetirementReturn')(value);
+                onStrategyChange(''); // Clear strategy when manually edited
+              }}
+              onCoastingReturnChange={updateInput('coastingReturn')}
+              onRetirementReturnChange={(value) => {
+                updateInput('retirementReturn')(value);
+                onStrategyChange(''); // Clear strategy when manually edited
+              }}
               onInflationRateChange={updateInput('inflationRate')}
             />
+          </AccordionDetails>
+        </Accordion>
 
-            {/* Coasting Mode */}
-            <Box sx={{ mt: 1 }}>
+        {/* Coasting Mode */}
+        <Accordion sx={{ mb: 1.5 }}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <ParkIcon fontSize="small" color="success" />
+              <Typography fontWeight={600}>Coasting Mode</Typography>
+            </Box>
+          </AccordionSummary>
+          <AccordionDetails sx={{ px: 2, pb: 2 }}>
+            <Box>
               <Typography variant="subtitle2" fontWeight={600} sx={{ mb: 0.5 }}>
                 Coasting Mode
               </Typography>

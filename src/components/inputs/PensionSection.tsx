@@ -1,13 +1,13 @@
 import React from 'react';
 import { Box, Button, Divider, Grid, Paper, TextField, Typography } from '@mui/material';
 import { NumericInput } from './NumericInput';
-import type { Pension, PensionSummary } from '../types';
+import type { Pension, PensionSummary } from '../../types';
 
 export const aggregatePensions = (pensions?: Pension[]): PensionSummary => {
   if (!pensions || pensions.length === 0) {
     return { totalAnnualPensionIncome: 0, activePensions: [] };
   }
-  const activePensions = pensions.filter(p => !p.endAge || p.endAge === null);
+  const activePensions = pensions.filter(p => !p.endAge || p.endAge > 0); // Filter out pensions that have ended (endAge <= 0)
   const totalAnnualPensionIncome = activePensions.reduce(
     (sum, pension) => sum + pension.currentAnnualPayout,
     0

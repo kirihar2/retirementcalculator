@@ -110,7 +110,9 @@ export function calculateProjection(
 ): ProjectionResult {
   // FIRE target: how much portfolio needed at retirement to sustain spending
   const annualRetirementSpending = retirementSpending * 12;
-  const fireTarget = annualRetirementSpending / (safeWithdrawalRate / 100);
+  const fireTarget = safeWithdrawalRate > 0
+    ? annualRetirementSpending / (safeWithdrawalRate / 100)
+    : 0;
 
   const projection: ProjectionYear[] = [];
   let portfolioNominal = currentPortfolio; // Nominal dollars

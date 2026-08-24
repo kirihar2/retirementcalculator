@@ -7,7 +7,84 @@
     <option name="selectedModelId" value="auto" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="954ada11-1f75-42ba-9e2f-22d4c3ccfad6" name="Changes" comment="adding login and backend" />
+    <list default="true" id="954ada11-1f75-42ba-9e2f-22d4c3ccfad6" name="Changes" comment="refactor and add custom inputs">
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_8_23_26,_9_00 PM_[Changes]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_8_23_26__9_00PM__Changes_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_8_23_26,_9_00 PM_[Changes]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_8_23_26__9_00PM__Changes_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/openspec/changes/archive/2026-08-23-clear-data-and-add-onboarding/.openspec.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/openspec/changes/archive/2026-08-23-clear-data-and-add-onboarding/design.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/openspec/changes/archive/2026-08-23-clear-data-and-add-onboarding/proposal.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/openspec/changes/archive/2026-08-23-clear-data-and-add-onboarding/specs/clean-slate-initialization/spec.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/openspec/changes/archive/2026-08-23-clear-data-and-add-onboarding/specs/data-export-fixture/spec.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/openspec/changes/archive/2026-08-23-clear-data-and-add-onboarding/specs/onboarding-walkthrough/spec.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/openspec/changes/archive/2026-08-23-clear-data-and-add-onboarding/specs/user-data-api/spec.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/openspec/changes/archive/2026-08-23-clear-data-and-add-onboarding/tasks.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/openspec/changes/archive/2026-08-24-user-auth-and-account-creation/.openspec.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/openspec/changes/archive/2026-08-24-user-auth-and-account-creation/design.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/openspec/changes/archive/2026-08-24-user-auth-and-account-creation/proposal.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/openspec/changes/archive/2026-08-24-user-auth-and-account-creation/specs/user-auth/spec.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/openspec/changes/archive/2026-08-24-user-auth-and-account-creation/specs/user-data-api/spec.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/openspec/changes/archive/2026-08-24-user-auth-and-account-creation/tasks.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/openspec/specs/clean-slate-initialization/spec.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/openspec/specs/data-export-fixture/spec.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/openspec/specs/onboarding-walkthrough/spec.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/openspec/specs/user-auth/spec.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/openspec/specs/user-data-api/spec.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/inputs/OnboardingWalkthrough.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/inputs/internal/DebtPaymentsControlled.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/inputs/internal/FinancialDetailsControlled.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/inputs/internal/HealthCareControlled.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/inputs/internal/LifeEventsControlled.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/inputs/internal/MilestonesControlled.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/inputs/internal/PensionsControlled.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/inputs/internal/PersonalDetailsControlled.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/inputs/internal/RetirementPlanControlled.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/inputs/internal/ReturnsAndInflationControlled.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/inputs/internal/VariableInflationControlled.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test-data/sample-plan.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/openspec/changes/user-auth-and-account-creation/.openspec.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openspec/changes/user-auth-and-account-creation/design.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openspec/changes/user-auth-and-account-creation/proposal.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openspec/changes/user-auth-and-account-creation/specs/user-auth/spec.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openspec/changes/user-auth-and-account-creation/specs/user-data-api/spec.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/openspec/changes/user-auth-and-account-creation/tasks.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/FIRECalculator.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/FIRECalculator.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ActualVsProjectedChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/charts/ActualVsProjectedChart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ActualsSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/analysis/ActualsSection.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AnalysisTabs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/analysis/AnalysisTabs.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DisplayModeToggle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/scoreboard/DisplayModeToggle.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/Footer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/Header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/InputPanel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/inputs/InputPanel.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/InputsDrawer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/inputs/InputsDrawer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Milestones.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/analysis/Milestones.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MonteCarloPanel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/analysis/MonteCarloPanel.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NumericInput.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/inputs/NumericInput.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PensionSection.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/inputs/PensionSection.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PensionSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/inputs/PensionSection.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PortfolioChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/charts/PortfolioChart.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ProjectionTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/analysis/ProjectionTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Scoreboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/scoreboard/Scoreboard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/StrategySelector.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/inputs/StrategySelector.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TrendAnalysisPanel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/analysis/TrendAnalysisPanel.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/WithdrawalComparisonTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/analysis/WithdrawalComparisonTable.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/WithdrawalStrategyConfig.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/analysis/WithdrawalStrategyConfig.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/internal/DebtPaymentsControlled.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/internal/FinancialDetailsControlled.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/internal/HealthCareControlled.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/internal/LifeEventsControlled.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/internal/MilestonesControlled.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/internal/PensionsControlled.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/internal/PersonalDetailsControlled.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/internal/RetirementPlanControlled.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/internal/ReturnsAndInflationControlled.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/internal/VariableInflationControlled.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useCloudSync.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useCloudSync.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/userData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/userData.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/calculations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/calculations.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -41,23 +118,23 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0012533456030888" />
-      <entry key="MS500" value="1.2627932272719267" />
-      <entry key="S2" value="1.7159843706005717" />
-      <entry key="S5" value="1.8749060442307481" />
-      <entry key="S10" value="1.9353641238740922" />
-      <entry key="S30" value="1.977973085365683" />
-      <entry key="S60" value="1.9889252172766567" />
-      <entry key="M2" value="1.9944471917988693" />
-      <entry key="M5" value="1.9977751656807046" />
-      <entry key="M10" value="1.9988869634151327" />
-      <entry key="M15" value="1.9992578378919368" />
-      <entry key="M30" value="1.9996296100985294" />
-      <entry key="H1" value="2.003403852232187" />
-      <entry key="H2" value="2.2490752430457692" />
-      <entry key="H4" value="4.506969325861792" />
-      <entry key="D1" value="205.43221006794138" />
-      <entry key="W1" value="751.7786122681117" />
+      <entry key="MS100" value="1.6474919182164167" />
+      <entry key="MS500" value="2.494042619432892" />
+      <entry key="S2" value="5.02243681986574" />
+      <entry key="S5" value="8.203023795001972" />
+      <entry key="S10" value="10.704062641407448" />
+      <entry key="S30" value="13.291804519287757" />
+      <entry key="S60" value="14.104956622246807" />
+      <entry key="M2" value="14.541715570041395" />
+      <entry key="M5" value="14.862721648057184" />
+      <entry key="M10" value="16.20426738415193" />
+      <entry key="M15" value="19.051608875573628" />
+      <entry key="M30" value="28.206443282726827" />
+      <entry key="H1" value="38.82265820241025" />
+      <entry key="H2" value="47.185280594593564" />
+      <entry key="H4" value="54.25166257326012" />
+      <entry key="D1" value="255.36569995542948" />
+      <entry key="W1" value="804.955858231075" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -70,32 +147,32 @@
       <entry key="M2" value="0.0" />
       <entry key="M5" value="0.0" />
       <entry key="M10" value="0.0" />
-      <entry key="M15" value="9.795988442470402E-252" />
-      <entry key="M30" value="7.504294325095938E-126" />
-      <entry key="H1" value="9.900720100102482E-63" />
-      <entry key="H2" value="4.804128478157518E-31" />
-      <entry key="H4" value="3.7948617105270324E-15" />
-      <entry key="D1" value="0.07229331086771072" />
-      <entry key="W1" value="13.75717771922258" />
+      <entry key="M15" value="8.897008173508646E-253" />
+      <entry key="M30" value="2.261557956807676E-126" />
+      <entry key="H1" value="5.435202312002145E-63" />
+      <entry key="H2" value="3.559500670092648E-31" />
+      <entry key="H4" value="3.2665039457751554E-15" />
+      <entry key="D1" value="0.07050923244629012" />
+      <entry key="W1" value="13.708156176228904" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.3815661049976478" />
-      <entry key="MS500" value="0.8912566850134165" />
-      <entry key="S2" value="1.4608272448994735" />
-      <entry key="S5" value="1.7435158048817667" />
-      <entry key="S10" value="1.8636817107286585" />
-      <entry key="S30" value="1.9526284585151255" />
-      <entry key="S60" value="1.9760635848802235" />
-      <entry key="M2" value="1.9879684251396164" />
-      <entry key="M5" value="1.9951720705881497" />
-      <entry key="M10" value="1.9975834777344477" />
-      <entry key="M15" value="1.9983884162418184" />
-      <entry key="M30" value="1.9991946835368177" />
-      <entry key="H1" value="2.0031863074522227" />
-      <entry key="H2" value="2.248965561780137" />
-      <entry key="H4" value="4.506909280676346" />
-      <entry key="D1" value="205.50441122949326" />
-      <entry key="W1" value="765.5356269387073" />
+      <entry key="MS100" value="1.021632521245783" />
+      <entry key="MS500" value="2.0963184281193503" />
+      <entry key="S2" value="4.888616777077794" />
+      <entry key="S5" value="8.14365844288488" />
+      <entry key="S10" value="10.672596862275645" />
+      <entry key="S30" value="13.280739207209047" />
+      <entry key="S60" value="14.099335217302563" />
+      <entry key="M2" value="14.538881124885458" />
+      <entry key="M5" value="14.861572834028824" />
+      <entry key="M10" value="16.20360637920254" />
+      <entry key="M15" value="19.051047540746193" />
+      <entry key="M30" value="28.20597221416818" />
+      <entry key="H1" value="38.822313278151015" />
+      <entry key="H2" value="47.185065469977594" />
+      <entry key="H4" value="54.251537425291865" />
+      <entry key="D1" value="255.43610603324458" />
+      <entry key="W1" value="818.6638500154166" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -136,7 +213,7 @@
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "copilot.chat.legacySessionMetadata.migrated": "true",
-    "git-widget-placeholder": "feature/revamp",
+    "git-widget-placeholder": "feature/clear__data__and__add__onboarding",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
@@ -465,7 +542,8 @@
     <MESSAGE value="cleanup and make sure numbers look right" />
     <MESSAGE value="add more features" />
     <MESSAGE value="adding login and backend" />
-    <option name="LAST_COMMIT_MESSAGE" value="adding login and backend" />
+    <MESSAGE value="refactor and add custom inputs" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor and add custom inputs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

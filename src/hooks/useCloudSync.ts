@@ -20,6 +20,7 @@ import {
   applyRemotePlan,
   claimAnonymousPlan,
   enqueueOfflineWrite,
+  isEmptyPlan,
   loadPlan,
   savePlan,
   UserDataError,
@@ -106,7 +107,7 @@ export function useCloudSync(): CloudSyncState {
         } else {
           // Standard reconciliation: fetch remote and compare.
           const remote = await loadPlan();
-          if (remote && localPlan) {
+          if (remote && localPlan && !isEmptyPlan(localPlan)) {
             const localUpdatedAt = guessLocalUpdatedAt();
             const remoteUpdatedAt = remote.updatedAt;
             if (remoteUpdatedAt && (!localUpdatedAt || remoteUpdatedAt > localUpdatedAt)) {
@@ -119,7 +120,7 @@ export function useCloudSync(): CloudSyncState {
           } else if (remote && !localPlan) {
             // Fresh device with no local data — bootstrap from remote.
             applyRemotePlan(remote);
-          } else if (!remote && localPlan) {
+          } else if (!remote && localPlan && !isEmptyPlan(localPlan)) {
             // Remote empty, local has data — push it up.
             await savePlan(localPlan);
           }
@@ -142,7 +143,7 @@ export function useCloudSync(): CloudSyncState {
   const pushNow = useCallback(() => {
     if (!isFirebaseEnabled()) return;
     const plan = aggregateLocalPlan();
-    if (!plan) return;
+    if (!plan || isEmptyPlan(plan)) return;
     savePlan(plan).catch((err) => {
       if (err instanceof UserDataError && err.code === 'network-error') {
         enqueueOfflineWrite(plan);
