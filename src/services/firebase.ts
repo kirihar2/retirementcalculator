@@ -23,15 +23,19 @@ export interface FirebaseConfig {
   appId: string;
 }
 
-const env = import.meta.env as Record<string, string | undefined>;
+// Support both Vite (import.meta.env) and Vercel/Node (process.env)
+const env = {
+  ...((typeof process !== 'undefined' && process.env) || {}),
+  ...((import.meta as any).env || {}),
+} as Record<string, string | undefined>;
 
 const config: FirebaseConfig = {
-  apiKey: env.VITE_FIREBASE_API_KEY ?? '',
-  authDomain: env.VITE_FIREBASE_AUTH_DOMAIN ?? '',
-  projectId: env.VITE_FIREBASE_PROJECT_ID ?? '',
-  storageBucket: env.VITE_FIREBASE_STORAGE_BUCKET ?? '',
-  messagingSenderId: env.VITE_FIREBASE_MESSAGING_SENDER_ID ?? '',
-  appId: env.VITE_FIREBASE_APP_ID ?? '',
+  apiKey: env.VITE_FIREBASE_API_KEY ?? env.FIREBASE_API_KEY ?? '',
+  authDomain: env.VITE_FIREBASE_AUTH_DOMAIN ?? env.FIREBASE_AUTH_DOMAIN ?? '',
+  projectId: env.VITE_FIREBASE_PROJECT_ID ?? env.FIREBASE_PROJECT_ID ?? '',
+  storageBucket: env.VITE_FIREBASE_STORAGE_BUCKET ?? env.FIREBASE_STORAGE_BUCKET ?? '',
+  messagingSenderId: env.VITE_FIREBASE_MESSAGING_SENDER_ID ?? env.FIREBASE_MESSAGING_SENDER_ID ?? '',
+  appId: env.VITE_FIREBASE_APP_ID ?? env.FIREBASE_APP_ID ?? '',
 };
 
 /**
@@ -40,7 +44,7 @@ const config: FirebaseConfig = {
  * anonymously when this is false.
  */
 export function isFirebaseEnabled(): boolean {
-  const flag = env.VITE_ENABLE_AUTH;
+  const flag = env.VITE_ENABLE_AUTH ?? env.ENABLE_AUTH;
   if (flag === 'false' || flag === '0' || flag === '') return false;
   return Boolean(
     config.apiKey &&
@@ -56,7 +60,7 @@ export function isFirebaseEnabled(): boolean {
  *  sensible local-dev default; production will point at the deployed
  *  functions URL (see docs/auth-rollout.md). */
 export function getApiBaseUrl(): string {
-  return env.VITE_API_BASE_URL ?? 'http://127.0.0.1:5001';
+  return env.VITE_API_BASE_URL ?? env.API_URL ?? 'http://127.0.0.1:5001';
 }
 
 let app: FirebaseApp | null = null;
