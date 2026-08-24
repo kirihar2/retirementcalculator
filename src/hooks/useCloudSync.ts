@@ -25,6 +25,7 @@ import {
   savePlan,
   UserDataError,
 } from '../services/userData';
+import type { Plan } from '../types/plan';
 
 const CLAIM_FLAG_PREFIX = 'claimedAnonymousPlan:';
 
@@ -43,6 +44,10 @@ export interface CloudSyncState {
   offline: boolean;
   /** Manually trigger a sync push (e.g., after a mutation in FIRECalculator). */
   pushNow: () => void;
+  /** Plan loaded from backend during reconciliation. Components should use this to update state. */
+  remotePlan: Plan | null;
+  /** Clear the remote plan after applying it. */
+  clearRemotePlan: () => void;
 }
 
 export function useCloudSync(): CloudSyncState {
@@ -52,6 +57,7 @@ export function useCloudSync(): CloudSyncState {
   const [offline, setOffline] = useState<boolean>(
     typeof navigator !== 'undefined' ? !navigator.onLine : false
   );
+  const [remotePlan, setRemotePlan] = useState<Plan | null>(null);
   const lastUidRef = useRef<string | null>(null);
   const pushTimerRef = useRef<number | null>(null);
 
@@ -94,6 +100,7 @@ export function useCloudSync(): CloudSyncState {
             setBanner('Your local plan has been saved to your account.');
           } else if (result.existingPlan) {
             // Backend had an existing plan — reconcile by updatedAt.
+            setRemotePlan(result.existingPlan);
             localStorage.setItem(claimFlagKey, 'true');
             const localUpdatedAt = guessLocalUpdatedAt();
             const remoteUpdatedAt = result.existingPlan.updatedAt;
@@ -108,6 +115,9 @@ export function useCloudSync(): CloudSyncState {
         } else {
           // Standard reconciliation: fetch remote and compare.
           const remote = await loadPlan();
+          if (remote) {
+            setRemotePlan(remote);
+          }
           if (remote && localPlan && !isEmptyPlan(localPlan)) {
             const localUpdatedAt = guessLocalUpdatedAt();
             const remoteUpdatedAt = remote.updatedAt;
@@ -180,8 +190,9 @@ export function useCloudSync(): CloudSyncState {
   }, [pushNow]);
 
   const dismissBanner = useCallback(() => setBanner(null), []);
+  const clearRemotePlan = useCallback(() => setRemotePlan(null), []);
 
-  return { reconciling, banner, dismissBanner, offline, pushNow };
+  return { reconciling, banner, dismissBanner, offline, pushNow, remotePlan, clearRemotePlan };
 }
 
 /**

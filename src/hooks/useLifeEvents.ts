@@ -6,6 +6,7 @@ export function useLifeEvents(initial: LifeEvent[] = []): {
   addLifeEvent: (event: Omit<LifeEvent, 'id'>) => void;
   updateLifeEvent: (id: string, updates: Partial<Omit<LifeEvent, 'id'>>) => boolean;
   removeLifeEvent: (id: string) => void;
+  setAll: (items: LifeEvent[]) => void;
 } {
   const [lifeEvents, setLifeEvents] = useState<LifeEvent[]>(initial);
 
@@ -22,5 +23,9 @@ export function useLifeEvents(initial: LifeEvent[] = []): {
     setLifeEvents(prev => prev.filter(e => e.id !== id));
   };
 
-  return { lifeEvents, addLifeEvent, updateLifeEvent, removeLifeEvent };
+  const setAll = (items: LifeEvent[]) => {
+    setLifeEvents(items);
+  };
+
+  return { lifeEvents, addLifeEvent, updateLifeEvent, removeLifeEvent, setAll };
 }

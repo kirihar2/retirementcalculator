@@ -6,6 +6,7 @@ export function useMilestones(initial: ProjectedMilestone[] = []): {
   addProjectedMilestone: (milestone: Omit<ProjectedMilestone, 'id'>) => void;
   updateProjectedMilestone: (id: string, updates: Partial<Omit<ProjectedMilestone, 'id'>>) => boolean;
   removeProjectedMilestone: (id: string) => void;
+  setAll: (items: ProjectedMilestone[]) => void;
 } {
   const [projectedMilestones, setProjectedMilestones] = useState<ProjectedMilestone[]>(initial);
 
@@ -22,5 +23,9 @@ export function useMilestones(initial: ProjectedMilestone[] = []): {
     setProjectedMilestones(prev => prev.filter(m => m.id !== id));
   };
 
-  return { projectedMilestones, addProjectedMilestone, updateProjectedMilestone, removeProjectedMilestone };
+  const setAll = (items: ProjectedMilestone[]) => {
+    setProjectedMilestones(items);
+  };
+
+  return { projectedMilestones, addProjectedMilestone, updateProjectedMilestone, removeProjectedMilestone, setAll };
 }

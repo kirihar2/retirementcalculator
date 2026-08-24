@@ -28,6 +28,7 @@ import type {
   InputState,
   LifeEvent,
   Pension,
+  ProjectedMilestone,
 } from './types';
 import { aggregatePensions, calculateProjection } from './utils/calculations';
 import { getEffectiveStrategy } from './components/analysis/WithdrawalStrategyConfig';
@@ -124,7 +125,7 @@ export default function FIRECalculator() {
     if (s) { try { return JSON.parse(s) as Pension[]; } catch {} }
     return defaultPensions;
   })();
-  const { pensions, addPension, updatePension, removePension } = usePensions(initialPensions);
+  const { pensions, addPension, updatePension, removePension, setAll: setAllPensions } = usePensions(initialPensions);
 
   // Persist pensions to localStorage
   useEffect(() => {
@@ -142,7 +143,7 @@ export default function FIRECalculator() {
     if (s) { try { return JSON.parse(s) as LifeEvent[]; } catch {} }
     return defaultLifeEvents;
   })();
-  const { lifeEvents, addLifeEvent, updateLifeEvent, removeLifeEvent } = useLifeEvents(initialLifeEvents);
+  const { lifeEvents, addLifeEvent, updateLifeEvent, removeLifeEvent, setAll: setAllLifeEvents } = useLifeEvents(initialLifeEvents);
 
   // Persist life events to localStorage
   useEffect(() => {
@@ -160,7 +161,7 @@ export default function FIRECalculator() {
     if (s) { try { return JSON.parse(s) as DebtPayment[]; } catch {} }
     return defaultDebtPayments;
   })();
-  const { debtPayments, addDebtPayment, updateDebtPayment, removeDebtPayment } = useDebtPayments(initialDebtPayments);
+  const { debtPayments, addDebtPayment, updateDebtPayment, removeDebtPayment, setAll: setAllDebtPayments } = useDebtPayments(initialDebtPayments);
 
   // Persist debt payments to localStorage
   useEffect(() => {
@@ -177,7 +178,7 @@ export default function FIRECalculator() {
     if (s) { try { return JSON.parse(s); } catch {} }
     return [];
   })();
-  const { projectedMilestones, addProjectedMilestone, updateProjectedMilestone, removeProjectedMilestone } = useMilestones(initialMilestones);
+  const { projectedMilestones, addProjectedMilestone, updateProjectedMilestone, removeProjectedMilestone, setAll: setAllMilestones } = useMilestones(initialMilestones);
 
   // Persist milestones to localStorage
   useEffect(() => {
@@ -194,7 +195,7 @@ export default function FIRECalculator() {
     if (s) { try { return JSON.parse(s); } catch {} }
     return [];
   })();
-  const { actuals, addActual, updateActual, removeActual } = useActuals(initialActuals);
+  const { actuals, addActual, updateActual, removeActual, setAll: setAllActuals } = useActuals(initialActuals);
 
   // Persist actuals to localStorage
   useEffect(() => {
@@ -276,6 +277,38 @@ export default function FIRECalculator() {
       }
     }
   }, []);
+
+  // === APPLY REMOTE PLAN FROM CLOUD SYNC ===
+  // When useCloudSync loads a plan from the backend, update all state to match.
+  useEffect(() => {
+    if (!cloudSync.remotePlan) return;
+    const plan = cloudSync.remotePlan;
+
+    // Update inputs
+    if (plan.inputs) {
+      setInputs(plan.inputs as unknown as InputState);
+    }
+
+    // Update arrays
+    if (Array.isArray(plan.pensions)) setAllPensions(plan.pensions as unknown as Pension[]);
+    if (Array.isArray(plan.lifeEvents)) setAllLifeEvents(plan.lifeEvents as unknown as LifeEvent[]);
+    if (Array.isArray(plan.debtPayments)) setAllDebtPayments(plan.debtPayments as unknown as DebtPayment[]);
+    if (Array.isArray(plan.projectedMilestones)) setAllMilestones(plan.projectedMilestones as unknown as ProjectedMilestone[]);
+    if (Array.isArray(plan.actuals)) setAllActuals(plan.actuals as unknown as AnnualActuals[]);
+    if (Array.isArray(plan.variableInflationRates)) setVariableInflationRates(plan.variableInflationRates as unknown as Array<{ id: string; age: number; rate: number }>);
+
+    // Update coasting mode
+    if (plan.coastingMode && typeof plan.coastingMode === 'object') {
+      setCoastingMode(plan.coastingMode as unknown as { enabled: boolean; coastingAge: number; coasingMultiplier: number });
+    }
+
+    // Update strategy presets
+    if (plan.strategyPreset !== undefined) setCurrentStrategy(plan.strategyPreset);
+    if (plan.withdrawalStrategy !== undefined) setSelectedWithdrawalStrategy(plan.withdrawalStrategy);
+
+    // Clear remotePlan after applying so it doesn't re-apply on re-render
+    cloudSync.clearRemotePlan();
+  }, [cloudSync.remotePlan, cloudSync.clearRemotePlan, setAllPensions, setAllLifeEvents, setAllDebtPayments, setAllMilestones, setAllActuals]);
 
   // === CLOUD SYNC TRIGGER ===
   // Any time one of the plan's state values changes, dispatch the
