@@ -29,33 +29,36 @@ export const FinancialDetailsControlled: React.FC<{
 }> = ({ currentPortfolio, monthlyIncome, monthlySpending, onCurrentPortfolioChange, onMonthlyIncomeChange, onMonthlySpendingChange }) => {
   return (
     <Box>
-      <Divider sx={{ my: 3 }} />
-      <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
+      <Divider sx={{ my: 2 }} />
+      <Typography variant="h6" sx={{ mb: 1.5, fontWeight: 'bold' }}>
         Current Finances
       </Typography>
 
       <NumericInput
-        label="Current Portfolio ($)"
+        label="Portfolio"
         value={currentPortfolio}
         onChange={onCurrentPortfolioChange}
         min={0}
         step={10000}
+        prefix="$"
       />
 
       <NumericInput
-        label="Monthly Income (Gross) ($)"
+        label="Monthly Income"
         value={monthlyIncome}
         onChange={onMonthlyIncomeChange}
         min={0}
         step={100}
+        prefix="$"
       />
 
       <NumericInput
-        label="Monthly Spending ($)"
+        label="Monthly Spending"
         value={monthlySpending}
         onChange={onMonthlySpendingChange}
         min={0}
         step={100}
+        prefix="$"
       />
     </Box>
   );

@@ -34,7 +34,7 @@ export const ReturnsAndInflationControlled: React.FC<{
   return (
     <Box>
       <NumericInput
-        label="Pre-Retirement Return (%)"
+        label="Pre-Retirement (%)"
         value={preRetirementReturn}
         onChange={onPreRetirementReturnChange}
         min={0}
@@ -43,7 +43,7 @@ export const ReturnsAndInflationControlled: React.FC<{
       />
 
       <NumericInput
-        label="Coasting Return (%) — 10y before retire"
+        label="Coasting (%)"
         value={coastingReturn}
         onChange={onCoastingReturnChange}
         min={0}
@@ -52,7 +52,7 @@ export const ReturnsAndInflationControlled: React.FC<{
       />
 
       <NumericInput
-        label="Retirement Return (%)"
+        label="Retirement (%)"
         value={retirementReturn}
         onChange={onRetirementReturnChange}
         min={0}
@@ -61,7 +61,7 @@ export const ReturnsAndInflationControlled: React.FC<{
       />
 
       <NumericInput
-        label="Inflation Rate (%)"
+        label="Inflation (%)"
         value={inflationRate}
         onChange={onInflationRateChange}
         min={0}

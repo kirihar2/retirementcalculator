@@ -25,32 +25,26 @@ export const HealthCareControlled: React.FC<{
 }> = ({ medicareAge, healthCareMonthly, setMedicareAge, setHealthCareMonthly }) => {
   return (
     <Box>
-      <Divider sx={{ my: 3 }} />
-      <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
-        Health Care Before Medicare
-      </Typography>
-
-      <Typography variant="body2" color="text.secondary" sx={{ mb: 3, fontStyle: 'italic' }}>
-        For people retiring before Medicare eligibility (typically age 65).
-        Estimates below are for annualized health care needs.
+      <Divider sx={{ my: 2 }} />
+      <Typography variant="h6" sx={{ mb: 1, fontWeight: 'bold' }}>
+        Health Care
       </Typography>
 
       <NumericInput
-        label="Medicare Eligibility Age (US Standard)"
+        label="Medicare Age"
         value={medicareAge}
         onChange={setMedicareAge}
         min={62}
-        max={70}
-        helperText="Standard: 65 (age when eligible for Medicare Part B)"
+        inline
       />
 
       <NumericInput
-        label="Est. Monthly Health Care Cost ($)"
+        label={`Monthly Cost ($/mo, $${(healthCareMonthly * 12).toLocaleString()}/yr)`}
         value={healthCareMonthly}
         onChange={setHealthCareMonthly}
         min={0}
         step={100}
-        helperText={`Annual: $${(healthCareMonthly * 12).toLocaleString()} before Medicare`}
+        prefix="$"
       />
     </Box>
   );

@@ -33,29 +33,34 @@ export const PersonalDetailsControlled: React.FC<{
         Personal Details
       </Typography>
 
-      <NumericInput
-        label="Current Age"
-        value={currentAge}
-        onChange={onCurrentAgeChange}
-        min={18}
-        max={100}
-      />
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+        <NumericInput
+          label="Current Age"
+          value={currentAge}
+          onChange={onCurrentAgeChange}
+          min={18}
+          max={100}
+          inline
+        />
 
-      <NumericInput
-        label="Target Retirement Age"
-        value={retirementAge}
-        onChange={onRetirementAgeChange}
-        min={currentAge}
-        max={100}
-      />
+        <NumericInput
+          label="Retirement Age"
+          value={retirementAge}
+          onChange={onRetirementAgeChange}
+          min={currentAge}
+          max={100}
+          inline
+        />
 
-      <NumericInput
-        label="Life Expectancy"
-        value={lifeExpectancy}
-        onChange={onLifeExpectancyChange}
-        min={70}
-        max={110}
-      />
+        <NumericInput
+          label="Life Expectancy"
+          value={lifeExpectancy}
+          onChange={onLifeExpectancyChange}
+          min={70}
+          max={110}
+          inline
+        />
+      </Box>
     </Box>
   );
 };

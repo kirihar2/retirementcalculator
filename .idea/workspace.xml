@@ -7,13 +7,21 @@
     <option name="selectedModelId" value="auto" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="954ada11-1f75-42ba-9e2f-22d4c3ccfad6" name="Changes" comment="add more features">
+    <list default="true" id="954ada11-1f75-42ba-9e2f-22d4c3ccfad6" name="Changes" comment="adding login and backend">
       <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/backend/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/cloud-run-deploy.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/cloud-run-deploy.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/firebase-setup.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/firebase-setup.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FIRECalculator.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/FIRECalculator.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/InputsDrawer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/InputsDrawer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NumericInput.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NumericInput.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/internal/FinancialDetailsControlled.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/internal/FinancialDetailsControlled.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/internal/HealthCareControlled.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/internal/HealthCareControlled.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/internal/PersonalDetailsControlled.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/internal/PersonalDetailsControlled.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/internal/RetirementPlanControlled.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/internal/RetirementPlanControlled.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/internal/ReturnsAndInflationControlled.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/internal/ReturnsAndInflationControlled.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,22 +57,22 @@
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
       <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0002525984369437" />
-      <entry key="S2" value="1.202878311701855" />
-      <entry key="S5" value="1.7976716546898501" />
-      <entry key="S10" value="2.2622453338170927" />
-      <entry key="S30" value="2.7153190453179774" />
-      <entry key="S60" value="2.8572895322499425" />
-      <entry key="M2" value="2.9963356322996395" />
-      <entry key="M5" value="3.318016100423573" />
-      <entry key="M10" value="3.586356313133325" />
-      <entry key="M15" value="3.7800988115919303" />
-      <entry key="M30" value="4.600373013032751" />
-      <entry key="H1" value="7.948164501668779" />
-      <entry key="H2" value="18.122898471407698" />
-      <entry key="H4" value="53.961399300558156" />
-      <entry key="D1" value="435.0393700914783" />
-      <entry key="W1" value="818.4265440807945" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0" />
+      <entry key="S10" value="1.0" />
+      <entry key="S30" value="1.0000000002050797" />
+      <entry key="S60" value="1.000054983043364" />
+      <entry key="M2" value="1.0293582629299056" />
+      <entry key="M5" value="2.2838638284748196" />
+      <entry key="M10" value="5.530518167977622" />
+      <entry key="M15" value="7.8987011519268195" />
+      <entry key="M30" value="11.505694377405318" />
+      <entry key="H1" value="13.965891051547679" />
+      <entry key="H2" value="15.542219939211872" />
+      <entry key="H4" value="19.800101320101486" />
+      <entry key="D1" value="287.0812263654354" />
+      <entry key="W1" value="787.5938978358256" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -77,32 +85,32 @@
       <entry key="M2" value="0.0" />
       <entry key="M5" value="0.0" />
       <entry key="M10" value="0.0" />
-      <entry key="M15" value="1.464201492552818E-216" />
-      <entry key="M30" value="2.901256655239366E-108" />
-      <entry key="H1" value="6.156089542652367E-54" />
-      <entry key="H2" value="1.197936191974518E-26" />
-      <entry key="H4" value="5.992464785700389E-13" />
-      <entry key="D1" value="0.16807367812602314" />
-      <entry key="W1" value="15.519310841848858" />
+      <entry key="M15" value="2.2449875219799822E-237" />
+      <entry key="M30" value="1.13603756638333E-118" />
+      <entry key="H1" value="3.8521944370654704E-59" />
+      <entry key="H2" value="2.9966451713187235E-29" />
+      <entry key="H4" value="2.997135021964248E-14" />
+      <entry key="D1" value="0.10201949605719261" />
+      <entry key="W1" value="14.451024648943246" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.008549169541099529" />
-      <entry key="MS500" value="0.38588834668316785" />
-      <entry key="S2" value="0.9371085538411876" />
-      <entry key="S5" value="1.6153412731344046" />
-      <entry key="S10" value="2.1414926355081922" />
-      <entry key="S30" value="2.665361115305952" />
-      <entry key="S60" value="2.8306394776666797" />
-      <entry key="M2" value="2.981325650544777" />
-      <entry key="M5" value="3.3097485360701193" />
-      <entry key="M10" value="3.581256371797982" />
-      <entry key="M15" value="3.776397425429393" />
-      <entry key="M30" value="4.598340636699755" />
-      <entry key="H1" value="7.94709055744565" />
-      <entry key="H2" value="18.12233505294989" />
-      <entry key="H4" value="53.961072498205795" />
-      <entry key="D1" value="435.2072588854523" />
-      <entry key="W1" value="833.945673239371" />
+      <entry key="MS100" value="0.06121376859918291" />
+      <entry key="MS500" value="0.5719654866019037" />
+      <entry key="S2" value="0.8696459041713362" />
+      <entry key="S5" value="0.9456642742164945" />
+      <entry key="S10" value="0.9724527105296661" />
+      <entry key="S30" value="0.9907319387852156" />
+      <entry key="S60" value="0.9954101583234742" />
+      <entry key="M2" value="1.027031228954506" />
+      <entry key="M5" value="2.282898540289946" />
+      <entry key="M10" value="5.529991113930958" />
+      <entry key="M15" value="7.89832810453021" />
+      <entry key="M30" value="11.505491302521053" />
+      <entry key="H1" value="13.965783853384298" />
+      <entry key="H2" value="15.542163229036548" />
+      <entry key="H4" value="19.80005665161101" />
+      <entry key="D1" value="287.1831286143795" />
+      <entry key="W1" value="802.0447525731224" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -418,7 +426,23 @@
       <option name="project" value="LOCAL" />
       <updated>1787439865052</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="adding login and backend">
+      <option name="closed" value="true" />
+      <created>1787451541909</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1787451541909</updated>
+    </task>
+    <task id="LOCAL-00027" summary="adding login and backend">
+      <option name="closed" value="true" />
+      <created>1787452690452</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1787452690452</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -431,7 +455,8 @@
     <MESSAGE value="add pension calc part" />
     <MESSAGE value="cleanup and make sure numbers look right" />
     <MESSAGE value="add more features" />
-    <option name="LAST_COMMIT_MESSAGE" value="add more features" />
+    <MESSAGE value="adding login and backend" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding login and backend" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

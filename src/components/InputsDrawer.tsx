@@ -126,8 +126,9 @@ export function InputsDrawer({
       onClose={onClose}
       sx={{
         '& .MuiDrawer-paper': {
-          width: { xs: '100%', sm: 400 },
+          width: { xs: '100%', sm: 420 },
           maxWidth: '100vw',
+          px: 3,
         },
       }}
     >
@@ -137,11 +138,9 @@ export function InputsDrawer({
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          px: 2,
-          py: 1.5,
+          py: 2,
           borderBottom: 1,
           borderColor: 'divider',
-          bgcolor: 'background.default',
         }}
       >
         <Typography variant="h6" fontWeight={600}>
@@ -153,16 +152,16 @@ export function InputsDrawer({
       </Box>
 
       {/* Scrollable content */}
-      <Box sx={{ overflow: 'auto', flex: 1 }}>
+      <Box sx={{ overflow: 'auto', flex: 1, py: 2 }}>
         {/* Personal & Financial */}
-        <Accordion defaultExpanded>
+        <Accordion defaultExpanded sx={{ mb: 1.5 }}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <PersonIcon fontSize="small" color="primary" />
               <Typography fontWeight={600}>Personal & Financial</Typography>
             </Box>
           </AccordionSummary>
-          <AccordionDetails sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <AccordionDetails sx={{ px: 2, pb: 2 }}>
             <PersonalDetailsControlled
               currentAge={inputs.currentAge}
               retirementAge={inputs.retirementAge}
@@ -195,14 +194,14 @@ export function InputsDrawer({
         </Accordion>
 
         {/* Retirement Plan */}
-        <Accordion>
+        <Accordion sx={{ mb: 1.5 }}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <ParkIcon fontSize="small" color="success" />
               <Typography fontWeight={600}>Retirement Plan</Typography>
             </Box>
           </AccordionSummary>
-          <AccordionDetails>
+          <AccordionDetails sx={{ px: 2, pb: 2 }}>
             <RetirementPlanControlled
               retirementSpending={inputs.retirementSpending}
               socialSecurityAge={inputs.socialSecurityAge}
@@ -217,14 +216,14 @@ export function InputsDrawer({
         </Accordion>
 
         {/* Health & Returns */}
-        <Accordion>
+        <Accordion sx={{ mb: 1.5 }}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <HealthAndSafetyIcon fontSize="small" color="info" />
               <Typography fontWeight={600}>Health & Returns</Typography>
             </Box>
           </AccordionSummary>
-          <AccordionDetails sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <AccordionDetails sx={{ px: 2, pb: 2 }}>
             <HealthCareControlled
               medicareAge={inputs.medicareAge}
               healthCareMonthly={inputs.healthCareMonthly}
@@ -244,8 +243,8 @@ export function InputsDrawer({
             />
 
             {/* Coasting Mode */}
-            <Box>
-              <Typography variant="subtitle2" fontWeight={600} gutterBottom>
+            <Box sx={{ mt: 1 }}>
+              <Typography variant="subtitle2" fontWeight={600} sx={{ mb: 0.5 }}>
                 Coasting Mode
               </Typography>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
@@ -258,7 +257,7 @@ export function InputsDrawer({
                 <label htmlFor="coasting-enabled-drawer">Enable Coasting Mode</label>
               </Box>
               {coastingMode.enabled && (
-                <Box sx={{ display: 'flex', gap: 2 }}>
+                <Box sx={{ display: 'flex', gap: 2, pl: 1 }}>
                   <Box>
                     <Typography variant="caption">Coasting Age</Typography>
                     <input
@@ -289,14 +288,14 @@ export function InputsDrawer({
         </Accordion>
 
         {/* Advanced */}
-        <Accordion>
+        <Accordion sx={{ mb: 1.5 }}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <WorkIcon fontSize="small" color="warning" />
               <Typography fontWeight={600}>Advanced</Typography>
             </Box>
           </AccordionSummary>
-          <AccordionDetails sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <AccordionDetails sx={{ px: 2, pb: 2 }}>
             <PensionsControlled
               pensions={pensions}
               onAdd={onAddPension}
