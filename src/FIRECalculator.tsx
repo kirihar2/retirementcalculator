@@ -277,6 +277,38 @@ export default function FIRECalculator() {
     }
   }, []);
 
+  // === APPLY REMOTE PLAN FROM CLOUD SYNC ===
+  // When useCloudSync loads a plan from the backend, update all state to match.
+  useEffect(() => {
+    if (!cloudSync.remotePlan) return;
+    const plan = cloudSync.remotePlan;
+
+    // Update inputs
+    if (plan.inputs) {
+      setInputs(plan.inputs as InputState);
+    }
+
+    // Update arrays
+    if (Array.isArray(plan.pensions)) setAllPensions(plan.pensions);
+    if (Array.isArray(plan.lifeEvents)) setAllLifeEvents(plan.lifeEvents);
+    if (Array.isArray(plan.debtPayments)) setAllDebtPayments(plan.debtPayments);
+    if (Array.isArray(plan.projectedMilestones)) setAllMilestones(plan.projectedMilestones);
+    if (Array.isArray(plan.actuals)) setAllActuals(plan.actuals);
+    if (Array.isArray(plan.variableInflationRates)) setVariableInflationRates(plan.variableInflationRates);
+
+    // Update coasting mode
+    if (plan.coastingMode && typeof plan.coastingMode === 'object') {
+      setCoastingMode(plan.coastingMode as { enabled: boolean; coastingAge: number; coasingMultiplier: number });
+    }
+
+    // Update strategy presets
+    if (plan.strategyPreset !== undefined) setCurrentStrategy(plan.strategyPreset);
+    if (plan.withdrawalStrategy !== undefined) setSelectedWithdrawalStrategy(plan.withdrawalStrategy);
+
+    // Clear remotePlan after applying so it doesn't re-apply on re-render
+    cloudSync.clearRemotePlan();
+  }, [cloudSync.remotePlan, cloudSync.clearRemotePlan, setAllPensions, setAllLifeEvents, setAllDebtPayments, setAllMilestones, setAllActuals]);
+
   // === CLOUD SYNC TRIGGER ===
   // Any time one of the plan's state values changes, dispatch the
   // custom event that `useCloudSync` listens to; the hook debounces

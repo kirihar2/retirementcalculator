@@ -46,6 +46,8 @@ export interface CloudSyncState {
   pushNow: () => void;
   /** Plan loaded from backend during reconciliation. Components should use this to update state. */
   remotePlan: Plan | null;
+  /** Clear the remote plan after applying it. */
+  clearRemotePlan: () => void;
 }
 
 export function useCloudSync(): CloudSyncState {
@@ -185,8 +187,9 @@ export function useCloudSync(): CloudSyncState {
   }, [pushNow]);
 
   const dismissBanner = useCallback(() => setBanner(null), []);
+  const clearRemotePlan = useCallback(() => setRemotePlan(null), []);
 
-  return { reconciling, banner, dismissBanner, offline, pushNow, remotePlan };
+  return { reconciling, banner, dismissBanner, offline, pushNow, remotePlan, clearRemotePlan };
 }
 
 /**
