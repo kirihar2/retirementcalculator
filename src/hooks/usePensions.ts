@@ -6,6 +6,7 @@ export function usePensions(initial: Pension[] = []): {
   addPension: (pension: Omit<Pension, 'id'>) => void;
   updatePension: (id: string, updates: Partial<Omit<Pension, 'id'>>) => boolean;
   removePension: (id: string) => void;
+  setAll: (items: Pension[]) => void;
 } {
   const [pensions, setPensions] = useState<Pension[]>(initial);
 
@@ -22,5 +23,9 @@ export function usePensions(initial: Pension[] = []): {
     setPensions(prev => prev.filter(p => p.id !== id));
   };
 
-  return { pensions, addPension, updatePension, removePension };
+  const setAll = (items: Pension[]) => {
+    setPensions(items);
+  };
+
+  return { pensions, addPension, updatePension, removePension, setAll };
 }

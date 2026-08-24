@@ -6,6 +6,7 @@ export function useDebtPayments(initial: DebtPayment[] = []): {
   addDebtPayment: (debt: Omit<DebtPayment, 'id'>) => void;
   updateDebtPayment: (id: string, updates: Partial<Omit<DebtPayment, 'id'>>) => boolean;
   removeDebtPayment: (id: string) => void;
+  setAll: (items: DebtPayment[]) => void;
 } {
   const [debtPayments, setDebtPayments] = useState<DebtPayment[]>(initial);
 
@@ -22,5 +23,9 @@ export function useDebtPayments(initial: DebtPayment[] = []): {
     setDebtPayments(prev => prev.filter(d => d.id !== id));
   };
 
-  return { debtPayments, addDebtPayment, updateDebtPayment, removeDebtPayment };
+  const setAll = (items: DebtPayment[]) => {
+    setDebtPayments(items);
+  };
+
+  return { debtPayments, addDebtPayment, updateDebtPayment, removeDebtPayment, setAll };
 }

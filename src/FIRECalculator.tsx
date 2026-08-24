@@ -124,7 +124,7 @@ export default function FIRECalculator() {
     if (s) { try { return JSON.parse(s) as Pension[]; } catch {} }
     return defaultPensions;
   })();
-  const { pensions, addPension, updatePension, removePension } = usePensions(initialPensions);
+  const { pensions, addPension, updatePension, removePension, setAll: setAllPensions } = usePensions(initialPensions);
 
   // Persist pensions to localStorage
   useEffect(() => {
@@ -142,7 +142,7 @@ export default function FIRECalculator() {
     if (s) { try { return JSON.parse(s) as LifeEvent[]; } catch {} }
     return defaultLifeEvents;
   })();
-  const { lifeEvents, addLifeEvent, updateLifeEvent, removeLifeEvent } = useLifeEvents(initialLifeEvents);
+  const { lifeEvents, addLifeEvent, updateLifeEvent, removeLifeEvent, setAll: setAllLifeEvents } = useLifeEvents(initialLifeEvents);
 
   // Persist life events to localStorage
   useEffect(() => {
@@ -160,7 +160,7 @@ export default function FIRECalculator() {
     if (s) { try { return JSON.parse(s) as DebtPayment[]; } catch {} }
     return defaultDebtPayments;
   })();
-  const { debtPayments, addDebtPayment, updateDebtPayment, removeDebtPayment } = useDebtPayments(initialDebtPayments);
+  const { debtPayments, addDebtPayment, updateDebtPayment, removeDebtPayment, setAll: setAllDebtPayments } = useDebtPayments(initialDebtPayments);
 
   // Persist debt payments to localStorage
   useEffect(() => {
@@ -177,7 +177,7 @@ export default function FIRECalculator() {
     if (s) { try { return JSON.parse(s); } catch {} }
     return [];
   })();
-  const { projectedMilestones, addProjectedMilestone, updateProjectedMilestone, removeProjectedMilestone } = useMilestones(initialMilestones);
+  const { projectedMilestones, addProjectedMilestone, updateProjectedMilestone, removeProjectedMilestone, setAll: setAllMilestones } = useMilestones(initialMilestones);
 
   // Persist milestones to localStorage
   useEffect(() => {
@@ -194,7 +194,7 @@ export default function FIRECalculator() {
     if (s) { try { return JSON.parse(s); } catch {} }
     return [];
   })();
-  const { actuals, addActual, updateActual, removeActual } = useActuals(initialActuals);
+  const { actuals, addActual, updateActual, removeActual, setAll: setAllActuals } = useActuals(initialActuals);
 
   // Persist actuals to localStorage
   useEffect(() => {

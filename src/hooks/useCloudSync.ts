@@ -25,6 +25,7 @@ import {
   savePlan,
   UserDataError,
 } from '../services/userData';
+import type { Plan } from '../types/plan';
 
 const CLAIM_FLAG_PREFIX = 'claimedAnonymousPlan:';
 
@@ -43,6 +44,8 @@ export interface CloudSyncState {
   offline: boolean;
   /** Manually trigger a sync push (e.g., after a mutation in FIRECalculator). */
   pushNow: () => void;
+  /** Plan loaded from backend during reconciliation. Components should use this to update state. */
+  remotePlan: Plan | null;
 }
 
 export function useCloudSync(): CloudSyncState {
@@ -52,6 +55,7 @@ export function useCloudSync(): CloudSyncState {
   const [offline, setOffline] = useState<boolean>(
     typeof navigator !== 'undefined' ? !navigator.onLine : false
   );
+  const [remotePlan, setRemotePlan] = useState<Plan | null>(null);
   const lastUidRef = useRef<string | null>(null);
   const pushTimerRef = useRef<number | null>(null);
 
@@ -94,13 +98,13 @@ export function useCloudSync(): CloudSyncState {
             setBanner('Your local plan has been saved to your account.');
           } else if (result.existingPlan) {
             // Backend had an existing plan — reconcile by updatedAt.
+            setRemotePlan(result.existingPlan);
             localStorage.setItem(claimFlagKey, 'true');
             const localUpdatedAt = guessLocalUpdatedAt();
             const remoteUpdatedAt = result.existingPlan.updatedAt;
             if (remoteUpdatedAt && (!localUpdatedAt || remoteUpdatedAt > localUpdatedAt)) {
               applyRemotePlan(result.existingPlan);
               setBanner("We kept the plan from your account (it's newer than your local copy).");
-              window.location.reload();
             } else {
               setBanner('We kept the existing cloud plan. Your local copy was not overwritten.');
             }
@@ -108,13 +112,15 @@ export function useCloudSync(): CloudSyncState {
         } else {
           // Standard reconciliation: fetch remote and compare.
           const remote = await loadPlan();
+          if (remote) {
+            setRemotePlan(remote);
+          }
           if (remote && localPlan && !isEmptyPlan(localPlan)) {
             const localUpdatedAt = guessLocalUpdatedAt();
             const remoteUpdatedAt = remote.updatedAt;
             if (remoteUpdatedAt && (!localUpdatedAt || remoteUpdatedAt > localUpdatedAt)) {
               applyRemotePlan(remote);
               setBanner("We synced your plan from another device (it's newer).");
-              window.location.reload();
             } else if (localUpdatedAt && (!remoteUpdatedAt || localUpdatedAt > remoteUpdatedAt)) {
               await savePlan(localPlan);
               setBanner('We uploaded your local plan to your account.');
@@ -122,7 +128,6 @@ export function useCloudSync(): CloudSyncState {
           } else if (remote && !localPlan) {
             // Fresh device with no local data — bootstrap from remote.
             applyRemotePlan(remote);
-            window.location.reload();
           } else if (!remote && localPlan && !isEmptyPlan(localPlan)) {
             // Remote empty, local has data — push it up.
             await savePlan(localPlan);
@@ -181,7 +186,7 @@ export function useCloudSync(): CloudSyncState {
 
   const dismissBanner = useCallback(() => setBanner(null), []);
 
-  return { reconciling, banner, dismissBanner, offline, pushNow };
+  return { reconciling, banner, dismissBanner, offline, pushNow, remotePlan };
 }
 
 /**

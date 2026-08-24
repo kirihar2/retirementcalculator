@@ -6,6 +6,7 @@ export function useActuals(initial: AnnualActuals[] = []): {
   addActual: (actual: AnnualActuals) => void;
   updateActual: (age: number, updates: Partial<Omit<AnnualActuals, 'age'>>) => boolean;
   removeActual: (age: number) => void;
+  setAll: (items: AnnualActuals[]) => void;
 } {
   const [actuals, setActuals] = useState<AnnualActuals[]>(initial);
 
@@ -28,5 +29,9 @@ export function useActuals(initial: AnnualActuals[] = []): {
     setActuals(prev => prev.filter(a => a.age !== age));
   };
 
-  return { actuals, addActual, updateActual, removeActual };
+  const setAll = (items: AnnualActuals[]) => {
+    setActuals(items);
+  };
+
+  return { actuals, addActual, updateActual, removeActual, setAll };
 }
