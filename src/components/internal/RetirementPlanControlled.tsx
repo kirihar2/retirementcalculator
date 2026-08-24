@@ -63,17 +63,15 @@ export const RetirementPlanControlled: React.FC<{
         min={0}
         step={1000}
         prefix="$"
-        suffix=""
       />
 
       <NumericInput
-        label="Withdrawal Rate"
+        label="Withdrawal Rate (%)"
         value={safeWithdrawalRate}
         onChange={onSWRChange}
         min={1}
         max={10}
         step={0.1}
-        suffix="%"
       />
     </Box>
   );
