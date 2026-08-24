@@ -100,9 +100,13 @@ export default function FIRECalculator() {
   // Main consolidated state - persists to localStorage (Phase 14)
   const [inputs, setInputs] = useState<InputState>(initialState);
 
-  // Persist inputs state to localStorage
+  // Persist inputs state to localStorage and trigger cloud sync
   useEffect(() => {
     localStorage.setItem('fire_input_state', JSON.stringify(inputs));
+    // Trigger cloud sync after localStorage is written
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new Event('fire-cloud-sync'));
+    }
   }, [inputs]);
 
   // Load inputs from localStorage on mount (only once)
@@ -314,11 +318,11 @@ export default function FIRECalculator() {
   // Any time one of the plan's state values changes, dispatch the
   // custom event that `useCloudSync` listens to; the hook debounces
   // and pushes the aggregated plan to the backend.
+  // Note: inputs is handled separately in its localStorage useEffect to avoid race conditions.
   useEffect(() => {
     if (typeof window === 'undefined') return;
     window.dispatchEvent(new Event('fire-cloud-sync'));
   }, [
-    inputs,
     pensions,
     lifeEvents,
     debtPayments,
