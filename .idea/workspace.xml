@@ -8,82 +8,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="954ada11-1f75-42ba-9e2f-22d4c3ccfad6" name="Changes" comment="refactor and add custom inputs">
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_8_23_26,_9_00 PM_[Changes]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_8_23_26__9_00PM__Changes_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_8_23_26,_9_00 PM_[Changes]/shelved.patch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_8_23_26__9_00PM__Changes_.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openspec/changes/archive/2026-08-23-clear-data-and-add-onboarding/.openspec.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openspec/changes/archive/2026-08-23-clear-data-and-add-onboarding/design.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openspec/changes/archive/2026-08-23-clear-data-and-add-onboarding/proposal.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openspec/changes/archive/2026-08-23-clear-data-and-add-onboarding/specs/clean-slate-initialization/spec.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openspec/changes/archive/2026-08-23-clear-data-and-add-onboarding/specs/data-export-fixture/spec.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openspec/changes/archive/2026-08-23-clear-data-and-add-onboarding/specs/onboarding-walkthrough/spec.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openspec/changes/archive/2026-08-23-clear-data-and-add-onboarding/specs/user-data-api/spec.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openspec/changes/archive/2026-08-23-clear-data-and-add-onboarding/tasks.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openspec/changes/archive/2026-08-24-user-auth-and-account-creation/.openspec.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openspec/changes/archive/2026-08-24-user-auth-and-account-creation/design.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openspec/changes/archive/2026-08-24-user-auth-and-account-creation/proposal.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openspec/changes/archive/2026-08-24-user-auth-and-account-creation/specs/user-auth/spec.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openspec/changes/archive/2026-08-24-user-auth-and-account-creation/specs/user-data-api/spec.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openspec/changes/archive/2026-08-24-user-auth-and-account-creation/tasks.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openspec/specs/clean-slate-initialization/spec.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openspec/specs/data-export-fixture/spec.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openspec/specs/onboarding-walkthrough/spec.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openspec/specs/user-auth/spec.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/openspec/specs/user-data-api/spec.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/inputs/OnboardingWalkthrough.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/inputs/internal/DebtPaymentsControlled.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/inputs/internal/FinancialDetailsControlled.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/inputs/internal/HealthCareControlled.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/inputs/internal/LifeEventsControlled.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/inputs/internal/MilestonesControlled.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/inputs/internal/PensionsControlled.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/inputs/internal/PersonalDetailsControlled.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/inputs/internal/RetirementPlanControlled.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/inputs/internal/ReturnsAndInflationControlled.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/inputs/internal/VariableInflationControlled.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test-data/sample-plan.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/openspec/changes/user-auth-and-account-creation/.openspec.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openspec/changes/user-auth-and-account-creation/design.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openspec/changes/user-auth-and-account-creation/proposal.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openspec/changes/user-auth-and-account-creation/specs/user-auth/spec.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openspec/changes/user-auth-and-account-creation/specs/user-data-api/spec.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/openspec/changes/user-auth-and-account-creation/tasks.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FIRECalculator.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/FIRECalculator.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ActualVsProjectedChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/charts/ActualVsProjectedChart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ActualsSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/analysis/ActualsSection.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AnalysisTabs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/analysis/AnalysisTabs.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/DisplayModeToggle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/scoreboard/DisplayModeToggle.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/Footer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/Header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/InputPanel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/inputs/InputPanel.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/InputsDrawer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/inputs/InputsDrawer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Milestones.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/analysis/Milestones.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MonteCarloPanel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/analysis/MonteCarloPanel.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/NumericInput.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/inputs/NumericInput.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PensionSection.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/inputs/PensionSection.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PensionSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/inputs/PensionSection.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PortfolioChart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/charts/PortfolioChart.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProjectionTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/analysis/ProjectionTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Scoreboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/scoreboard/Scoreboard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/StrategySelector.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/inputs/StrategySelector.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/TrendAnalysisPanel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/analysis/TrendAnalysisPanel.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/WithdrawalComparisonTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/analysis/WithdrawalComparisonTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/WithdrawalStrategyConfig.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/analysis/WithdrawalStrategyConfig.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/internal/DebtPaymentsControlled.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/internal/FinancialDetailsControlled.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/internal/HealthCareControlled.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/internal/LifeEventsControlled.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/internal/MilestonesControlled.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/internal/PensionsControlled.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/internal/PersonalDetailsControlled.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/internal/RetirementPlanControlled.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/internal/ReturnsAndInflationControlled.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/internal/VariableInflationControlled.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useCloudSync.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useCloudSync.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/userData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/userData.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/calculations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/calculations.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -528,7 +453,15 @@
       <option name="project" value="LOCAL" />
       <updated>1787541677256</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="refactor and add custom inputs">
+      <option name="closed" value="true" />
+      <created>1787547276970</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1787547276970</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
