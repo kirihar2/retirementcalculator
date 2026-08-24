@@ -5,8 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "prebuild": "echo '=== Build Environment ===' && echo 'VITE_API_BASE_URL:' $VITE_API_BASE_URL && echo 'VITE_ENABLE_AUTH:' $VITE_ENABLE_AUTH && echo 'VITE_FIREBASE_PROJECT_ID:' $VITE_FIREBASE_PROJECT_ID && echo '========================'",
-    "build": "tsc && npm run prebuild && vite build",
+    "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },

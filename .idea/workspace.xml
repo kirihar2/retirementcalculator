@@ -7,7 +7,10 @@
     <option name="selectedModelId" value="auto" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="954ada11-1f75-42ba-9e2f-22d4c3ccfad6" name="Changes" comment="adding login and backend" />
+    <list default="true" id="954ada11-1f75-42ba-9e2f-22d4c3ccfad6" name="Changes" comment="adding login and backend">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/firebase.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/firebase.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -41,61 +44,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0012533456030888" />
-      <entry key="MS500" value="1.2627932272719267" />
-      <entry key="S2" value="1.7159843706005717" />
-      <entry key="S5" value="1.8749060442307481" />
-      <entry key="S10" value="1.9353641238740922" />
-      <entry key="S30" value="1.977973085365683" />
-      <entry key="S60" value="1.9889252172766567" />
-      <entry key="M2" value="1.9944471917988693" />
-      <entry key="M5" value="1.9977751656807046" />
-      <entry key="M10" value="1.9988869634151327" />
-      <entry key="M15" value="1.9992578378919368" />
-      <entry key="M30" value="1.9996296100985294" />
-      <entry key="H1" value="2.003403852232187" />
-      <entry key="H2" value="2.2490752430457692" />
-      <entry key="H4" value="4.506969325861792" />
-      <entry key="D1" value="205.43221006794138" />
-      <entry key="W1" value="751.7786122681117" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0000000000004543" />
+      <entry key="S5" value="1.0000174825884276" />
+      <entry key="S10" value="1.0059109059096092" />
+      <entry key="S30" value="1.29669627908998" />
+      <entry key="S60" value="2.404862502031528" />
+      <entry key="M2" value="7.642515985446122" />
+      <entry key="M5" value="22.182946104826218" />
+      <entry key="M10" value="33.01215876253717" />
+      <entry key="M15" value="37.9279859868339" />
+      <entry key="M30" value="43.805325917811196" />
+      <entry key="H1" value="47.210210696061374" />
+      <entry key="H2" value="49.26015279557973" />
+      <entry key="H4" value="52.311820581334665" />
+      <entry key="D1" value="251.37473262015237" />
+      <entry key="W1" value="799.2233909082009" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="0.0" />
-      <entry key="MS500" value="0.0" />
-      <entry key="S2" value="0.0" />
-      <entry key="S5" value="0.0" />
-      <entry key="S10" value="0.0" />
-      <entry key="S30" value="0.0" />
-      <entry key="S60" value="0.0" />
-      <entry key="M2" value="0.0" />
-      <entry key="M5" value="0.0" />
-      <entry key="M10" value="0.0" />
-      <entry key="M15" value="9.795988442470402E-252" />
-      <entry key="M30" value="7.504294325095938E-126" />
-      <entry key="H1" value="9.900720100102482E-63" />
-      <entry key="H2" value="4.804128478157518E-31" />
-      <entry key="H4" value="3.7948617105270324E-15" />
-      <entry key="D1" value="0.07229331086771072" />
-      <entry key="W1" value="13.75717771922258" />
+      <entry key="MS100" value="1.1943613930601988E-247" />
+      <entry key="MS500" value="4.1250303794807716E-50" />
+      <entry key="S2" value="4.5066806854450947E-13" />
+      <entry key="S5" value="1.1522393830212246E-5" />
+      <entry key="S10" value="0.0033944651758726655" />
+      <entry key="S30" value="0.15028782035229082" />
+      <entry key="S60" value="0.3876697310240907" />
+      <entry key="M2" value="0.6226312962131687" />
+      <entry key="M5" value="0.8273559196571324" />
+      <entry key="M10" value="0.9095910727668409" />
+      <entry key="M15" value="0.9387806430532918" />
+      <entry key="M30" value="0.9689069320906378" />
+      <entry key="H1" value="0.9843307026048906" />
+      <entry key="H2" value="0.9921344176092727" />
+      <entry key="H4" value="0.996059444817065" />
+      <entry key="D1" value="1.0706082248037523" />
+      <entry key="W1" value="14.72898621378944" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.3815661049976478" />
-      <entry key="MS500" value="0.8912566850134165" />
-      <entry key="S2" value="1.4608272448994735" />
-      <entry key="S5" value="1.7435158048817667" />
-      <entry key="S10" value="1.8636817107286585" />
-      <entry key="S30" value="1.9526284585151255" />
-      <entry key="S60" value="1.9760635848802235" />
-      <entry key="M2" value="1.9879684251396164" />
-      <entry key="M5" value="1.9951720705881497" />
-      <entry key="M10" value="1.9975834777344477" />
-      <entry key="M15" value="1.9983884162418184" />
-      <entry key="M30" value="1.9991946835368177" />
-      <entry key="H1" value="2.0031863074522227" />
-      <entry key="H2" value="2.248965561780137" />
-      <entry key="H4" value="4.506909280676346" />
-      <entry key="D1" value="205.50441122949326" />
-      <entry key="W1" value="765.5356269387073" />
+      <entry key="MS100" value="0.04802734941525037" />
+      <entry key="MS500" value="0.5448760561066641" />
+      <entry key="S2" value="0.8591607549479124" />
+      <entry key="S5" value="0.941113804484474" />
+      <entry key="S10" value="0.9790548397369527" />
+      <entry key="S30" value="1.4315349123834646" />
+      <entry key="S60" value="2.780167623733175" />
+      <entry key="M2" value="8.255563521257645" />
+      <entry key="M5" value="23.004115955945466" />
+      <entry key="M10" value="33.91776836803259" />
+      <entry key="M15" value="38.863791305925545" />
+      <entry key="M30" value="44.772515957573056" />
+      <entry key="H1" value="48.1936048490814" />
+      <entry key="H2" value="50.25179499517807" />
+      <entry key="H4" value="53.30762276426978" />
+      <entry key="D1" value="252.44521599688582" />
+      <entry key="W1" value="813.9522095402838" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -147,6 +150,7 @@
     "nodejs_package_manager_path": "npm",
     "npm.build.executor": "Run",
     "npm.npm dev.executor": "Run",
+    "npm.prebuild.executor": "Run",
     "run.code.analysis.last.selected.profile": "pProject Default",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "to.speed.mode.migration.done": "true",
@@ -180,8 +184,19 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="prebuild" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="prebuild" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.prebuild" />
         <item itemvalue="npm.build" />
       </list>
     </recent_temporary>
@@ -451,7 +466,39 @@
       <option name="project" value="LOCAL" />
       <updated>1787541677256</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="adding login and backend">
+      <option name="closed" value="true" />
+      <created>1787542133854</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1787542133854</updated>
+    </task>
+    <task id="LOCAL-00032" summary="adding login and backend">
+      <option name="closed" value="true" />
+      <created>1787542887308</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1787542887308</updated>
+    </task>
+    <task id="LOCAL-00033" summary="adding login and backend">
+      <option name="closed" value="true" />
+      <created>1787542995573</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1787542995573</updated>
+    </task>
+    <task id="LOCAL-00034" summary="adding login and backend">
+      <option name="closed" value="true" />
+      <created>1787543258078</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1787543258078</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
