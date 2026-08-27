@@ -94,6 +94,9 @@ export default function FIRECalculator() {
     medicareAge: 0,
     healthCareMonthly: 0,
     coastingMode: { enabled: false, coastingAge: 0, coasingMultiplier: 1 },
+    accounts: { traditionalBalance: 0, rothBalance: 0, taxableBalance: 0, hsaBalance: 0 },
+    taxConfig: { filingStatus: 'single', stateTaxRate: 0, taxYear: 2026 },
+    birthYear: new Date().getFullYear() - 30, // Default: assume 30 years old
   };
 
   // === HOOKS FOR STATE MANAGEMENT ===
@@ -111,7 +114,12 @@ export default function FIRECalculator() {
     if (savedInputs) {
       try {
         const parsed = JSON.parse(savedInputs);
-        setInputs(parsed);
+        // Merge with initial state to ensure new fields have defaults
+        // Filter out undefined values from parsed to avoid overriding defaults
+        const filteredParsed = Object.fromEntries(
+          Object.entries(parsed).filter(([_, v]) => v !== undefined)
+        );
+        setInputs({ ...initialState, ...filteredParsed });
       } catch (e) {
         console.error('Failed to parse input state from localStorage', e);
       }
@@ -411,7 +419,10 @@ export default function FIRECalculator() {
       actuals,
       inputs.spendingCategories,
       variableInflationRates ? variableInflationRates.map(v => ({ age: v.age, rate: v.rate })) : [],
-      withdrawalStrategy
+      withdrawalStrategy,
+      inputs.accounts,
+      inputs.taxConfig,
+      inputs.birthYear
     );
 
     setFireTarget(projectionResult.fireTarget);
@@ -424,7 +435,7 @@ export default function FIRECalculator() {
     inputs.socialSecurityIncome, inputs.safeWithdrawalRate, inputs.medicareAge,
     inputs.healthCareMonthly, lifeEvents, debtPayments, pensions, coastingMode,
     actuals, inputs.spendingCategories ?? [], variableInflationRates ?? undefined,
-    withdrawalStrategy, strategyOverridesRev,
+    withdrawalStrategy, strategyOverridesRev, inputs.accounts, inputs.taxConfig, inputs.birthYear,
   ]);
 
   // === ANNUAL SURPLUS CALCULATION ===
@@ -675,7 +686,10 @@ function useProjectionState(
   healthCareMonthly: number, lifeEvents: LifeEvent[], debtPayments: DebtPayment[],
   pensions: Pension[], coastingMode: { enabled: boolean; coastingAge: number; coasingMultiplier: number },
   actuals: AnnualActuals[], spendingCategories: any[], variableInflationRates: Array<{ age: number; rate: number }>,
-  withdrawalStrategy?: import('./types/withdrawal-strategies').WithdrawalStrategy
+  withdrawalStrategy?: import('./types/withdrawal-strategies').WithdrawalStrategy,
+  accounts?: import('./types').AccountBalances,
+  taxConfig?: import('./types').TaxConfig,
+  birthYear?: number
 ) {
   // This is a simplified hook version of calculateProjection.
   // In production, consider moving this to a separate module for better organization.
@@ -687,7 +701,7 @@ function useProjectionState(
     socialSecurityIncome, safeWithdrawalRate, medicareAge,
     healthCareMonthly, lifeEvents, debtPayments, pensions,
     coastingMode, actuals, spendingCategories, variableInflationRates,
-    withdrawalStrategy
+    withdrawalStrategy, accounts, taxConfig, birthYear
   );
   return newProjection;
 }

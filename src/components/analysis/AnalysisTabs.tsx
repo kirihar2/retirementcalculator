@@ -4,6 +4,9 @@ import {
   TableChart as TableChartIcon,
   Analytics as AnalyticsIcon,
   TrendingUp as TrendingUpIcon,
+  Receipt as ReceiptIcon,
+  Schedule as ScheduleIcon,
+  Savings as SavingsIcon,
 } from '@mui/icons-material';
 
 import type { ProjectionYear, LifeEvent, AnnualActuals, Pension, ProjectedMilestone } from '../../types';
@@ -14,6 +17,9 @@ import { WithdrawalComparisonTable } from './WithdrawalComparisonTable';
 import { WithdrawalStrategyConfig } from './WithdrawalStrategyConfig';
 import { ActualsSection } from './ActualsSection';
 import { TrendAnalysisPanel } from './TrendAnalysisPanel';
+import { TaxProjectionTable } from './TaxProjectionTable';
+import { RMDScheduleTable } from './RMDScheduleTable';
+import { TaxOptimization } from './TaxOptimization';
 
 /**
  * AnalysisTabs - Tabbed navigation for deep analysis sections
@@ -118,11 +124,32 @@ export function AnalysisTabs(props: AnalysisTabsProps) {
             aria-controls="analysis-tabpanel-1"
           />
           <Tab
+            icon={<ReceiptIcon />}
+            iconPosition="start"
+            label="Tax Projections"
+            id="analysis-tab-2"
+            aria-controls="analysis-tabpanel-2"
+          />
+          <Tab
+            icon={<ScheduleIcon />}
+            iconPosition="start"
+            label="RMD Schedule"
+            id="analysis-tab-3"
+            aria-controls="analysis-tabpanel-3"
+          />
+          <Tab
+            icon={<SavingsIcon />}
+            iconPosition="start"
+            label="Tax Optimization"
+            id="analysis-tab-4"
+            aria-controls="analysis-tabpanel-4"
+          />
+          <Tab
             icon={<TrendingUpIcon />}
             iconPosition="start"
             label="Track Progress"
-            id="analysis-tab-2"
-            aria-controls="analysis-tabpanel-2"
+            id="analysis-tab-5"
+            aria-controls="analysis-tabpanel-5"
           />
         </Tabs>
       </Box>
@@ -193,8 +220,62 @@ export function AnalysisTabs(props: AnalysisTabsProps) {
         )}
       </TabPanel>
 
-      {/* Track Progress Tab */}
+      {/* Tax Projections Tab */}
       <TabPanel value={tabValue} index={2}>
+        {isEmptyState ? (
+          <Box sx={{ py: 6, textAlign: 'center' }}>
+            <Typography variant="body1" color="text.secondary">
+              Enter your details to see tax projections for your retirement income
+            </Typography>
+          </Box>
+        ) : (
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+            <TaxProjectionTable
+              projection={props.projection}
+              retirementAge={props.inputs.retirementAge}
+            />
+          </Box>
+        )}
+      </TabPanel>
+
+      {/* RMD Schedule Tab */}
+      <TabPanel value={tabValue} index={3}>
+        {isEmptyState ? (
+          <Box sx={{ py: 6, textAlign: 'center' }}>
+            <Typography variant="body1" color="text.secondary">
+              Enter your details to see your Required Minimum Distribution schedule
+            </Typography>
+          </Box>
+        ) : (
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+            <RMDScheduleTable
+              projection={props.projection}
+              retirementAge={props.inputs.retirementAge}
+            />
+          </Box>
+        )}
+      </TabPanel>
+
+      {/* Tax Optimization Tab */}
+      <TabPanel value={tabValue} index={4}>
+        {isEmptyState ? (
+          <Box sx={{ py: 6, textAlign: 'center' }}>
+            <Typography variant="body1" color="text.secondary">
+              Enter your details to see tax optimization strategies
+            </Typography>
+          </Box>
+        ) : (
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+            <TaxOptimization
+              projection={props.projection}
+              retirementAge={props.inputs.retirementAge}
+            />
+          </Box>
+        )}
+      </TabPanel>
+
+      {/* Track Progress Tab */}
+      <TabPanel value={tabValue} index={5}>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
           <ActualsSection
             actuals={props.actuals}

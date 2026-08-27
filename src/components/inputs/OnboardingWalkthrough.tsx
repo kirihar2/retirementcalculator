@@ -34,6 +34,22 @@ const steps = [
       'The inputs are organized into accordion sections for easy navigation.',
   },
   {
+    label: 'Account Breakdown',
+    title: 'Track Account Types',
+    content:
+      'Break down your portfolio by account type (Traditional, Roth, Taxable, HSA) for accurate tax projections. ' +
+      'Each account type has different tax treatment: Traditional is taxed on withdrawal, Roth is tax-free, ' +
+      'Taxable gets capital gains rates, and HSA is tax-free for medical expenses.',
+  },
+  {
+    label: 'Tax Settings',
+    title: 'Configure Your Taxes',
+    content:
+      'Set your filing status (Single or Married Filing Jointly) and state tax rate. ' +
+      'The app uses 2026 tax brackets to calculate federal, state, and capital gains taxes on your retirement withdrawals. ' +
+      'You\'ll also see Required Minimum Distributions (RMDs) starting at age 73.',
+  },
+  {
     label: 'Scoreboard',
     title: 'Track Your Progress',
     content:
@@ -44,18 +60,17 @@ const steps = [
     label: 'Charts & Analysis',
     title: 'Visualize Your Plan',
     content:
-      'Below the scoreboard, you\'ll find detailed charts and analysis tabs. ' +
-      'The portfolio chart shows your projected growth over time. ' +
-      'The analysis tabs provide year-by-year projections, Monte Carlo simulations, ' +
-      'withdrawal strategy comparisons, and more.',
+      'Below the scoreboard, you\'ll find detailed charts and analysis tabs including Tax Projections, ' +
+      'RMD Schedule, and Tax Optimization. See year-by-year tax breakdowns, required distributions, ' +
+      'and strategies like Roth conversions to minimize your tax burden.',
   },
   {
     label: 'Get Started',
     title: 'You\'re All Set!',
     content:
       'Start by entering your current age, retirement age, and portfolio value. ' +
-      'Then add your income, spending, and other details. ' +
-      'The dashboard will automatically calculate your FIRE target and show you the path forward.',
+      'Then add your account breakdown and tax settings. ' +
+      'The dashboard will automatically calculate your FIRE target and show you the tax-aware path forward.',
   },
 ];
 

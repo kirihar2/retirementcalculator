@@ -8,6 +8,10 @@
  * - Dynamic Rate (performance-adjusted withdrawals)
  */
 
+import { calculateTotalTax } from '../utils/taxEngine';
+import { calculateRMD } from '../utils/rmdCalculator';
+import type { TaxConfig, AccountBalances } from '../types';
+
 export interface WithdrawalStrategy {
   id: string;
   name: string;
@@ -29,6 +33,9 @@ export interface WithdrawalComparisonResult {
   portfolioAtAge100: number;
   portfolioDepletedAt: number | null; // Age when money runs out (null = survives)
   totalWithdrawn: number;
+  totalAfterTaxIncome: number;
+  totalTaxes: number;
+  effectiveTaxRate: number;
   successRate: number;                // % of scenarios where portfolio survives
 }
 
@@ -36,6 +43,8 @@ export interface WithdrawalProjection {
   age: number;
   portfolio: number;
   withdrawal: number;
+  afterTaxIncome: number;
+  taxes: number;
   year: number;
 }
 
@@ -172,7 +181,7 @@ export const WithdrawalUtils = {
 
   /**
    * Project portfolio forward using a specific withdrawal strategy.
-   * Returns year-by-year portfolio values.
+   * Returns year-by-year portfolio values with tax calculations.
    */
   projectWithStrategy(
     strategy: WithdrawalStrategy,
@@ -181,17 +190,23 @@ export const WithdrawalUtils = {
     lifeExpectancy: number,
     expectedReturn = 0.07,
     inflationRate = 0.03,
+    taxConfig?: TaxConfig,
+    accounts?: AccountBalances,
+    birthYear?: number,
   ): WithdrawalProjection[] {
     const projections: WithdrawalProjection[] = [];
     let portfolio = initialPortfolio;
     let priorWithdrawal = 0;
     let priorReturn = 0;
+    let traditionalBalance = accounts?.traditionalBalance ?? initialPortfolio;
+    let rothBalance = accounts?.rothBalance ?? 0;
+    let taxableBalance = accounts?.taxableBalance ?? 0;
 
     for (let year = 0; year <= lifeExpectancy - retirementAge; year++) {
       const age = retirementAge + year;
 
       // Calculate withdrawal for this year
-      const withdrawal = this.calculateAnnualWithdrawal(
+      let withdrawal = this.calculateAnnualWithdrawal(
         strategy,
         initialPortfolio,
         year,
@@ -202,8 +217,47 @@ export const WithdrawalUtils = {
 
       // Check if portfolio can cover withdrawal
       if (portfolio <= 0) {
-        projections.push({ age, portfolio: 0, withdrawal: 0, year });
+        projections.push({ age, portfolio: 0, withdrawal: 0, afterTaxIncome: 0, taxes: 0, year });
         continue;
+      }
+
+      // RMD enforcement: ensure minimum withdrawal from Traditional accounts
+      if (taxConfig && accounts && birthYear) {
+        const rmdResult = calculateRMD(age, traditionalBalance);
+        if (rmdResult.rmdAmount > 0) {
+          withdrawal = Math.max(withdrawal, rmdResult.rmdAmount);
+        }
+      }
+
+      // Calculate taxes on withdrawal
+      let afterTaxIncome = withdrawal;
+      let taxes = 0;
+
+      if (taxConfig && withdrawal > 0) {
+        // Determine withdrawal source (simplified: proportional to account balances)
+        const totalBalance = traditionalBalance + rothBalance + taxableBalance;
+        const traditionalPortion = totalBalance > 0 ? (traditionalBalance / totalBalance) * withdrawal : 0;
+        const rothPortion = totalBalance > 0 ? (rothBalance / totalBalance) * withdrawal : 0;
+        const taxablePortion = totalBalance > 0 ? (taxableBalance / totalBalance) * withdrawal : 0;
+
+        // Traditional withdrawals are ordinary income, Roth is tax-free, taxable has capital gains
+        const ordinaryIncome = traditionalPortion;
+        const capitalGains = taxablePortion * 0.5; // Simplified: assume 50% is gains
+
+        const taxBreakdown = calculateTotalTax(
+          ordinaryIncome,
+          capitalGains,
+          taxConfig.stateTaxRate,
+          taxConfig.filingStatus
+        );
+
+        taxes = taxBreakdown.totalTax;
+        afterTaxIncome = withdrawal - taxes;
+
+        // Update account balances
+        traditionalBalance = Math.max(0, traditionalBalance - traditionalPortion);
+        rothBalance = Math.max(0, rothBalance - rothPortion);
+        taxableBalance = Math.max(0, taxableBalance - taxablePortion);
       }
 
       // Withdraw at start of year
@@ -217,6 +271,8 @@ export const WithdrawalUtils = {
         age,
         portfolio: Math.max(0, portfolio),
         withdrawal,
+        afterTaxIncome,
+        taxes,
         year,
       });
 
@@ -228,7 +284,7 @@ export const WithdrawalUtils = {
   },
 
   /**
-   * Compare all strategies side-by-side at key ages.
+   * Compare all strategies side-by-side at key ages with tax-aware metrics.
    */
   compareStrategies(
     initialPortfolio: number,
@@ -236,6 +292,9 @@ export const WithdrawalUtils = {
     lifeExpectancy: number,
     expectedReturn = 0.07,
     inflationRate = 0.03,
+    taxConfig?: TaxConfig,
+    accounts?: AccountBalances,
+    birthYear?: number,
   ): WithdrawalComparisonResult[] {
     const strategies = [
       classic4PercentStrategy,
@@ -252,6 +311,9 @@ export const WithdrawalUtils = {
         lifeExpectancy,
         expectedReturn,
         inflationRate,
+        taxConfig,
+        accounts,
+        birthYear,
       );
 
       // Find portfolio at key ages
@@ -264,8 +326,11 @@ export const WithdrawalUtils = {
       const depletionEntry = projections.find((p, i) => i > 0 && p.portfolio <= 0);
       const depletedAt = depletionEntry ? depletionEntry.age : null;
 
-      // Total withdrawn
+      // Total withdrawn and after-tax income
       const totalWithdrawn = projections.reduce((sum, p) => sum + p.withdrawal, 0);
+      const totalAfterTaxIncome = projections.reduce((sum, p) => sum + p.afterTaxIncome, 0);
+      const totalTaxes = projections.reduce((sum, p) => sum + p.taxes, 0);
+      const effectiveTaxRate = totalWithdrawn > 0 ? (totalTaxes / totalWithdrawn) * 100 : 0;
 
       return {
         strategyId: strategy.id,
@@ -276,6 +341,9 @@ export const WithdrawalUtils = {
         portfolioAtAge100: getValueAtAge(100),
         portfolioDepletedAt: depletedAt,
         totalWithdrawn,
+        totalAfterTaxIncome,
+        totalTaxes,
+        effectiveTaxRate,
         successRate: depletedAt === null ? 100 : 0,
       };
     });

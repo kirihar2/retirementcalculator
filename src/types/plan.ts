@@ -20,6 +20,8 @@ export interface Plan {
   variableInflationRates: Array<Record<string, unknown>>;
   strategyPreset?: string;
   withdrawalStrategy?: string;
+  accounts?: Record<string, unknown>; // Account type breakdown (Traditional, Roth, Taxable, HSA)
+  taxConfig?: Record<string, unknown>; // Tax configuration (filing status, state rate, tax year)
 }
 
 export interface PlanDocument extends Plan {

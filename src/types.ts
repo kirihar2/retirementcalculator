@@ -55,6 +55,22 @@ export interface ProjectionYear {
   annualDebtPayments?: number; // Added for debt payments column in ProjectionTable
   isCoasting?: boolean; // Flag to indicate coasting period (working with reduced income)
   inflationRate: number; // The inflation rate applied this year (for variable inflation support)
+  // Tax-related fields
+  grossWithdrawal?: number; // Total withdrawal before taxes (retirement years only)
+  federalTax?: number; // Federal income tax on withdrawals
+  stateTax?: number; // State income tax on withdrawals
+  capitalGainsTax?: number; // Capital gains tax on taxable account withdrawals
+  niit?: number; // Net Investment Income Tax (3.8%)
+  totalTax?: number; // Sum of all taxes
+  afterTaxIncome?: number; // Net income after all taxes
+  effectiveTaxRate?: number; // Total tax / gross withdrawal as percentage
+  rmdAmount?: number; // Required Minimum Distribution (age 73+)
+  rmdRequired?: boolean; // Whether RMD is required this year
+  // Account balances by type (retirement years only)
+  traditionalBalance?: number; // Traditional account balance
+  rothBalance?: number; // Roth account balance
+  taxableBalance?: number; // Taxable account balance
+  hsaBalance?: number; // HSA balance
 }
 
 export interface CoastingMode {
@@ -91,6 +107,21 @@ export interface ProjectedMilestone {
   targetValue?: number; // e.g., portfolio goal in dollars
   currentValue?: number; // Optional: actual projection value at that age
   category: 'growth' | 'income' | 'event' | 'health';
+}
+
+// Account type breakdown for tax-aware retirement planning
+export interface AccountBalances {
+  traditionalBalance: number; // Pre-tax 401k/IRA (taxed on withdrawal)
+  rothBalance: number; // Post-tax Roth 401k/IRA (tax-free withdrawal)
+  taxableBalance: number; // Brokerage (capital gains tax on appreciation)
+  hsaBalance: number; // Health Savings Account (tax-free for medical, taxed otherwise)
+}
+
+// Tax configuration for retirement planning
+export interface TaxConfig {
+  filingStatus: 'single' | 'mfj'; // Single or Married Filing Jointly
+  stateTaxRate: number; // State tax rate as a percentage (e.g., 5 for 5%)
+  taxYear: number; // Tax year for bracket lookup (e.g., 2026)
 }
 
 export interface MilestoneState {
@@ -152,6 +183,9 @@ export interface InputState {
   medicareAge: number;
   healthCareMonthly: number;
   coastingMode: CoastingMode;
+  accounts?: AccountBalances; // Account type breakdown for tax calculations
+  taxConfig?: TaxConfig; // Tax configuration for retirement planning
+  birthYear?: number; // Birth year for RMD calculations
 }
 
 export interface ActualsInitialState {

@@ -188,6 +188,22 @@ export function isEmptyPlan(plan: Plan | null): boolean {
   if (plan.strategyPreset && plan.strategyPreset !== '') return false;
   if (plan.withdrawalStrategy && plan.withdrawalStrategy !== '') return false;
 
+  // Check accounts
+  if (plan.accounts && typeof plan.accounts === 'object') {
+    const accounts = plan.accounts as Record<string, unknown>;
+    if (typeof accounts.traditionalBalance === 'number' && accounts.traditionalBalance !== 0) return false;
+    if (typeof accounts.rothBalance === 'number' && accounts.rothBalance !== 0) return false;
+    if (typeof accounts.taxableBalance === 'number' && accounts.taxableBalance !== 0) return false;
+    if (typeof accounts.hsaBalance === 'number' && accounts.hsaBalance !== 0) return false;
+  }
+
+  // Check taxConfig
+  if (plan.taxConfig && typeof plan.taxConfig === 'object') {
+    const taxConfig = plan.taxConfig as Record<string, unknown>;
+    if (taxConfig.filingStatus && taxConfig.filingStatus !== '') return false;
+    if (typeof taxConfig.stateTaxRate === 'number' && taxConfig.stateTaxRate !== 0) return false;
+  }
+
   return true;
 }
 
@@ -222,8 +238,14 @@ export function aggregateLocalPlan(): Plan | null {
     }
   };
 
+  const inputs = parse<Record<string, unknown>>('inputs', {});
+
+  // Extract accounts and taxConfig from inputs for top-level Plan fields
+  const accounts = inputs.accounts as Record<string, unknown> | undefined;
+  const taxConfig = inputs.taxConfig as Record<string, unknown> | undefined;
+
   return {
-    inputs: parse('inputs', {}),
+    inputs,
     pensions: parse('pensions', []),
     lifeEvents: parse('lifeEvents', []),
     debtPayments: parse('debtPayments', []),
@@ -233,6 +255,8 @@ export function aggregateLocalPlan(): Plan | null {
     variableInflationRates: parse('variableInflationRates', []),
     strategyPreset: raw.strategyPreset ?? undefined,
     withdrawalStrategy: raw.withdrawalStrategy ?? undefined,
+    accounts,
+    taxConfig,
   };
 }
 
@@ -242,7 +266,16 @@ export function aggregateLocalPlan(): Plan | null {
  * reconciliation and on fresh-device bootstrap.
  */
 export function applyRemotePlan(plan: Plan): void {
-  localStorage.setItem('fire_input_state', JSON.stringify(plan.inputs ?? {}));
+  // Merge top-level accounts and taxConfig back into inputs for localStorage
+  const inputs = { ...(plan.inputs ?? {}) };
+  if (plan.accounts) {
+    inputs.accounts = plan.accounts;
+  }
+  if (plan.taxConfig) {
+    inputs.taxConfig = plan.taxConfig;
+  }
+
+  localStorage.setItem('fire_input_state', JSON.stringify(inputs));
   const arr = (v: unknown) => (Array.isArray(v) ? v : []);
   const writeOrRemove = (key: string, value: unknown) => {
     if (Array.isArray(value) && value.length > 0) {
