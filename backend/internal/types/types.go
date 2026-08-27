@@ -20,6 +20,8 @@ type Plan struct {
 	VariableInflationRates any `json:"variableInflationRates"`
 	StrategyPreset       any `json:"strategyPreset,omitempty"`
 	WithdrawalStrategy   any `json:"withdrawalStrategy,omitempty"`
+	Accounts             any `json:"accounts,omitempty"` // Account type breakdown (Traditional, Roth, Taxable, HSA)
+	TaxConfig            any `json:"taxConfig,omitempty"` // Tax configuration (filing status, state rate, tax year)
 }
 
 // PlanDocument is a Plan plus server-managed metadata.

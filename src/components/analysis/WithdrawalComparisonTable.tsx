@@ -1,12 +1,13 @@
 import React, { useMemo } from 'react';
 import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Chip, Button } from '@mui/material';
 import { WithdrawalUtils, type WithdrawalComparisonResult } from '../../types/withdrawal-strategies';
+import type { TaxConfig, AccountBalances } from '../../types';
 
 /**
  * Withdrawal Strategy Comparison Table
  *
  * Displays side-by-side comparison of withdrawal strategies
- * with portfolio values at key ages and depletion info.
+ * with portfolio values at key ages, depletion info, and tax metrics.
  */
 export interface WithdrawalComparisonTableProps {
   initialPortfolio: number;
@@ -16,6 +17,9 @@ export interface WithdrawalComparisonTableProps {
   inflationRate: number;      // percentage, e.g. 3
   selectedStrategyId?: string;
   onStrategySelect?: (strategyId: string) => void;
+  taxConfig?: TaxConfig;
+  accounts?: AccountBalances;
+  birthYear?: number;
 }
 
 const formatCurrency = (value: number): string => {
@@ -34,6 +38,9 @@ export function WithdrawalComparisonTable({
   inflationRate,
   selectedStrategyId,
   onStrategySelect,
+  taxConfig,
+  accounts,
+  birthYear,
 }: WithdrawalComparisonTableProps) {
   const comparisons = useMemo(() => {
     return WithdrawalUtils.compareStrategies(
@@ -42,8 +49,11 @@ export function WithdrawalComparisonTable({
       lifeExpectancy,
       expectedReturn / 100,
       inflationRate / 100,
+      taxConfig,
+      accounts,
+      birthYear,
     );
-  }, [initialPortfolio, retirementAge, lifeExpectancy, expectedReturn, inflationRate]);
+  }, [initialPortfolio, retirementAge, lifeExpectancy, expectedReturn, inflationRate, taxConfig, accounts, birthYear]);
 
   // Find best strategy: the one with latest depletion (or highest portfolio at 100 if none deplete)
   const bestStrategyId = useMemo(() => {
@@ -97,6 +107,13 @@ export function WithdrawalComparisonTable({
               <TableCell align="right"><strong>Age 90</strong></TableCell>
               <TableCell align="right"><strong>Age 100</strong></TableCell>
               <TableCell align="right"><strong>Depletion Age</strong></TableCell>
+              {taxConfig && (
+                <>
+                  <TableCell align="right"><strong>Total Withdrawn</strong></TableCell>
+                  <TableCell align="right"><strong>After-Tax Income</strong></TableCell>
+                  <TableCell align="right"><strong>Eff. Tax Rate</strong></TableCell>
+                </>
+              )}
               <TableCell align="center"><strong>Select</strong></TableCell>
             </TableRow>
           </TableHead>
@@ -160,6 +177,15 @@ export function WithdrawalComparisonTable({
                       </Typography>
                     )}
                   </TableCell>
+                  {taxConfig && (
+                    <>
+                      <TableCell align="right">{formatCurrency(comp.totalWithdrawn)}</TableCell>
+                      <TableCell align="right" sx={{ color: '#2e7d32', fontWeight: 600 }}>
+                        {formatCurrency(comp.totalAfterTaxIncome)}
+                      </TableCell>
+                      <TableCell align="right">{comp.effectiveTaxRate.toFixed(1)}%</TableCell>
+                    </>
+                  )}
                   <TableCell align="center">
                     <Button
                       size="small"

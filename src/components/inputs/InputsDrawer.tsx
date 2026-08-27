@@ -36,6 +36,8 @@ import { DebtPaymentsControlled } from './internal/DebtPaymentsControlled';
 import { MilestonesControlled } from './internal/MilestonesControlled';
 import { VariableInflationControlled } from './internal/VariableInflationControlled';
 import { StrategySelector } from './StrategySelector';
+import { AccountBreakdown } from './AccountBreakdown';
+import { TaxSettings } from './TaxSettings';
 
 /**
  * InputsDrawer - Right-side drawer containing all input sections
@@ -189,6 +191,38 @@ export function InputsDrawer({
                   retirementReturn: Math.round(expectedReturn * 10) / 10,
                 });
               }}
+            />
+          </AccordionDetails>
+        </Accordion>
+
+        {/* Account Breakdown */}
+        <Accordion sx={{ mb: 1.5 }}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <AccountBalanceIcon fontSize="small" color="primary" />
+              <Typography fontWeight={600}>Account Breakdown</Typography>
+            </Box>
+          </AccordionSummary>
+          <AccordionDetails sx={{ px: 2, pb: 2 }}>
+            <AccountBreakdown
+              accounts={inputs.accounts ?? { traditionalBalance: 0, rothBalance: 0, taxableBalance: 0, hsaBalance: 0 }}
+              onAccountsChange={(accounts) => onInputsChange({ accounts })}
+            />
+          </AccordionDetails>
+        </Accordion>
+
+        {/* Tax Settings */}
+        <Accordion sx={{ mb: 1.5 }}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              <PercentIcon fontSize="small" color="secondary" />
+              <Typography fontWeight={600}>Tax Settings</Typography>
+            </Box>
+          </AccordionSummary>
+          <AccordionDetails sx={{ px: 2, pb: 2 }}>
+            <TaxSettings
+              taxConfig={inputs.taxConfig ?? { filingStatus: 'single', stateTaxRate: 0, taxYear: 2026 }}
+              onTaxConfigChange={(taxConfig) => onInputsChange({ taxConfig })}
             />
           </AccordionDetails>
         </Accordion>
