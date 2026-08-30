@@ -10,6 +10,7 @@ interface NumericInputProps {
   prefix?: string;
   helperText?: string;
   inline?: boolean;
+  testId?: string;
 }
 
 export function NumericInput({
@@ -22,6 +23,7 @@ export function NumericInput({
   prefix,
   helperText,
   inline = false,
+  testId,
 }: NumericInputProps) {
   if (inline) {
     return (
@@ -43,7 +45,7 @@ export function NumericInput({
               const parsed = parseFloat(e.target.value);
               if (!isNaN(parsed)) onChange(parsed);
             }}
-            inputProps={{ min, max, step, style: { textAlign: 'right', width: '100px', fontSize: '0.95rem' } }}
+            inputProps={{ min, max, step, style: { textAlign: 'right', width: '100px', fontSize: '0.95rem' }, 'data-testid': testId }}
             variant="outlined"
             sx={{ '& .MuiOutlinedInput-root': { width: '130px' } }}
           />
@@ -72,7 +74,7 @@ export function NumericInput({
               const parsed = parseFloat(e.target.value);
               if (!isNaN(parsed)) onChange(parsed);
             }}
-            inputProps={{ min, max, step, style: { textAlign: 'right', fontSize: '0.95rem' } }}
+            inputProps={{ min, max, step, style: { textAlign: 'right', fontSize: '0.95rem' }, 'data-testid': testId }}
             variant="outlined"
             sx={{ width: '150px' }}
           />

@@ -75,6 +75,7 @@ export const TaxSettings: React.FC<TaxSettingsProps> = ({
           max={20}
           step={0.5}
           helperText="Enter your state's income tax rate as a percentage"
+          testId="state-tax-rate-input"
         />
       </Box>
 

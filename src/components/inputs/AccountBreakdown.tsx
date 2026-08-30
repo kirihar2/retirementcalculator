@@ -65,6 +65,7 @@ export const AccountBreakdown: React.FC<AccountBreakdownProps> = ({
           min={0}
           step={10000}
           prefix="$"
+          testId="traditional-balance-input"
         />
       </Box>
 
@@ -82,6 +83,7 @@ export const AccountBreakdown: React.FC<AccountBreakdownProps> = ({
           min={0}
           step={10000}
           prefix="$"
+          testId="roth-balance-input"
         />
       </Box>
 
@@ -99,6 +101,7 @@ export const AccountBreakdown: React.FC<AccountBreakdownProps> = ({
           min={0}
           step={10000}
           prefix="$"
+          testId="taxable-balance-input"
         />
       </Box>
 
@@ -116,10 +119,12 @@ export const AccountBreakdown: React.FC<AccountBreakdownProps> = ({
           min={0}
           step={5000}
           prefix="$"
+          testId="hsa-balance-input"
         />
       </Box>
 
       <Box
+        data-testid="total-portfolio-display"
         sx={{
           p: 2,
           bgcolor: 'primary.light',

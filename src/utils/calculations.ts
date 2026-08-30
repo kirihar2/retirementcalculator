@@ -195,6 +195,28 @@ export function calculateProjection(
       const annualBaseSpending = monthlySpending * 12;
       annualContribution = annualIncome - annualBaseSpending - annualDebtPayments - lifeEventCost;
       annualSpendingNominal = annualBaseSpending + annualDebtPayments + lifeEventCost;
+
+      // Distribute contributions across account types proportionally
+      if (enableTaxCalculations && annualContribution > 0) {
+        const totalAccounts = traditionalBal + rothBal + taxableBal + hsaBal;
+        if (totalAccounts > 0) {
+          const tradContrib = (traditionalBal / totalAccounts) * annualContribution;
+          const rothContrib = (rothBal / totalAccounts) * annualContribution;
+          const taxableContrib = (taxableBal / totalAccounts) * annualContribution;
+          const hsaContrib = (hsaBal / totalAccounts) * annualContribution;
+
+          traditionalBal += tradContrib * (1 + returnRate);
+          rothBal += rothContrib * (1 + returnRate);
+          taxableBal += taxableContrib * (1 + returnRate);
+          hsaBal += hsaContrib * (1 + returnRate);
+        } else {
+          // If no account breakdown, add all to traditional
+          traditionalBal += annualContribution * (1 + returnRate);
+        }
+      } else {
+        // No tax calculations - grow the single portfolio
+        // (account balances aren't tracked)
+      }
     } else {
       // Post-retirement: withdraw based on strategy or fixed spending
       let strategyWithdrawal: number;
