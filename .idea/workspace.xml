@@ -7,18 +7,14 @@
     <option name="selectedModelId" value="auto" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="954ada11-1f75-42ba-9e2f-22d4c3ccfad6" name="Changes" comment="fix css">
+    <list default="true" id="954ada11-1f75-42ba-9e2f-22d4c3ccfad6" name="Changes" comment="add rmd and tax features">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/internal/types/types.go" beforeDir="false" afterPath="$PROJECT_DIR$/backend/internal/types/types.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/FIRECalculator.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/FIRECalculator.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/analysis/AnalysisTabs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/analysis/AnalysisTabs.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/analysis/WithdrawalComparisonTable.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/analysis/WithdrawalComparisonTable.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/inputs/InputsDrawer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/inputs/InputsDrawer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/inputs/OnboardingWalkthrough.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/inputs/OnboardingWalkthrough.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/userData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/userData.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types/plan.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/plan.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types/withdrawal-strategies.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/withdrawal-strategies.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/inputs/AccountBreakdown.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/inputs/AccountBreakdown.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/inputs/NumericInput.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/inputs/NumericInput.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/inputs/TaxSettings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/inputs/TaxSettings.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/calculations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/calculations.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,23 +50,23 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0318328339101337" />
-      <entry key="MS500" value="2.205755995920772" />
-      <entry key="S2" value="4.869468537000873" />
-      <entry key="S5" value="6.435391006154319" />
-      <entry key="S10" value="7.151753965350582" />
-      <entry key="S30" value="7.7009943571243795" />
-      <entry key="S60" value="7.848358445927409" />
-      <entry key="M2" value="7.933328058389435" />
-      <entry key="M5" value="9.197463604193404" />
-      <entry key="M10" value="14.154478263407405" />
-      <entry key="M15" value="18.5570223829741" />
-      <entry key="M30" value="26.09404364017377" />
-      <entry key="H1" value="31.684393282328443" />
-      <entry key="H2" value="35.09666981664359" />
-      <entry key="H4" value="37.05152741771897" />
-      <entry key="D1" value="117.56621646353064" />
-      <entry key="W1" value="735.6704518448895" />
+      <entry key="MS100" value="1.0439902113072974" />
+      <entry key="MS500" value="2.4886924629777356" />
+      <entry key="S2" value="6.510832309941483" />
+      <entry key="S5" value="9.171749667701706" />
+      <entry key="S10" value="10.446846254521011" />
+      <entry key="S30" value="11.447304679920531" />
+      <entry key="S60" value="11.718994659590392" />
+      <entry key="M2" value="11.85831023760718" />
+      <entry key="M5" value="11.943036235355178" />
+      <entry key="M10" value="11.97146989224572" />
+      <entry key="M15" value="11.980969192885617" />
+      <entry key="M30" value="11.990479224166714" />
+      <entry key="H1" value="11.995239944266325" />
+      <entry key="H2" value="12.005691075036042" />
+      <entry key="H4" value="12.560725046416568" />
+      <entry key="D1" value="70.49138622720726" />
+      <entry key="W1" value="677.8410372561073" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -81,34 +77,34 @@
       <entry key="S30" value="0.0" />
       <entry key="S60" value="0.0" />
       <entry key="M2" value="0.0" />
-      <entry key="M5" value="1.1975225645578824E-137" />
-      <entry key="M10" value="4.892524950104491E-69" />
-      <entry key="M15" value="3.630818227651477E-46" />
-      <entry key="M30" value="2.694656971074471E-23" />
-      <entry key="H1" value="7.341136518143637E-12" />
-      <entry key="H2" value="3.831737839116297E-6" />
-      <entry key="H4" value="0.002768296965258756" />
-      <entry key="D1" value="0.6858753585198656" />
-      <entry key="W1" value="13.007307172520067" />
+      <entry key="M5" value="5.751846562214282E-225" />
+      <entry key="M10" value="1.0722470064906326E-112" />
+      <entry key="M15" value="2.84345069875306E-75" />
+      <entry key="M30" value="7.540915690571405E-38" />
+      <entry key="H1" value="3.8835025916912185E-19" />
+      <entry key="H2" value="8.813043975766946E-10" />
+      <entry key="H4" value="4.198341397931553E-5" />
+      <entry key="D1" value="0.3412369456459994" />
+      <entry key="W1" value="11.772661586065116" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9894687043920907" />
-      <entry key="MS500" value="2.1775422688407473" />
-      <entry key="S2" value="4.769271770595193" />
-      <entry key="S5" value="6.351509205996637" />
-      <entry key="S10" value="7.097788508918128" />
-      <entry key="S30" value="7.679687194575595" />
-      <entry key="S60" value="7.8372426614552175" />
-      <entry key="M2" value="7.927649097989767" />
-      <entry key="M5" value="9.195075898668515" />
-      <entry key="M10" value="14.153100621954154" />
-      <entry key="M15" value="18.555996050908526" />
-      <entry key="M30" value="26.09343809502625" />
-      <entry key="H1" value="31.684056212878193" />
-      <entry key="H2" value="35.096494635613155" />
-      <entry key="H4" value="37.054202274325455" />
-      <entry key="D1" value="118.25200897975259" />
-      <entry key="W1" value="748.6776064850085" />
+      <entry key="MS100" value="0.9751649823820162" />
+      <entry key="MS500" value="2.4551877755470195" />
+      <entry key="S2" value="6.490867976827762" />
+      <entry key="S5" value="9.160563655975638" />
+      <entry key="S10" value="10.4404461044161" />
+      <entry key="S30" value="11.444954382127472" />
+      <entry key="S60" value="11.71778963375553" />
+      <entry key="M2" value="11.857700030383313" />
+      <entry key="M5" value="11.942790276220002" />
+      <entry key="M10" value="11.971346597468619" />
+      <entry key="M15" value="11.980886926134428" />
+      <entry key="M30" value="11.990438055627804" />
+      <entry key="H1" value="11.99521935117943" />
+      <entry key="H2" value="12.005680736008657" />
+      <entry key="H4" value="12.56076046281541" />
+      <entry key="D1" value="70.8325810987284" />
+      <entry key="W1" value="689.6135606654227" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -521,7 +517,15 @@
       <option name="project" value="LOCAL" />
       <updated>1787579283378</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="add rmd and tax features">
+      <option name="closed" value="true" />
+      <created>1787802950672</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1787802950672</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -538,14 +542,15 @@
     <MESSAGE value="refactor and add custom inputs" />
     <MESSAGE value="add save button" />
     <MESSAGE value="fix css" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix css" />
+    <MESSAGE value="add rmd and tax features" />
+    <option name="LAST_COMMIT_MESSAGE" value="add rmd and tax features" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/utils/calculations.ts</url>
-          <line>267</line>
+          <line>289</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

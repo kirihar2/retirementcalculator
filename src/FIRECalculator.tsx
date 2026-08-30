@@ -480,7 +480,7 @@ export default function FIRECalculator() {
     inputs.socialSecurityIncome, inputs.safeWithdrawalRate, inputs.medicareAge,
     inputs.healthCareMonthly, lifeEvents, debtPayments, pensions,
     coastingMode, actuals, inputs.spendingCategories ?? [], variableInflationRates,
-    withdrawalStrategy
+    withdrawalStrategy, inputs.accounts, inputs.taxConfig, inputs.birthYear
   );
 
   // Get projected value at a given age (handles display mode)
